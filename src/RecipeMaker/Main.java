@@ -25,14 +25,14 @@ import javafx.scene.shape.Circle;
 import java.io.File;
 
 
-class Recipe extends HBox {
+class recipeCard extends HBox {
 
     private TextField RecipeName;
     private Label index;
     private Button deleteButton;
 
 
-    Recipe() {
+    recipeCard() {
         this.setPrefSize(500, 20); // sets size of Recipe
         this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of Recipe
 
@@ -87,7 +87,7 @@ class RecipeList extends VBox {
         int index = 1;
         for (int i = 0; i < this.getChildren().size(); i++) {
             if (this.getChildren().get(i) instanceof Recipe) {
-                ((Recipe) this.getChildren().get(i)).setRecipeIndex(index);
+                ((recipeCard) this.getChildren().get(i)).setRecipeIndex(index);
                 index++;
             }
         }
@@ -178,14 +178,14 @@ class AppFrame extends BorderPane{
         // Add button functionality
         addButton.setOnAction(e -> {
             // Create a new Recipe
-            Recipe Recipe = new Recipe();
+            recipeCard recipe = new recipeCard();
             // Add Recipe to Recipelist
-            RecipeList.getChildren().add(Recipe);
+            RecipeList.getChildren().add(recipe);
             // Add deleteButtonToggle to the Delete button
-            Button deleteButton = Recipe.getDeleteButton();
+            Button deleteButton = recipe.getDeleteButton();
             deleteButton.setOnAction(e1 -> {
                 // Call toggleDone on click
-                Recipe.toggleDelete();
+                recipe.toggleDelete();
             });
             RecipeList.updateRecipeIndices();
         });
