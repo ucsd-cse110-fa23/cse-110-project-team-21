@@ -9,7 +9,7 @@
       "name": "Main",
       "request": "launch",
       "mainClass": "RecipeMaker.Main",
-      "vmArgs": "--module-path 'YOUR ABSOLUTE PATH TO JAVAFX SOURCE' --add-modules javafx.controls,javafx.fxml"
+      "vmArgs": "--module-path '/Users/dqwei/Documents/cs/cse-110-project-team-21/lib' --add-modules javafx.controls,javafx.fxml"
     }
   ]
 }
