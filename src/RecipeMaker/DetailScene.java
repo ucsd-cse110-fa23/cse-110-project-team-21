@@ -30,6 +30,9 @@ public class DetailScene extends BorderPane{
     private Footer footer;
     private Button backButton;
 
+    /*
+     * TODO: make it so that this scene takes a recipe object as an input
+     */
     DetailScene() {
         header = new Header();
         footer = new Footer();
@@ -45,6 +48,7 @@ public class DetailScene extends BorderPane{
     public void addListeners() {
         backButton.setOnAction(e -> {
             System.out.println("We are on the details page");
+            Main.sceneManager.ChangeScene(Main.root);
             //do stuff
         });
     }

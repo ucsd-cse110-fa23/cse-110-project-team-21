@@ -179,7 +179,8 @@ class AppFrame extends BorderPane{
 
         // Add button functionality
         addButton.setOnAction(e -> {
-            DetailScene details = new DetailScene();
+            DetailScene details = new DetailScene();        //we must create a new detail scene for each recipe that we click on
+            System.out.println("This is the main page");
             Main.sceneManager.ChangeScene(details);
             /*
             // Create a new Recipe
@@ -203,12 +204,13 @@ class AppFrame extends BorderPane{
 public class Main extends Application {
 
     public static SceneManager sceneManager;
+    public static AppFrame root;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        AppFrame root = new AppFrame();
+        root = new AppFrame();
 
         sceneManager = new SceneManager(primaryStage);
 
