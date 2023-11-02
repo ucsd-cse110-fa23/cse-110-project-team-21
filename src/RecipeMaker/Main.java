@@ -25,6 +25,8 @@ import javafx.scene.shape.Circle;
 import java.io.File;
 
 
+
+
 class RecipeCard extends HBox {
 
     private TextField RecipeName;
@@ -177,17 +179,22 @@ class AppFrame extends BorderPane{
 
         // Add button functionality
         addButton.setOnAction(e -> {
+            DetailScene details = new DetailScene();
+            Main.sceneManager.ChangeScene(details);
+            /*
             // Create a new Recipe
             RecipeCard recipe = new RecipeCard();
             // Add Recipe to Recipelist
             RecipeList.getChildren().add(recipe);
             // Add deleteButtonToggle to the Delete button
             Button deleteButton = recipe.getDeleteButton();
+            
             deleteButton.setOnAction(e1 -> {
                 // Call toggleDone on click
                 recipe.toggleDelete();
             });
             RecipeList.updateRecipeIndices();
+            */
         });
         
     }
@@ -195,11 +202,15 @@ class AppFrame extends BorderPane{
 
 public class Main extends Application {
 
+    public static SceneManager sceneManager;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
         AppFrame root = new AppFrame();
+
+        sceneManager = new SceneManager(primaryStage);
 
         // Set the title of the app
         primaryStage.setTitle("Recipe Maker");

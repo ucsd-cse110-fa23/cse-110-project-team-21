@@ -31,8 +31,8 @@ public class DetailScene extends BorderPane{
     private Button backButton;
 
     DetailScene() {
-        Header header = new Header();
-        Footer footer = new Footer();
+        header = new Header();
+        footer = new Footer();
 
         this.setTop(header);
         this.setBottom(footer);
@@ -44,8 +44,9 @@ public class DetailScene extends BorderPane{
 
     public void addListeners() {
         backButton.setOnAction(e -> {
+            System.out.println("We are on the details page");
             //do stuff
-        })
+        });
     }
     
 }

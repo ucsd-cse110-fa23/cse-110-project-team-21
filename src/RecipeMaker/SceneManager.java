@@ -3,7 +3,7 @@ package RecipeMaker;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
-class SceneManager{
+public class SceneManager{
     private Stage mainStage;
     SceneManager(Stage mainStage){
         this.mainStage = mainStage;
