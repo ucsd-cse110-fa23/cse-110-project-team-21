@@ -138,10 +138,12 @@ class AppFrame extends BorderPane{
     private RecipeList RecipeList;
     private ScrollPane scrollPane;
     private Button addButton;
+    private SceneManager sceneManager;
 
 
     AppFrame(SceneManager sceneManager)
     {
+        this.sceneManager = sceneManager;
         // Initialise the header Object
         header = new Header();
 
@@ -167,10 +169,10 @@ class AppFrame extends BorderPane{
         addButton = header.getAddRecipeButton();
 
         // Call Event Listeners for the Buttons
-        addListeners(sceneManager);
+        addListeners();
     }
 
-    public void addListeners(SceneManager sceneManager)
+    public void addListeners()
     {
 
         // Add button functionality
