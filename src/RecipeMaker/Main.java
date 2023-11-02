@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import java.util.Comparator;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import java.io.File;
 
@@ -142,7 +140,7 @@ class AppFrame extends BorderPane{
     private Button addButton;
 
 
-    AppFrame()
+    AppFrame(SceneManager sceneManager)
     {
         // Initialise the header Object
         header = new Header();
@@ -169,25 +167,30 @@ class AppFrame extends BorderPane{
         addButton = header.getAddRecipeButton();
 
         // Call Event Listeners for the Buttons
-        addListeners();
+        addListeners(sceneManager);
     }
 
-    public void addListeners()
+    public void addListeners(SceneManager sceneManager)
     {
 
         // Add button functionality
         addButton.setOnAction(e -> {
             // Create a new Recipe
-            Recipe Recipe = new Recipe();
-            // Add Recipe to Recipelist
-            RecipeList.getChildren().add(Recipe);
-            // Add deleteButtonToggle to the Delete button
-            Button deleteButton = Recipe.getDeleteButton();
-            deleteButton.setOnAction(e1 -> {
-                // Call toggleDone on click
-                Recipe.toggleDelete();
-            });
-            RecipeList.updateRecipeIndices();
+            // Recipe Recipe = new Recipe();
+            // // Add Recipe to Recipelist
+            // RecipeList.getChildren().add(Recipe);
+            // // Add deleteButtonToggle to the Delete button
+            // Button deleteButton = Recipe.getDeleteButton();
+            // deleteButton.setOnAction(e1 -> {
+            //     // Call toggleDone on click
+            //     Recipe.toggleDelete();
+            // });
+            // RecipeList.updateRecipeIndices();
+
+            // create a new scene for adding a new Recipe
+            NewRecipeScene newRecipeScene = new NewRecipeScene();
+            sceneManager.ChangeScene(newRecipeScene);
+
         });
         
     }
@@ -199,8 +202,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        AppFrame root = new AppFrame();
-
+        SceneManager sceneManager = new SceneManager(primaryStage);
+        AppFrame root = new AppFrame(sceneManager);
         // Set the title of the app
         primaryStage.setTitle("Recipe Maker");
         // Create scene of mentioned size with the border pane
