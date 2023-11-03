@@ -122,7 +122,7 @@ class Header extends VBox {
         // set a default style for buttons - background color, font size, italics
         String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
 
-        addRecipeButton = new Button("Add Recipe"); // text displayed on add button
+        addRecipeButton = new Button("New Recipe"); // text displayed on add button
         addRecipeButton.setStyle(defaultButtonStyle); // styling the button
         detailButton = new Button("Details Page"); // text displayed on add button
         detailButton.setStyle(defaultButtonStyle); // styling the button
@@ -140,7 +140,7 @@ class Header extends VBox {
     }
 }
 
-class AppFrame extends BorderPane{
+class MainScene extends BorderPane{
 
     private Header header;
     private Footer footer;
@@ -150,7 +150,7 @@ class AppFrame extends BorderPane{
     private Button detailButton;
 
 
-    AppFrame()
+    MainScene()
     {
         // Initialise the header Object
         header = new Header();
@@ -215,16 +215,13 @@ class AppFrame extends BorderPane{
 
 public class Main extends Application {
     public static SceneManager sceneManager;
-    public static AppFrame root;
-
-    public static SceneManager sceneManager;
-    public static AppFrame root;
+    public static MainScene root;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        root = new AppFrame();
+        root = new MainScene();
         sceneManager = new SceneManager(primaryStage);
       
         // Set the title of the app
