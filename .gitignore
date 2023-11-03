@@ -1,8 +1,0 @@
-.git
-.gitignore
-.vscode
-.DS_Store
-/lib/*
-/bin/*
-README.md
-
