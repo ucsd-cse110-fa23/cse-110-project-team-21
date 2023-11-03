@@ -138,12 +138,10 @@ class AppFrame extends BorderPane{
     private RecipeList RecipeList;
     private ScrollPane scrollPane;
     private Button addButton;
-    private SceneManager sceneManager;
 
 
-    AppFrame(SceneManager sceneManager)
+    AppFrame()
     {
-        this.sceneManager = sceneManager;
         // Initialise the header Object
         header = new Header();
 
@@ -191,7 +189,7 @@ class AppFrame extends BorderPane{
 
             // create a new scene for adding a new Recipe
             NewRecipeScene newRecipeScene = new NewRecipeScene();
-            sceneManager.ChangeScene(newRecipeScene);
+            Main.sceneManager.ChangeScene(newRecipeScene);
 
         });
         
@@ -199,13 +197,15 @@ class AppFrame extends BorderPane{
 }
 
 public class Main extends Application {
+    public static SceneManager sceneManager;
+    public static AppFrame root;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        SceneManager sceneManager = new SceneManager(primaryStage);
-        AppFrame root = new AppFrame(sceneManager);
+        root = new AppFrame();
+        sceneManager = new SceneManager(primaryStage);
         // Set the title of the app
         primaryStage.setTitle("Recipe Maker");
         // Create scene of mentioned size with the border pane
