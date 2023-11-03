@@ -24,9 +24,38 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import java.io.File;
 
+class DetailHeader extends HBox {
+    private Button backButton;
+
+    DetailHeader() {
+        this.setPrefSize(500, 60); // Size of the header
+        this.setStyle("-fx-background-color: #F0F8FF;");
+
+        Text titleText = new Text("Title"); // Text of the Header
+        titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 20;");
+        this.getChildren().add(titleText);
+        this.setSpacing(200);
+        //this.setAlignment(Pos.CENTER); // Align the text to the Center
+
+
+        // set a default style for buttons - background color, font size, italics
+        String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
+
+        backButton = new Button("Back"); // text displayed on add button
+        backButton.setStyle(defaultButtonStyle); // styling the button
+
+        this.getChildren().addAll(backButton); // adding buttons to footer
+        this.setAlignment(Pos.CENTER_RIGHT); // aligning the buttons to center
+    }
+
+    public Button getBackButton() {
+        return backButton;
+    }
+}
+
 public class DetailScene extends BorderPane{
 
-    private Header header;
+    private DetailHeader header;
     private Footer footer;
     private Button backButton;
 
@@ -34,13 +63,13 @@ public class DetailScene extends BorderPane{
      * TODO: make it so that this scene takes a recipe object as an input
      */
     DetailScene() {
-        header = new Header();
+        header = new DetailHeader();
         footer = new Footer();
 
         this.setTop(header);
         this.setBottom(footer);
 
-        backButton = header.getAddRecipeButton();
+        backButton = header.getBackButton();
 
         addListeners();
     }
