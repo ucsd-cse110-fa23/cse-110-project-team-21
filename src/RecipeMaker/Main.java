@@ -25,14 +25,16 @@ import javafx.scene.shape.Circle;
 import java.io.File;
 
 
-class Recipe extends HBox {
+
+
+class RecipeCard extends HBox {
 
     private TextField RecipeName;
     private Label index;
     private Button deleteButton;
 
 
-    Recipe() {
+    RecipeCard() {
         this.setPrefSize(500, 20); // sets size of Recipe
         this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of Recipe
 
@@ -86,8 +88,8 @@ class RecipeList extends VBox {
     public void updateRecipeIndices() {
         int index = 1;
         for (int i = 0; i < this.getChildren().size(); i++) {
-            if (this.getChildren().get(i) instanceof Recipe) {
-                ((Recipe) this.getChildren().get(i)).setRecipeIndex(index);
+            if (this.getChildren().get(i) instanceof RecipeCard) {
+                ((RecipeCard) this.getChildren().get(i)).setRecipeIndex(index);
                 index++;
             }
         }
@@ -107,6 +109,7 @@ class Footer extends HBox {
 class Header extends VBox {
 
     private Button addRecipeButton;
+    private Button detailButton;
 
     Header() {
         this.setPrefSize(500, 60); // Size of the header
@@ -123,13 +126,19 @@ class Header extends VBox {
 
         addRecipeButton = new Button("Add Recipe"); // text displayed on add button
         addRecipeButton.setStyle(defaultButtonStyle); // styling the button
+        detailButton = new Button("Details Page"); // text displayed on add button
+        detailButton.setStyle(defaultButtonStyle); // styling the button
 
-        this.getChildren().addAll(addRecipeButton); // adding buttons to footer
+        this.getChildren().addAll(addRecipeButton, detailButton); // adding buttons to footer
         this.setAlignment(Pos.CENTER); // aligning the buttons to center
     }
 
     public Button getAddRecipeButton() {
         return addRecipeButton;
+    }
+
+    public Button getDetailButton() {
+        return detailButton;
     }
 }
 
@@ -140,6 +149,7 @@ class AppFrame extends BorderPane{
     private RecipeList RecipeList;
     private ScrollPane scrollPane;
     private Button addButton;
+    private Button detailButton;
 
 
     AppFrame()
@@ -167,6 +177,7 @@ class AppFrame extends BorderPane{
 
         // Initialise Button Variables through the getters in Footer
         addButton = header.getAddRecipeButton();
+        detailButton = header.getDetailButton();
 
         // Call Event Listeners for the Buttons
         addListeners();
@@ -177,17 +188,25 @@ class AppFrame extends BorderPane{
 
         // Add button functionality
         addButton.setOnAction(e -> {
+            
             // Create a new Recipe
-            Recipe Recipe = new Recipe();
+            RecipeCard recipe = new RecipeCard();
             // Add Recipe to Recipelist
-            RecipeList.getChildren().add(Recipe);
+            RecipeList.getChildren().add(recipe);
             // Add deleteButtonToggle to the Delete button
-            Button deleteButton = Recipe.getDeleteButton();
+            Button deleteButton = recipe.getDeleteButton();
+            
             deleteButton.setOnAction(e1 -> {
                 // Call toggleDone on click
-                Recipe.toggleDelete();
+                recipe.toggleDelete();
             });
             RecipeList.updateRecipeIndices();
+        });
+
+        detailButton.setOnAction(e -> {
+            DetailScene details = new DetailScene();        //we must create a new detail scene for each recipe that we click on
+            System.out.println("This is the main page");
+            Main.sceneManager.ChangeScene(details);
         });
         
     }
@@ -195,11 +214,16 @@ class AppFrame extends BorderPane{
 
 public class Main extends Application {
 
+    public static SceneManager sceneManager;
+    public static AppFrame root;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        AppFrame root = new AppFrame();
+        root = new AppFrame();
+
+        sceneManager = new SceneManager(primaryStage);
 
         // Set the title of the app
         primaryStage.setTitle("Recipe Maker");
