@@ -163,7 +163,7 @@ public class DetailScene extends BorderPane{
         footer = new DetailFooter();
 
         recipe = new Recipe("name", stuff);
-        System.out.println(recipe.getDescription());
+        //System.out.println(recipe.getDescription());
         desc = new Description(recipe);
 
         scrollPane = new ScrollPane(desc);
