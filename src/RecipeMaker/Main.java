@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import java.util.Comparator;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import java.io.File;
 
@@ -190,17 +188,20 @@ class AppFrame extends BorderPane{
         addButton.setOnAction(e -> {
             
             // Create a new Recipe
-            RecipeCard recipe = new RecipeCard();
-            // Add Recipe to Recipelist
-            RecipeList.getChildren().add(recipe);
-            // Add deleteButtonToggle to the Delete button
-            Button deleteButton = recipe.getDeleteButton();
-            
-            deleteButton.setOnAction(e1 -> {
-                // Call toggleDone on click
-                recipe.toggleDelete();
-            });
-            RecipeList.updateRecipeIndices();
+            // Recipe Recipe = new Recipe();
+            // // Add Recipe to Recipelist
+            // RecipeList.getChildren().add(Recipe);
+            // // Add deleteButtonToggle to the Delete button
+            // Button deleteButton = Recipe.getDeleteButton();
+            // deleteButton.setOnAction(e1 -> {
+            //     // Call toggleDone on click
+            //     Recipe.toggleDelete();
+            // });
+            // RecipeList.updateRecipeIndices();
+
+            // create a new scene for adding a new Recipe
+            NewRecipeScene newRecipeScene = new NewRecipeScene();
+            Main.sceneManager.ChangeScene(newRecipeScene);
         });
 
         detailButton.setOnAction(e -> {
@@ -213,6 +214,8 @@ class AppFrame extends BorderPane{
 }
 
 public class Main extends Application {
+    public static SceneManager sceneManager;
+    public static AppFrame root;
 
     public static SceneManager sceneManager;
     public static AppFrame root;
@@ -222,9 +225,8 @@ public class Main extends Application {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
         root = new AppFrame();
-
         sceneManager = new SceneManager(primaryStage);
-
+      
         // Set the title of the app
         primaryStage.setTitle("Recipe Maker");
         // Create scene of mentioned size with the border pane
