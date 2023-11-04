@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * 1. What if the recipe contains a \n, how should that be saved in the csv file?
  * 2. Very unlikely, but on the occasion that ChatGPT somehow generates any text with a "|" in it, shit's gonna hit the fan
  * 
+ * 
  */
 public class DatabaseManager {
     final String DATABASE_FILE = "recipes.csv";
