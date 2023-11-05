@@ -86,8 +86,8 @@ class DetailHeader extends HBox {
 class Description extends FlowPane {
     Text description;
 
-    Description(Recipe recipe) {
-        description = new Text(recipe.getDescription());
+    Description(String s) {
+        description = new Text(s);
 
         //this.setPrefWrapLength(400);
         description.setWrappingWidth(400);
@@ -108,63 +108,14 @@ public class DetailScene extends BorderPane{
     private Button deleteButton;
 
     private Recipe recipe;
-    private String title = "Experienced Chef's Meal: Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes";
-    private String stuff = "Experienced Chef's Meal: Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes\r\n" + //
-            "\r\n" + //
-            "Ingredients:\r\n" + //
-            "\r\n" + //
-            "Beef and Spinach Stuffed Chicken:\r\n" + //
-            "\r\n" + //
-            "Chicken breasts\r\n" + //
-            "Beef (ground)\r\n" + //
-            "Spinach\r\n" + //
-            "White onion\r\n" + //
-            "Salt\r\n" + //
-            "Pepper\r\n" + //
-            "Cheese (for stuffing)\r\n" + //
-            "Mustard\r\n" + //
-            "Ketchup\r\n" + //
-            "Cheesy Mashed Potatoes:\r\n" + //
-            "\r\n" + //
-            "Potatoes\r\n" + //
-            "Cheese (for mixing and topping)\r\n" + //
-            "Milk\r\n" + //
-            "Salt\r\n" + //
-            "Pepper\r\n" + //
-            "Instructions:\r\n" + //
-            "\r\n" + //
-            "Beef and Spinach Stuffed Chicken:\r\n" + //
-            "\r\n" + //
-            "Preheat your oven to 375°F (190°C).\r\n" + //
-            "\r\n" + //
-            "In a skillet, sauté finely chopped white onion and ground beef until the beef is browned. Add spinach and cook until wilted. Season with salt and pepper.\r\n" + //
-            "\r\n" + //
-            "Butterfly the chicken breasts, then stuff them with the beef and spinach mixture, along with slices of cheese. Close the chicken breasts and secure them with toothpicks.\r\n" + //
-            "\r\n" + //
-            "Mix mustard and ketchup together to create a glaze.\r\n" + //
-            "\r\n" + //
-            "Brush the chicken with the glaze and bake in the preheated oven for about 25-30 minutes or until the chicken is cooked through.\r\n" + //
-            "\r\n" + //
-            "Cheesy Mashed Potatoes:\r\n" + //
-            "\r\n" + //
-            "Peel and chop the potatoes, then boil them until tender.\r\n" + //
-            "\r\n" + //
-            "Mash the cooked potatoes, adding milk and cheese for creaminess and flavor. Season with salt and pepper.\r\n" + //
-            "\r\n" + //
-            "Top the mashed potatoes with more cheese.\r\n" + //
-            "\r\n" + //
-            "Serve the Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes for a more complex and flavorful dish that showcases your culinary skills.";
-
-    /*
-     * TODO: make it so that this scene takes a recipe object as an input
-     */
-    DetailScene() {
-        header = new DetailHeader(title);
+    
+    DetailScene(Recipe r) {
+        recipe = r;
+        header = new DetailHeader(recipe.getTitle());
         footer = new DetailFooter();
 
-        recipe = new Recipe("name", stuff);
         //System.out.println(recipe.getDescription());
-        desc = new Description(recipe);
+        desc = new Description(recipe.getDescription());
 
         scrollPane = new ScrollPane(desc);
         scrollPane.setFitToWidth(true);
@@ -177,7 +128,6 @@ public class DetailScene extends BorderPane{
         backButton = header.getBackButton();
         editButton = footer.getEditButton();
         deleteButton = footer.getDeleteButton();
-
 
         addListeners();
     }

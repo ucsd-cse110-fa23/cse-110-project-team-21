@@ -27,51 +27,28 @@ import java.io.File;
 
 class RecipeCard extends HBox {
 
-    private TextField RecipeName;
-    private Label index;
-    private Button deleteButton;
+    private Button clickTitle;
 
 
-    RecipeCard() {
+    RecipeCard(String title, RecipeManager recipeManager) {
         this.setPrefSize(500, 20); // sets size of Recipe
-        this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of Recipe
+        this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of RecipeCard
 
-        index = new Label();
-        index.setText(""); // create index label
-        index.setPrefSize(40, 20); // set size of Index label
-        index.setTextAlignment(TextAlignment.CENTER); // Set alignment of index label
-        index.setPadding(new Insets(10, 0, 10, 0)); // adds some padding to the Recipe
-        this.getChildren().add(index); // add index label to Recipe
+        clickTitle = new Button(title);
+        clickTitle.setPrefSize(500, 20);
+        clickTitle.setPrefHeight(Double.MAX_VALUE);
+        clickTitle.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
+        this.getChildren().add(clickTitle);
 
-        RecipeName = new TextField(); // create Recipe name text field
-        RecipeName.setPrefSize(380, 20); // set size of text field
-        RecipeName.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // set background color of texfield
-        index.setTextAlignment(TextAlignment.LEFT); // set alignment of text field
-        RecipeName.setPadding(new Insets(10, 0, 10, 0)); // adds some padding to the text field
-        this.getChildren().add(RecipeName); // add textlabel to Recipe
-
-        deleteButton = new Button("Delete"); // creates a button for marking the Recipe as done
-        deleteButton.setPrefSize(100, 20);
-        deleteButton.setPrefHeight(Double.MAX_VALUE);
-        deleteButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
-        this.getChildren().add(deleteButton);
+        clickTitle.setOnAction(e -> {
+            DetailScene details = new DetailScene(recipeManager.getRecipe(title));        //we must create a new detail scene for each recipe that we click on
+            //System.out.println("This is the main page");
+            Main.sceneManager.ChangeScene(details);
+        });
     }
 
-    public void setRecipeIndex(int num) {
-        this.index.setText(num + ""); // num to String
-        this.RecipeName.setPromptText("Recipe " + num);
-    }
-
-    public TextField getRecipeName() {
-        return this.RecipeName;
-    }
-
-    public Button getDeleteButton() {
-        return this.deleteButton;
-    }
-
-    public void toggleDelete() {
-
+    public Button getTitleDetailsButton() {
+        return this.clickTitle;
     }
 }
 
@@ -82,16 +59,6 @@ class RecipeList extends VBox {
         this.setPrefSize(500, 560);
         this.setStyle("-fx-background-color: #F0F8FF;");
     }
-
-    public void updateRecipeIndices() {
-        int index = 1;
-        for (int i = 0; i < this.getChildren().size(); i++) {
-            if (this.getChildren().get(i) instanceof RecipeCard) {
-                ((RecipeCard) this.getChildren().get(i)).setRecipeIndex(index);
-                index++;
-            }
-        }
-    }
 }
 
 class Footer extends HBox {
@@ -101,13 +68,13 @@ class Footer extends HBox {
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.setSpacing(15);
     }
-
 }
 
 class Header extends VBox {
 
     private Button addRecipeButton;
-    private Button detailButton;
+    //private Button detailButton;
+    private Button mockAddButton;
 
     Header() {
         this.setPrefSize(500, 60); // Size of the header
@@ -124,19 +91,23 @@ class Header extends VBox {
 
         addRecipeButton = new Button("New Recipe"); // text displayed on add button
         addRecipeButton.setStyle(defaultButtonStyle); // styling the button
-        detailButton = new Button("Details Page"); // text displayed on add button
-        detailButton.setStyle(defaultButtonStyle); // styling the button
+        /*detailButton = new Button("Details Page"); // text displayed on add button
+        detailButton.setStyle(defaultButtonStyle); // styling the button */
+        mockAddButton = new Button("Mock Add"); // text displayed on add button
+        mockAddButton.setStyle(defaultButtonStyle); // styling the button
 
-        this.getChildren().addAll(addRecipeButton, detailButton); // adding buttons to footer
+        this.getChildren().addAll(addRecipeButton, /*detailButton,*/ mockAddButton); // adding buttons to footer
         this.setAlignment(Pos.CENTER); // aligning the buttons to center
     }
 
     public Button getAddRecipeButton() {
         return addRecipeButton;
     }
-
-    public Button getDetailButton() {
+    /*public Button getDetailButton() {
         return detailButton;
+    } */
+    public Button getMockAddButton() {
+        return mockAddButton;
     }
 }
 
@@ -144,24 +115,26 @@ class MainScene extends BorderPane{
 
     private Header header;
     private Footer footer;
-    private RecipeList RecipeList;
+    private RecipeList recipeList;
     private ScrollPane scrollPane;
     private Button addButton;
-    private Button detailButton;
+    //private Button detailButton;
+    private Button mockAddButton;
+    private Recipe mockRecipe;
 
 
-    MainScene()
+    MainScene(RecipeManager recipeManager)
     {
         // Initialise the header Object
         header = new Header();
 
-        // Create a Recipelist Object to hold the Recipes
-        RecipeList = new RecipeList();
+        // Create a RecipeList Object to display the UI of saved recipe titles
+        recipeList = new RecipeList();
         
         // Initialise the Footer Object
         footer = new Footer();
 
-        scrollPane = new ScrollPane(RecipeList);
+        scrollPane = new ScrollPane(recipeList);
         scrollPane.setFitToWidth(isCache());
         scrollPane.setFitToHeight(isCache());
 
@@ -169,46 +142,94 @@ class MainScene extends BorderPane{
         // Add header to the top of the BorderPane
         this.setTop(header);
         // Add scroller to the centre of the BorderPane
-        this.setCenter(RecipeList);
+        this.setCenter(recipeList);
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
 
         // Initialise Button Variables through the getters in Footer
         addButton = header.getAddRecipeButton();
-        detailButton = header.getDetailButton();
+        //detailButton = header.getDetailButton();
+        mockAddButton = header.getMockAddButton();
 
         // Call Event Listeners for the Buttons
-        addListeners();
+        addListeners(recipeManager);
+
+        // Create a new Recipe
+        String title = "Experienced Chef's Meal: Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes";
+        String stuff =
+                "\r\n" + //
+                "Ingredients:\r\n" + //
+                "\r\n" + //
+                "Beef and Spinach Stuffed Chicken:\r\n" + //
+                "\r\n" + //
+                "Chicken breasts\r\n" + //
+                "Beef (ground)\r\n" + //
+                "Spinach\r\n" + //
+                "White onion\r\n" + //
+                "Salt\r\n" + //
+                "Pepper\r\n" + //
+                "Cheese (for stuffing)\r\n" + //
+                "Mustard\r\n" + //
+                "Ketchup\r\n" + //
+                "Cheesy Mashed Potatoes:\r\n" + //
+                "\r\n" + //
+                "Potatoes\r\n" + //
+                "Cheese (for mixing and topping)\r\n" + //
+                "Milk\r\n" + //
+                "Salt\r\n" + //
+                "Pepper\r\n" + //
+                "Instructions:\r\n" + //
+                "\r\n" + //
+                "Beef and Spinach Stuffed Chicken:\r\n" + //
+                "\r\n" + //
+                "Preheat your oven to 375°F (190°C).\r\n" + //
+                "\r\n" + //
+                "In a skillet, sauté finely chopped white onion and ground beef until the beef is browned. Add spinach and cook until wilted. Season with salt and pepper.\r\n" + //
+                "\r\n" + //
+                "Butterfly the chicken breasts, then stuff them with the beef and spinach mixture, along with slices of cheese. Close the chicken breasts and secure them with toothpicks.\r\n" + //
+                "\r\n" + //
+                "Mix mustard and ketchup together to create a glaze.\r\n" + //
+                "\r\n" + //
+                "Brush the chicken with the glaze and bake in the preheated oven for about 25-30 minutes or until the chicken is cooked through.\r\n" + //
+                "\r\n" + //
+                "Cheesy Mashed Potatoes:\r\n" + //
+                "\r\n" + //
+                "Peel and chop the potatoes, then boil them until tender.\r\n" + //
+                "\r\n" + //
+                "Mash the cooked potatoes, adding milk and cheese for creaminess and flavor. Season with salt and pepper.\r\n" + //
+                "\r\n" + //
+                "Top the mashed potatoes with more cheese.\r\n" + //
+                "\r\n" + //
+                "Serve the Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes for a more complex and flavorful dish that showcases your culinary skills.";
+        mockRecipe = new Recipe(title, stuff);
     }
 
-    public void addListeners()
+    public void addListeners(RecipeManager recipeManager)
     {
 
         // Add button functionality
         addButton.setOnAction(e -> {
-            
-            // Create a new Recipe
-            // Recipe Recipe = new Recipe();
-            // // Add Recipe to Recipelist
-            // RecipeList.getChildren().add(Recipe);
-            // // Add deleteButtonToggle to the Delete button
-            // Button deleteButton = Recipe.getDeleteButton();
-            // deleteButton.setOnAction(e1 -> {
-            //     // Call toggleDone on click
-            //     Recipe.toggleDelete();
-            // });
-            // RecipeList.updateRecipeIndices();
-
             // create a new scene for adding a new Recipe
             NewRecipeScene newRecipeScene = new NewRecipeScene();
             Main.sceneManager.ChangeScene(newRecipeScene);
         });
 
-        detailButton.setOnAction(e -> {
-            DetailScene details = new DetailScene();        //we must create a new detail scene for each recipe that we click on
+        mockAddButton.setOnAction(e -> {
+             RecipeCard example = new RecipeCard(mockRecipe.getTitle(), recipeManager);
+            // // Add Recipe to Recipelist
+             recipeList.getChildren().add(example);
+             recipeManager.addRecipe(mockRecipe);
+
+            // create a new scene for adding a new Recipe
+            /*NewRecipeScene newRecipeScene = new NewRecipeScene();
+            Main.sceneManager.ChangeScene(newRecipeScene); */
+        });
+
+        /*detailButton.setOnAction(e -> {
+            DetailScene details = new DetailScene(mockRecipe);        //we must create a new detail scene for each recipe that we click on
             System.out.println("This is the main page");
             Main.sceneManager.ChangeScene(details);
-        });
+        }); */
         
     }
 }
@@ -216,16 +237,21 @@ class MainScene extends BorderPane{
 public class Main extends Application {
     public static SceneManager sceneManager;
     public static MainScene root;
+    public RecipeManager recipeManager;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        // Create a RecipeManager object to hold/manage stored recipe data
+        recipeManager = new RecipeManager();
+
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        root = new MainScene();
+        root = new MainScene(recipeManager);
         sceneManager = new SceneManager(primaryStage);
       
         // Set the title of the app
-        primaryStage.setTitle("Recipe Maker");
+        primaryStage.setTitle("PantryPal");
         // Create scene of mentioned size with the border pane
         primaryStage.setScene(new Scene(root, 500, 600));
         // Make window non-resizable
