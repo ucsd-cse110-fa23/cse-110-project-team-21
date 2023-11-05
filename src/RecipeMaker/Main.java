@@ -28,9 +28,10 @@ import java.io.File;
 class RecipeCard extends HBox {
 
     private Button clickTitle;
+    private DetailScene details;
 
 
-    RecipeCard(String title, RecipeManager recipeManager) {
+    RecipeCard(String title) {
         this.setPrefSize(500, 20); // sets size of Recipe
         this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of RecipeCard
 
@@ -40,8 +41,10 @@ class RecipeCard extends HBox {
         clickTitle.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
         this.getChildren().add(clickTitle);
 
+        details = new DetailScene(Main.recipeManager.getRecipe(title));
+
         clickTitle.setOnAction(e -> {
-            DetailScene details = new DetailScene(recipeManager.getRecipe(title));        //we must create a new detail scene for each recipe that we click on
+            //DetailScene details = new DetailScene(recipeManager.getRecipe(title));        //we must create a new detail scene for each recipe that we click on
             //System.out.println("This is the main page");
             Main.sceneManager.ChangeScene(details);
         });
@@ -123,7 +126,7 @@ class MainScene extends BorderPane{
     private Recipe mockRecipe;
 
 
-    MainScene(RecipeManager recipeManager)
+    MainScene()
     {
         // Initialise the header Object
         header = new Header();
@@ -152,7 +155,7 @@ class MainScene extends BorderPane{
         mockAddButton = header.getMockAddButton();
 
         // Call Event Listeners for the Buttons
-        addListeners(recipeManager);
+        addListeners();
 
         // Create a new Recipe
         String title = "Experienced Chef's Meal: Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes";
@@ -204,7 +207,7 @@ class MainScene extends BorderPane{
         mockRecipe = new Recipe(title, stuff);
     }
 
-    public void addListeners(RecipeManager recipeManager)
+    public void addListeners()
     {
 
         // Add button functionality
@@ -215,10 +218,11 @@ class MainScene extends BorderPane{
         });
 
         mockAddButton.setOnAction(e -> {
-             RecipeCard example = new RecipeCard(mockRecipe.getTitle(), recipeManager);
+            Main.recipeManager.addRecipe(mockRecipe);
+             RecipeCard example = new RecipeCard(mockRecipe.getTitle());
             // // Add Recipe to Recipelist
              recipeList.getChildren().add(example);
-             recipeManager.addRecipe(mockRecipe);
+             Main.recipeManager.addRecipe(mockRecipe);
 
             // create a new scene for adding a new Recipe
             /*NewRecipeScene newRecipeScene = new NewRecipeScene();
@@ -247,7 +251,7 @@ public class Main extends Application {
         recipeManager = new RecipeManager();
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        root = new MainScene(recipeManager);
+        root = new MainScene();
         sceneManager = new SceneManager(primaryStage);
       
         // Set the title of the app

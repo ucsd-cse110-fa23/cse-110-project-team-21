@@ -134,7 +134,6 @@ public class DetailScene extends BorderPane{
 
     public void addListeners() {
         backButton.setOnAction(e -> {
-            System.out.println("We are on the details page");
             Main.sceneManager.ChangeScene(Main.root);
             //do stuff
         });
