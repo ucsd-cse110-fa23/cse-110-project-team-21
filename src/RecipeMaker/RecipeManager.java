@@ -6,7 +6,7 @@ public class RecipeManager {
     private ArrayList<Recipe> recipes;
 
     public RecipeManager() {
-
+        recipes = new ArrayList<Recipe>();
     }
 
     public void addRecipe(Recipe r){
