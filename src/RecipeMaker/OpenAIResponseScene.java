@@ -129,7 +129,8 @@ public class OpenAIResponseScene extends BorderPane{
     public void addListeners() {
         Button saveButton = footer.getSaveButton();
         saveButton.setOnAction(e -> {
-            System.out.println("Save button pressed");
+            //System.out.println("Save button pressed");
+            Main.recipeManager.addRecipe(recipe);
             Main.sceneManager.ChangeScene(Main.root);
             //do stuff
         });

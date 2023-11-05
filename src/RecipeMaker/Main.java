@@ -237,7 +237,7 @@ class MainScene extends BorderPane{
 public class Main extends Application {
     public static SceneManager sceneManager;
     public static MainScene root;
-    public RecipeManager recipeManager;
+    public static RecipeManager recipeManager;
 
 
     @Override
