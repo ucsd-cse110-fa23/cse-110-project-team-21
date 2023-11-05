@@ -15,10 +15,11 @@ class NewRecipeHeader extends VBox {
         this.setStyle("-fx-background-color: #F0F8FF;");
         Text titleText = new Text("Adding New Recipe"); // Text of the Header
         titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 20;");
-        this.getChildren().add(titleText);
         titleText.setTextAlignment(TextAlignment.CENTER); // Align text to the center
         titleText.setWrappingWidth(400);
-        //this.setAlignment(Pos.CENTER); // Align the text to the Center
+        this.setAlignment(Pos.CENTER); // Align the text to the Center
+        this.getChildren().add(titleText);
+
     }
 
 }
@@ -26,10 +27,13 @@ class NewRecipeHeader extends VBox {
 class NewRecipeFooter extends VBox {
     private Button speakButton;
     private Button stopButton;
+    private Button backToMain;
+    private boolean isRecording = false;
     private AudioFormat audioFormat;
     private TargetDataLine targetDataLine;
     private Label recordingLabel;
     private NewRecipeCenterScreen centerScreen;
+    public int stepCounter = 0; 
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
     String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red; visibility: hidden";
@@ -48,14 +52,17 @@ class NewRecipeFooter extends VBox {
         stopButton = new Button("Stop");
         stopButton.setStyle(defaultButtonStyle);
 
+        backToMain = new Button("Back to Main");
+        backToMain.setStyle(defaultButtonStyle);
+
         recordingLabel = new Label("Recording...");
         recordingLabel.setStyle(defaultLabelStyle);
         recordingLabel.setVisible(false);
 
-        buttonBox.getChildren().addAll(speakButton, stopButton);
+        buttonBox.getChildren().addAll(speakButton, stopButton, backToMain);
         this.getChildren().addAll(buttonBox, recordingLabel);
         this.setAlignment(Pos.CENTER);
-
+        
         audioFormat = getAudioFormat();
         addListner();
     }
@@ -65,6 +72,7 @@ class NewRecipeFooter extends VBox {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    isRecording = true;
                     startRecording();
                 }
             });
@@ -73,7 +81,15 @@ class NewRecipeFooter extends VBox {
 
         // Stop Button
         stopButton.setOnAction(e -> {
-            stopRecording();
+            if(isRecording == true){
+                isRecording = false;
+                stopRecording();
+            }
+        });
+
+        // Back Button
+        backToMain.setOnAction(e -> {
+            Main.sceneManager.ChangeScene(Main.root);
         });
     }
     
@@ -94,7 +110,12 @@ class NewRecipeFooter extends VBox {
                     targetDataLine);
 
             // the file that will contain the audio data
-            File audioFile = new File("recording.wav");
+            File audioFile;
+            if(stepCounter ==  0){
+                audioFile = new File("Mealtype.wav");
+            }else{
+                audioFile = new File("Ingredients.wav");
+            }
             AudioSystem.write(
                     audioInputStream,
                     AudioFileFormat.Type.WAVE,
@@ -109,6 +130,12 @@ class NewRecipeFooter extends VBox {
         targetDataLine.stop();
         targetDataLine.close();
         centerScreen.setUpdateText();
+        stepCounter++;
+
+        if (stepCounter == 2){
+            OpenAIResponseScene temp = new OpenAIResponseScene();
+            Main.sceneManager.ChangeScene(temp); 
+        }
     }
 
     private AudioFormat getAudioFormat() {
@@ -181,7 +208,6 @@ public class NewRecipeScene extends BorderPane {
         NewRecipeScene.this.setTop(header);
         NewRecipeScene.this.setCenter(centerScreen);
         NewRecipeScene.this.setBottom(footer);
-        
         
         
     }
