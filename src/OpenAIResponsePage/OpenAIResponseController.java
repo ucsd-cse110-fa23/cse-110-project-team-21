@@ -1,4 +1,4 @@
-package RecipeMaker;
+package OpenAIResponsePage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,8 +9,10 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import RecipeLogic.Recipe;
 
-public class OpenAIController{
+
+public class OpenAIResponseController{
 
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
     // Api Key Shang
@@ -21,11 +23,11 @@ public class OpenAIController{
 
     private String mealType;
     private String ingredients;
-    OpenAIController(String mealType, String ingredients) {
+    private Recipe recipe;
+    public OpenAIResponseController(String mealType, String ingredients) {
         this.mealType = mealType;
         this.ingredients = ingredients;
-
-    }
+    } 
 
     public Recipe sendRequest() throws IOException, InterruptedException, URISyntaxException {
 
@@ -61,17 +63,32 @@ public class OpenAIController{
 
         // Process the response
         String responseBody = response.body();
-        System.out.println(responseBody);
+        // System.out.println(responseBody);
         JSONObject responseJson = new JSONObject(responseBody);
         JSONArray choices = responseJson.getJSONArray("choices");
         String generatedText = choices.getJSONObject(0).getString("text");
-        System.out.println(generatedText);
+        // System.out.println(generatedText);
         String trimmedResponse = generatedText.replaceFirst("^\\s+", "");
-        String[] lines = trimmedResponse.split("Ingredients:");
-        String title = lines[0];
-        String description = lines[1];
-
-        Recipe recipe = new Recipe(title, description);
+        if(trimmedResponse.split("Ingredients:").length != 2){
+            recipe = this.sendRequest();
+        }else{
+            String[] lines = trimmedResponse.split("Ingredients:");
+            String title = lines[0];
+            String description = "Ingredients: \n" + lines[1];
+            recipe = new Recipe(title, description);
+        }
         return recipe;
+    }
+
+    public Recipe getRecipe(){
+        return recipe;
+    }
+
+    public String getMealType(){
+        return mealType;
+    }
+
+    public String getIngredients(){
+        return ingredients;
     }
 }

@@ -1,11 +1,11 @@
-package RecipeMaker;
+package SceneLogic;
 
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
 public class SceneManager{
     private Stage mainStage;
-    SceneManager(Stage mainStage){
+    public SceneManager(Stage mainStage){
         this.mainStage = mainStage;
     }
 
