@@ -69,8 +69,9 @@ public class RecipeManager {
         for(int i = 0; i < recipes.size(); i ++){
             Recipe r = recipes.get(i);
             String title = "\"" + r.getTitle() + "\"";
-            String description = "\"" + r.getDescription() + "\"";
 
+            String description = "\"" + r.getDescription() + "\"";
+            description = description.replace("\n","\\n").replace("\r", "\\r");
             String line = title + "|" + description + "\n";
             fw.write(line);
         }
@@ -93,15 +94,19 @@ public class RecipeManager {
         } catch (Exception e) {
             throw new IOException();
         } 
+        
 
         BufferedReader br = new BufferedReader(fr);
         
         while(br.ready()){  //Get each line and make a contact out of it
-
             String currLine = br.readLine();    //Read a line
+
             String[] data = currLine.split("\\|");
+
             String title = data[0].substring(1, data[0].length() - 1);
+
             String description = data[1].substring(1, data[1].length() - 1);
+            description = description.replace("\\n", "\n").replace("\\r","\r");
 
             Recipe add = new Recipe(title, description);
 
@@ -110,7 +115,7 @@ public class RecipeManager {
 
         fr.close();
         br.close();
-        System.out.println("From RecipeManager: LOADED");
+
         return retrievedDataBase;
     }
 }

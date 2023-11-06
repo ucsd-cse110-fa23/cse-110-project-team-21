@@ -157,6 +157,7 @@ class MainScene extends BorderPane{
         // Call Event Listeners for the Buttons
         addListeners();
 
+        loadFromDatabase();
         // Create a new Recipe
         String title = "Experienced Chef's Meal: Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes";
         String stuff =
@@ -222,19 +223,29 @@ class MainScene extends BorderPane{
              RecipeCard example = new RecipeCard(mockRecipe.getTitle());
             // // Add Recipe to Recipelist
              recipeList.getChildren().add(example);
-             Main.recipeManager.addRecipe(mockRecipe);
+             //Main.recipeManager.addRecipe(mockRecipe);
 
             // create a new scene for adding a new Recipe
             /*NewRecipeScene newRecipeScene = new NewRecipeScene();
             Main.sceneManager.ChangeScene(newRecipeScene); */
         });
-
         /*detailButton.setOnAction(e -> {
             DetailScene details = new DetailScene(mockRecipe);        //we must create a new detail scene for each recipe that we click on
             System.out.println("This is the main page");
             Main.sceneManager.ChangeScene(details);
         }); */
         
+    }
+    /**
+     * Reads the recipe list from the recipeManager in main and turns every recipe into a
+     * recipe card, which gets added as a MainScene child
+     */
+    public void loadFromDatabase(){
+        System.out.println("LOADING FROM DATABASE");
+        for(Recipe r: Main.recipeManager.getList()){
+            RecipeCard toAdd = new RecipeCard(r.getTitle());
+            recipeList.getChildren().add(toAdd);
+        }
     }
 }
 
@@ -249,11 +260,10 @@ public class Main extends Application {
 
         // Create a RecipeManager object to hold/manage stored recipe data
         recipeManager = new RecipeManager();
-
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
         root = new MainScene();
         sceneManager = new SceneManager(primaryStage);
-      
+
         // Set the title of the app
         primaryStage.setTitle("PantryPal");
         // Create scene of mentioned size with the border pane
