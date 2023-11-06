@@ -57,10 +57,10 @@ class NewRecipeFooter extends VBox {
         this.setAlignment(Pos.CENTER);
 
         audioFormat = getAudioFormat();
-        addListner();
+        addListener();
     }
     
-    public void addListner() {
+    public void addListener() {
         speakButton.setOnAction(e -> {
             Thread t = new Thread(new Runnable() {
                 @Override
