@@ -1,4 +1,4 @@
-package RecipeMaker;
+package main;
 
 public class Recipe {
     private String title;

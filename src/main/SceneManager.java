@@ -1,4 +1,4 @@
-package RecipeMaker;
+package main;
 
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;

@@ -1,4 +1,4 @@
-package RecipeMaker;
+package main;
 //remove the package name 
 import javafx.application.Application;
 import javafx.scene.Scene;
