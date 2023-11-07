@@ -1,8 +1,7 @@
-package test.java.CI;
+package CI;
 
 
 import org.junit.jupiter.api.Test;
-
 import RecipeMaker.RecipeManager;
 import RecipeMaker.Recipe;
 
