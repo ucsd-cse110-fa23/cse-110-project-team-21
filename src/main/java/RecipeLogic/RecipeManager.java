@@ -20,6 +20,16 @@ public class RecipeManager {
         }
     }
 
+    public void removeAllRecipe(){
+        recipes.clear();
+
+        try {
+            updateRecipesToDatabase();
+        } catch (Exception e) {
+            System.out.println("Could not update recipe list to database.");
+        }
+    }
+
     public void addRecipe(Recipe r){
         recipes.add(r);
         try {
