@@ -1,4 +1,4 @@
-package main.MainPage;
+package main.UI.MainPage;
 import javafx.scene.layout.*;
 
 

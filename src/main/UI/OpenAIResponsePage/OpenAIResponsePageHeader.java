@@ -1,4 +1,4 @@
-package main.OpenAIResponsePage;
+package main.UI.OpenAIResponsePage;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;

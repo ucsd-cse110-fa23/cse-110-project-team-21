@@ -1,8 +1,8 @@
-package main.OpenAIResponsePage;
+package main.UI.OpenAIResponsePage;
 
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
-import main.RecipeLogic.Recipe;
+import main.java.RecipeLogic.Recipe;
 
 public class OpenAIResponsePageDescription extends FlowPane {
     Text description;

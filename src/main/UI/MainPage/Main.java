@@ -1,9 +1,9 @@
-package main.MainPage;
+package main.UI.MainPage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.RecipeLogic.RecipeManager;
-import main.SceneLogic.SceneManager;
+import main.UI.SceneLogic.SceneManager;
+import main.java.RecipeLogic.RecipeManager;
 
 
 public class Main extends Application {

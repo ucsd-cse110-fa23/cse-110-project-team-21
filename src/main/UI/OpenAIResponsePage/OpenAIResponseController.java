@@ -1,4 +1,4 @@
-package main.OpenAIResponsePage;
+package main.UI.OpenAIResponsePage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +9,7 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import main.RecipeLogic.Recipe;
+import main.java.RecipeLogic.Recipe;
 
 
 public class OpenAIResponseController{

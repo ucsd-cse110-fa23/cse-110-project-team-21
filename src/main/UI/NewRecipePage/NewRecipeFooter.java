@@ -1,4 +1,4 @@
-package main.NewRecipePage;
+package main.UI.NewRecipePage;
 
 import java.io.*;
 import javax.sound.sampled.*;
@@ -7,8 +7,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import main.MainPage.Main;
-import main.OpenAIResponsePage.OpenAIResponseScene;
+import main.UI.MainPage.Main;
+import main.UI.OpenAIResponsePage.OpenAIResponseScene;
 
 
 

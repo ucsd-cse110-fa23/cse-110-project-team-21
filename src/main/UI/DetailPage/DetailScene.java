@@ -1,10 +1,10 @@
-package main.DetailPage;
+package main.UI.DetailPage;
 
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import main.MainPage.Main;
-import main.RecipeLogic.Recipe;
+import main.UI.MainPage.Main;
+import main.java.RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
 
 

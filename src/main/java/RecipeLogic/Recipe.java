@@ -1,4 +1,4 @@
-package main.RecipeLogic;
+package main.java.RecipeLogic;
 
 public class Recipe {
     private String title;

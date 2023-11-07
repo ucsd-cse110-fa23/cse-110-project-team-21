@@ -3,8 +3,8 @@ package test.java;
 
 import org.junit.jupiter.api.Test;
 
-import main.RecipeLogic.Recipe;
-import main.RecipeLogic.RecipeManager;
+import main.java.RecipeLogic.Recipe;
+import main.java.RecipeLogic.RecipeManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,4 @@
-package main.NewRecipePage;
+package main.UI.NewRecipePage;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
