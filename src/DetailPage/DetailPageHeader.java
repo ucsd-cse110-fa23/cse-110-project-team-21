@@ -1,4 +1,4 @@
-package main.java.DetailPage;
+package DetailPage;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

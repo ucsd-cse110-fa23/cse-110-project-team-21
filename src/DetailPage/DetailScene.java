@@ -1,4 +1,4 @@
-package main.java.DetailPage;
+package DetailPage;
 
 
 import javafx.scene.control.Button;

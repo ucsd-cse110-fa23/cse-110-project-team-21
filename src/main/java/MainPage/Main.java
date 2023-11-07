@@ -1,9 +1,9 @@
 package main.java.MainPage;
+import SceneLogic.SceneManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.RecipeLogic.RecipeManager;
-import main.java.SceneLogic.SceneManager;
 
 
 public class Main extends Application {

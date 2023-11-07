@@ -1,8 +1,8 @@
 package main.java.MainPage;
 
+import DetailPage.DetailScene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import main.java.DetailPage.DetailScene;
 
 
 
