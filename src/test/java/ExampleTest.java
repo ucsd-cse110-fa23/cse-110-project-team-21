@@ -3,16 +3,14 @@ package test.java;
 
 import org.junit.jupiter.api.Test;
 
-import main.java.RecipeLogic.Recipe;
-import main.java.RecipeLogic.RecipeManager;
+import main.RecipeLogic.Recipe;
+import main.RecipeLogic.RecipeManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExampleTest {
     private RecipeManager manager;
