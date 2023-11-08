@@ -2,12 +2,15 @@ package main.controller;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+
 import org.json.*;
 
 public class Whisper {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN = "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";
-    private static final String MODEL = "whisper-1";    
+    private static final String MODEL = "whisper-1";
+    private static ArrayList<String> recordingResult = new ArrayList<String>();  
     // private static final String FILE_PATH_MEAL_TYPE = "Mealtype.wav";
     // private static final String FILE_PATH_INGREDIENTS = "Ingredients.wav";
 
@@ -72,7 +75,7 @@ public class Whisper {
 
 
         // Print the transcription result
-        System.out.println("Transcription Result: " + generatedText);
+        recordingResult.add(generatedText);
     }
     // Helper method to handle an error response
     private static void handleErrorResponse(HttpURLConnection connection)
@@ -89,6 +92,7 @@ public class Whisper {
         String errorResult = errorResponse.toString();
         System.out.println("Error Result: " + errorResult);
     }
+    
     public String execute(String filePath) throws IOException, URISyntaxException {
       // Create file object from file path
       File file = new File(filePath);
@@ -147,8 +151,10 @@ public class Whisper {
       connection.disconnect();
       return res;
     }
-            
-
+    
+    public ArrayList<String> getResult() {
+      return recordingResult;
+    }
         
 }
 

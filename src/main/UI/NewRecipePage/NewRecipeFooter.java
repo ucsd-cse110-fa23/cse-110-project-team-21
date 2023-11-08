@@ -1,6 +1,8 @@
 package main.UI.NewRecipePage;
 
 import java.io.*;
+import java.util.ArrayList;
+
 import javax.sound.sampled.*;
 
 import javafx.geometry.Pos;
@@ -9,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import main.UI.MainPage.Main;
 import main.UI.OpenAIResponsePage.OpenAIResponseScene;
-
+import main.controller.Whisper;
 
 
 
@@ -22,12 +24,14 @@ public class NewRecipeFooter extends VBox {
     private TargetDataLine targetDataLine;
     private Label recordingLabel;
     private NewRecipeCenterScreen centerScreen;
+    private Whisper whisper;
     public int stepCounter = 0; 
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
     String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red; visibility: hidden";
 
     public NewRecipeFooter(NewRecipeCenterScreen centerScreen) {
+        this.whisper = new Whisper();
         this.centerScreen = centerScreen;
         this.setPrefSize(500, 100);
         this.setStyle("-fx-background-color: #F0F8FF;");
@@ -102,9 +106,15 @@ public class NewRecipeFooter extends VBox {
             File audioFile;
             if(stepCounter ==  0){
                 audioFile = new File("Mealtype.wav");
+                whisper.execute("Mealtype.wav");
+            // add the audio data to the audio file
             }else{
                 audioFile = new File("Ingredients.wav");
+                whisper.execute("Ingredients.wav");
+            
             }
+
+
             AudioSystem.write(
                     audioInputStream,
                     AudioFileFormat.Type.WAVE,
@@ -122,7 +132,7 @@ public class NewRecipeFooter extends VBox {
         stepCounter++;
 
         if (stepCounter == 2){
-            OpenAIResponseScene temp = new OpenAIResponseScene();
+            OpenAIResponseScene temp = new OpenAIResponseScene(whisper.getResult());
             Main.sceneManager.ChangeScene(temp); 
         }
     }

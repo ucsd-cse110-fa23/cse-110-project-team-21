@@ -1,2 +1,4 @@
 *.json
 /lib/*
+Ingredients.wav
+Mealtype.wav
