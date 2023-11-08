@@ -69,6 +69,12 @@ public class OpenAIResponseController{
         String generatedText = choices.getJSONObject(0).getString("text");
         // System.out.println(generatedText);
         String trimmedResponse = generatedText.replaceFirst("^\\s+", "");
+        String[] lines = trimmedResponse.split("\n", 2);
+        String title = lines[0];
+        String description = lines[1];
+        recipe = new Recipe(title, description);
+
+        /*
         if(trimmedResponse.split("Ingredients:").length != 2){
             recipe = this.sendRequest();
         }else{
@@ -77,6 +83,7 @@ public class OpenAIResponseController{
             String description = "Ingredients: \n" + lines[1];
             recipe = new Recipe(title, description);
         }
+        */
         return recipe;
     }
 

@@ -4,6 +4,7 @@ package main.UI.OpenAIResponsePage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import main.UI.MainPage.Main;
+import main.UI.MainPage.MainPageMainScene;
 import main.java.RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
 
@@ -57,6 +58,7 @@ public class OpenAIResponseScene extends BorderPane{
         saveButton.setOnAction(e -> {
             //System.out.println("Save button pressed");
             Main.recipeManager.addRecipe(recipe);
+            Main.root.update();
             Main.sceneManager.ChangeScene(Main.root);
             //do stuff
         });

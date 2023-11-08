@@ -102,6 +102,10 @@ public class MainPageMainScene extends BorderPane{
         mockRecipe = new Recipe(title, stuff);
     }
 
+    public void update() {
+        loadFromDatabase();
+    }
+
     public void addListeners()
     {
 
