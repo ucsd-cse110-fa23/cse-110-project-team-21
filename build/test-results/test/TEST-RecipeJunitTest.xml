@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RecipeJunitTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-11-08T22:27:11" hostname="LAPTOP-FGHVEDQN" time="0.018">
+  <properties/>
+  <testcase name="testAdd()" classname="RecipeJunitTest" time="0.004"/>
+  <testcase name="testGetList()" classname="RecipeJunitTest" time="0.003"/>
+  <testcase name="testSetDescription_shouldUpdateDescription()" classname="RecipeJunitTest" time="0.001"/>
+  <testcase name="testGetDescription_shouldReturnCorrectDescription()" classname="RecipeJunitTest" time="0.001"/>
+  <testcase name="testGetTitle_shouldReturnCorrectTitle()" classname="RecipeJunitTest" time="0.001"/>
+  <testcase name="testRemove()" classname="RecipeJunitTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
