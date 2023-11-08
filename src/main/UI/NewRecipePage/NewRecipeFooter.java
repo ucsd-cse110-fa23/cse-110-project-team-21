@@ -1,10 +1,8 @@
 package main.UI.NewRecipePage;
 
 import java.io.*;
-import java.util.ArrayList;
-
+import java.net.URISyntaxException;
 import javax.sound.sampled.*;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,8 +10,6 @@ import javafx.scene.layout.*;
 import main.UI.MainPage.Main;
 import main.UI.OpenAIResponsePage.OpenAIResponseScene;
 import main.controller.Whisper;
-
-
 
 public class NewRecipeFooter extends VBox {
     private Button speakButton;
@@ -76,7 +72,13 @@ public class NewRecipeFooter extends VBox {
         stopButton.setOnAction(e -> {
             if(isRecording == true){
                 isRecording = false;
-                stopRecording();
+                try {
+                    stopRecording();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -106,22 +108,10 @@ public class NewRecipeFooter extends VBox {
             File audioFile;
             if(stepCounter ==  0){
                 audioFile = new File("Mealtype.wav");
-                try {
-                whisper.execute("Mealtype.wav");
-                } catch (Exception e) {
-                    System.out.println("Whisper fail executing Mealtype.wav");
-                    e.printStackTrace();
-                }
+
             // add the audio data to the audio file
             }else{
                 audioFile = new File("Ingredients.wav");
-                try {
-                    whisper.execute("Ingredients.wav");
-                } catch (Exception e) {
-                    System.out.println("Whisper fail executing Ingredients.wav");
-                    e.printStackTrace();
-                }
-            
             }
 
 
@@ -135,15 +125,20 @@ public class NewRecipeFooter extends VBox {
         }
     }
 
-    private void stopRecording() {
+    private void stopRecording() throws IOException, URISyntaxException {
         targetDataLine.stop();
         targetDataLine.close();
         centerScreen.setUpdateText();
         stepCounter++;
 
+        if(stepCounter == 1) {
+            whisper.execute("Mealtype.wav");
+        }
+
         if (stepCounter == 2){
+            whisper.execute("Ingredients.wav");
             OpenAIResponseScene temp = new OpenAIResponseScene(whisper.getResult());
-            Main.sceneManager.ChangeScene(temp); 
+            Main.sceneManager.ChangeScene(temp);
         }
     }
 

@@ -43,7 +43,6 @@ public class Whisper {
             );
         outputStream.write(("Content-Type: audio/mpeg\r\n\r\n").getBytes());
         
-        
         FileInputStream fileInputStream = new FileInputStream(file);
         byte[] buffer = new byte[1024];
         int bytesRead;
@@ -119,6 +118,9 @@ public class Whisper {
       // Write model parameter to request body
       writeParameterToOutputStream(outputStream, "model", MODEL, boundary);
       
+      // If the API supports language specification, you would add it like this:
+      writeParameterToOutputStream(outputStream, "language", "en", boundary);
+  
       
       // Write file parameter to request body
       writeFileToOutputStream(outputStream, file, boundary);
