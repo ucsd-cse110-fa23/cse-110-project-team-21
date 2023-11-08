@@ -1,4 +1,4 @@
-package main.java.RecipeLogic;
+package RecipeLogic;
 
 import java.io.BufferedReader;
 import java.io.File;

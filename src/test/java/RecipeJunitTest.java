@@ -1,10 +1,10 @@
-package test.java;
+//package //test.java;
 
 
 import org.junit.jupiter.api.Test;
 
-import main.java.RecipeLogic.Recipe;
-import main.java.RecipeLogic.RecipeManager;
+import RecipeLogic.Recipe;
+import RecipeLogic.RecipeManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
