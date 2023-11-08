@@ -102,6 +102,10 @@ public class MainPageMainScene extends BorderPane{
         mockRecipe = new Recipe(title, stuff);
     }
 
+    public void update() {
+        loadFromDatabase();
+    }
+
     public void addListeners()
     {
 
@@ -136,6 +140,7 @@ public class MainPageMainScene extends BorderPane{
      */
     public void loadFromDatabase(){
         System.out.println("LOADING FROM DATABASE");
+        recipeList.getChildren().clear();
         for(Recipe r: Main.recipeManager.getList()){
             MainPageRecipeCard toAdd = new MainPageRecipeCard(r.getTitle());
             recipeList.getChildren().add(toAdd);
