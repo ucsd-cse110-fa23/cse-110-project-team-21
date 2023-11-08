@@ -53,7 +53,8 @@ public class DetailScene extends BorderPane{
         });
 
         editButton.setOnAction(e -> {
-            //stuff
+            System.out.println("Clicked");
+            Main.sceneManager.ChangeScene(new EditPage(recipe));
         });
     }
     
