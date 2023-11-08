@@ -11,8 +11,6 @@ public class Whisper {
     private static final String TOKEN = "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";
     private static final String MODEL = "whisper-1";
     private static ArrayList<String> recordingResult = new ArrayList<String>();  
-    // private static final String FILE_PATH_MEAL_TYPE = "Mealtype.wav";
-    // private static final String FILE_PATH_INGREDIENTS = "Ingredients.wav";
 
     // Helper method to write a parameter to the output stream in multipart form data format
     private static void writeParameterToOutputStream(
