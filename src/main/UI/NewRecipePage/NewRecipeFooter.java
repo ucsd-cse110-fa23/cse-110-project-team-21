@@ -106,11 +106,21 @@ public class NewRecipeFooter extends VBox {
             File audioFile;
             if(stepCounter ==  0){
                 audioFile = new File("Mealtype.wav");
+                try {
                 whisper.execute("Mealtype.wav");
+                } catch (Exception e) {
+                    System.out.println("Whisper fail executing Mealtype.wav");
+                    e.printStackTrace();
+                }
             // add the audio data to the audio file
             }else{
                 audioFile = new File("Ingredients.wav");
-                whisper.execute("Ingredients.wav");
+                try {
+                    whisper.execute("Ingredients.wav");
+                } catch (Exception e) {
+                    System.out.println("Whisper fail executing Ingredients.wav");
+                    e.printStackTrace();
+                }
             
             }
 
