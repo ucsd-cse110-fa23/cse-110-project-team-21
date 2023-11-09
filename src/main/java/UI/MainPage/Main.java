@@ -2,8 +2,8 @@ package UI.MainPage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import UI.SceneLogic.SceneManager;
 import RecipeLogic.RecipeManager;
+import SceneLogic.SceneManager;
 
 
 public class Main extends Application {

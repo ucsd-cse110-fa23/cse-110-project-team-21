@@ -1,4 +1,4 @@
-package UI.OpenAIResponsePage;
+package AIControllers;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;

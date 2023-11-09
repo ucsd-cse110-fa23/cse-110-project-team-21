@@ -1,4 +1,4 @@
-package UI.SceneLogic;
+package SceneLogic;
 
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;

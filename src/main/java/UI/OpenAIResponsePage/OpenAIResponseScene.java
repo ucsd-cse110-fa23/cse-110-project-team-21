@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import UI.MainPage.Main;
 import UI.MainPage.MainPageMainScene;
+import AIControllers.OpenAIResponseController;
 import RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
 
