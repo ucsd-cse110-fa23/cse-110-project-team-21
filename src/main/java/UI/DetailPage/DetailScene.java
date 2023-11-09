@@ -45,16 +45,16 @@ public class DetailScene extends BorderPane{
     public void addListeners() {
         backButton.setOnAction(e -> {
             Main.sceneManager.ChangeScene(Main.root);
-            //do stuff
         });
 
         deleteButton.setOnAction(e -> {
-            //stuff
+            Main.recipeManager.removeRecipe(recipe);
+            Main.root.update();
+            Main.sceneManager.ChangeScene(Main.root);
         });
 
         editButton.setOnAction(e -> {
-            System.out.println("Clicked");
-            Main.sceneManager.ChangeScene(new EditPage(recipe));
+            Main.sceneManager.ChangeScene(new EditPage(this, recipe));
         });
     }
     
