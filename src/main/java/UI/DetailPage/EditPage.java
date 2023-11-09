@@ -70,6 +70,11 @@ class EditPageEditor extends FlowPane {
         desc.setPrefSize(500, 460);
         this.getChildren().add(desc);
     }
+
+    public String saveText() {
+        System.out.println(desc.getText());
+        return desc.getText();
+    }
 }
 public class EditPage extends BorderPane{
     private EditPageFooter footer;
