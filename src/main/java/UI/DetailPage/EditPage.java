@@ -32,6 +32,14 @@ class EditPageFooter extends HBox{
         this.setSpacing(20);
         //editButton.setAlignment(Pos.CENTER_RIGHT);
     }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public Button getSaveButton() {
+        return saveButton;
+    }
 }
 
 class EditPageHeader extends HBox {
@@ -51,11 +59,15 @@ class EditPageHeader extends HBox {
 }
 
 class EditPageEditor extends FlowPane {
-    TextField desc;
+    TextArea desc;
 
     EditPageEditor(Recipe recipe) {
-        desc = new TextField();
-        desc.setText(recipe.getDescription());
+        //this.setPrefSize(500, 500);
+
+        desc = new TextArea(recipe.getDescription());
+        desc.setWrapText(isCache());
+        desc.setMaxSize(500, 460);
+        desc.setPrefSize(500, 460);
         this.getChildren().add(desc);
     }
 }
@@ -63,19 +75,40 @@ public class EditPage extends BorderPane{
     private EditPageFooter footer;
     private EditPageHeader header;
     private EditPageEditor editor;
-    private ScrollPane scrollPane;
+    private DetailScene scene;
+    //private ScrollPane scrollPane;
+    private Button cancelButton;
+    private Button saveButton;
 
-    EditPage(Recipe recipe) {
+    EditPage(DetailScene detailScene, Recipe recipe) {
         footer = new EditPageFooter();
         header = new EditPageHeader(recipe.getTitle());
         editor = new EditPageEditor(recipe);
 
-        scrollPane = new ScrollPane(editor);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
+        // scrollPane = new ScrollPane(editor);
+        // scrollPane.setFitToWidth(true);
+        // scrollPane.setFitToHeight(true);
 
         this.setTop(header);
-        this.setCenter(scrollPane);
+        this.setCenter(editor);
         this.setBottom(footer);
+
+        scene = detailScene;
+
+        cancelButton = footer.getCancelButton();
+        saveButton = footer.getSaveButton();
+
+        addListeners();
+    }
+
+    private void addListeners() {
+        cancelButton.setOnAction(e -> {
+            Main.sceneManager.ChangeScene(scene);
+        });
+
+        saveButton.setOnAction(e -> {
+            System.out.println("TODO: backend for save editted recipe");
+            Main.sceneManager.ChangeScene(scene);
+        });
     }
 }
