@@ -8,7 +8,76 @@ import UI.MainPage.MainPageMainScene;
 import AIControllers.OpenAIResponseController;
 import RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
+import javafx.geometry.Pos;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 
+
+class OpenAIResponsePageHeader extends HBox {
+    public Text titleText;
+    public OpenAIResponsePageHeader(String titleInput) {
+        this.setPrefSize(500, 80); // Size of the header
+        this.setStyle("-fx-background-color: #F0F8FF;");
+        this.titleText = new Text(titleInput); // Text of the Header
+
+        titleText.setWrappingWidth(350);
+        titleText.setTextAlignment(TextAlignment.CENTER);
+        titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 20;");
+        this.getChildren().add(titleText);
+        this.setSpacing(30);
+
+        this.setAlignment(Pos.CENTER); // aligning the buttons to center
+    }
+
+    public Text getTitleText() {
+        return titleText;
+    }
+}
+
+class OpenAIResponsePageFooter extends HBox{
+    private Button saveButton;
+    private Button dontSaveButton;
+    
+    public OpenAIResponsePageFooter() {
+        this.setPrefSize(500, 60);
+        this.setStyle("-fx-background-color: #F0F8FF;");
+        this.setSpacing(15);
+        String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 14 arial; -fx-pref-width: 100; -fx-pref-height: 30";
+
+        saveButton = new Button("Save");
+        saveButton.setStyle(defaultButtonStyle);
+        dontSaveButton = new Button("Don't Save");
+        dontSaveButton.setStyle(defaultButtonStyle);
+        this.getChildren().addAll(saveButton, dontSaveButton);    
+        this.setAlignment(Pos.CENTER); // aligning the buttons to center
+    }
+
+    public Button getSaveButton() {
+        return saveButton;
+    }
+
+    public Button getDontSaveButton() {
+        return dontSaveButton;
+    }
+}
+
+class OpenAIResponsePageDescription extends FlowPane {
+    Text description;
+
+    public OpenAIResponsePageDescription(Recipe recipe) {
+        description = new Text(recipe.getDescription());
+
+        //this.setPrefWrapLength(400);
+        description.setWrappingWidth(400);
+        // this.setPrefWidth(200);
+
+        this.getChildren().add(description);
+    }
+
+    public Text getDescription() {
+        return description;
+    }
+}
 
 public class OpenAIResponseScene extends BorderPane{
 
