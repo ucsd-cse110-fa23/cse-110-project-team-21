@@ -9,9 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import UI.MainPage.Main;
 import UI.OpenAIResponsePage.OpenAIResponseScene;
-
-
-
+import Controller.Whisper;
 
 public class NewRecipeFooter extends VBox {
     private Button speakButton;
@@ -22,12 +20,14 @@ public class NewRecipeFooter extends VBox {
     private TargetDataLine targetDataLine;
     private Label recordingLabel;
     private NewRecipeCenterScreen centerScreen;
+    private Whisper whisper;
     public int stepCounter = 0; 
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
     String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red; visibility: hidden";
 
     public NewRecipeFooter(NewRecipeCenterScreen centerScreen) {
+        this.whisper = new Whisper();
         this.centerScreen = centerScreen;
         this.setPrefSize(500, 100);
         this.setStyle("-fx-background-color: #F0F8FF;");
@@ -72,7 +72,13 @@ public class NewRecipeFooter extends VBox {
         stopButton.setOnAction(e -> {
             if(isRecording == true){
                 isRecording = false;
-                stopRecording();
+                try {
+                    stopRecording();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -102,9 +108,13 @@ public class NewRecipeFooter extends VBox {
             File audioFile;
             if(stepCounter ==  0){
                 audioFile = new File("Mealtype.wav");
+
+            // add the audio data to the audio file
             }else{
                 audioFile = new File("Ingredients.wav");
             }
+
+
             AudioSystem.write(
                     audioInputStream,
                     AudioFileFormat.Type.WAVE,
@@ -115,15 +125,20 @@ public class NewRecipeFooter extends VBox {
         }
     }
 
-    private void stopRecording() {
+    private void stopRecording() throws IOException, URISyntaxException {
         targetDataLine.stop();
         targetDataLine.close();
         centerScreen.setUpdateText();
         stepCounter++;
 
+        if(stepCounter == 1) {
+            whisper.execute("Mealtype.wav");
+        }
+
         if (stepCounter == 2){
-            OpenAIResponseScene temp = new OpenAIResponseScene();
-            Main.sceneManager.ChangeScene(temp); 
+            whisper.execute("Ingredients.wav");
+            OpenAIResponseScene temp = new OpenAIResponseScene(whisper.getResult());
+            Main.sceneManager.ChangeScene(temp);
         }
     }
 

@@ -1,6 +1,8 @@
 package UI.OpenAIResponsePage;
 
 
+import java.util.ArrayList;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import UI.MainPage.Main;
@@ -21,12 +23,14 @@ public class OpenAIResponseScene extends BorderPane{
     /*
      * TODO: make it so that this scene takes a recipe object as an input
      */
-    public OpenAIResponseScene() {
+    public OpenAIResponseScene(ArrayList<String> recordingResult) {
 
-        String mealType = "breakfast";
-        String ingredients = "eggs, bacon, bread, butter, milk, cheese, salt, pepper";
+        String mealType = recordingResult.get(0);
+        String ingredients = recordingResult.get(1);
         this.openAIController = new OpenAIResponseController(mealType, ingredients);
-
+        
+        System.out.println("mealtype: " + mealType);
+        System.out.println("ingredients: " + ingredients);
 
         try {
             recipe = openAIController.sendRequest();
@@ -50,8 +54,6 @@ public class OpenAIResponseScene extends BorderPane{
 
         System.out.println(header.titleText);
     }
-
-    
 
     public void addListeners() {
         Button saveButton = footer.getSaveButton();
