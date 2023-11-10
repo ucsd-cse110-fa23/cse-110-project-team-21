@@ -1,9 +1,16 @@
 package UI.DetailPage;
 
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.*;
 import UI.MainPage.Main;
+
+import java.util.Optional;
+
 import RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
 
@@ -44,13 +51,28 @@ public class DetailScene extends BorderPane{
 
     public void addListeners() {
         backButton.setOnAction(e -> {
+            Main.root.update();
             Main.sceneManager.ChangeScene(Main.root);
         });
 
         deleteButton.setOnAction(e -> {
-            Main.recipeManager.removeRecipe(recipe);
-            Main.root.update();
-            Main.sceneManager.ChangeScene(Main.root);
+            // create a alert
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Delete Recipe Confirmation");
+            alert.setHeaderText("Delete Recipe Confirmation");
+            alert.setContentText("Are you sure to permanently delete this recipe?");
+
+            ButtonType buttonConfirm = new ButtonType("Confirm");
+            ButtonType buttonCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonConfirm, buttonCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonConfirm){
+                Main.recipeManager.removeRecipe(recipe);
+                Main.root.update();
+                Main.sceneManager.ChangeScene(Main.root);
+            } 
         });
 
         editButton.setOnAction(e -> {

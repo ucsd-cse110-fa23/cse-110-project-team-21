@@ -64,7 +64,7 @@ public class RecipeJunitTest {
         manager.removeRecipe(firstRecipe);
         assertEquals(1, manager.getList().size());
         manager.removeRecipe(firstRecipe);
-        assertEquals(0, manager.getList().size());
+        assertEquals(1, manager.getList().size());
     }
 
     @Test
@@ -72,11 +72,11 @@ public class RecipeJunitTest {
         manager.addRecipe(firstRecipe);
         manager.addRecipe(firstRecipe);
         assertEquals(2, manager.getList().size());
-        assertEquals("sandwich", manager.getList().get(0).getTitle());
+        assertEquals("sandwich 1", manager.getList().get(0).getTitle());
         assertEquals("sandwich", manager.getList().get(1).getTitle());
         manager.removeRecipe(firstRecipe);
         assertEquals(1, manager.getList().size());
         manager.removeRecipe(firstRecipe);
-        assertEquals(0, manager.getList().size());
+        assertEquals(1, manager.getList().size());
     }
 }

@@ -1,11 +1,9 @@
 package UI.DetailPage;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import UI.MainPage.Main;
 import RecipeLogic.Recipe;
@@ -44,7 +42,10 @@ class EditPageFooter extends HBox{
 
 class EditPageHeader extends HBox {
 
+    private String title;
+
     EditPageHeader(String title) {
+        this.title = title;
         this.setPrefSize(500, 60); // Size of the header
         this.setStyle("-fx-background-color: #F0F8FF;");
 
@@ -56,6 +57,11 @@ class EditPageHeader extends HBox {
         this.setSpacing(30);
         this.setAlignment(Pos.CENTER);
     }
+
+    public String getTitle() {
+        return title;
+    }
+
 }
 
 class EditPageEditor extends FlowPane {
@@ -72,7 +78,7 @@ class EditPageEditor extends FlowPane {
     }
 
     public String saveText() {
-        System.out.println(desc.getText());
+        // System.out.println(desc.getText());
         return desc.getText();
     }
 }
@@ -112,8 +118,9 @@ public class EditPage extends BorderPane{
         });
 
         saveButton.setOnAction(e -> {
-            System.out.println("TODO: backend for save editted recipe");
-            Main.sceneManager.ChangeScene(scene);
+            Main.recipeManager.editRecipe(header.getTitle(), editor.desc.getText());
+            DetailScene detailPage = new DetailScene(Main.recipeManager.getRecipe(header.getTitle()));
+            Main.sceneManager.ChangeScene(detailPage);
         });
     }
 }
