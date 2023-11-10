@@ -24,23 +24,23 @@ public class RecipeIntegrationTest {
         manager.addRecipe(secondRecipe);
         Recipe thirdRecipe = new Recipe("veggie salad", "healthy salad");
         manager.addRecipe(thirdRecipe);
-        assertEquals("sandwich", manager.getList().get(0).getTitle());
+        assertEquals("veggie salad", manager.getList().get(0).getTitle());
         assertEquals("chocolate cake", manager.getList().get(1).getTitle());
-        assertEquals("veggie salad", manager.getList().get(2).getTitle());
+        assertEquals("sandwich", manager.getList().get(2).getTitle());
         assertEquals(3, manager.getList().size());
 
         manager.removeRecipe(firstRecipe);
-        assertEquals("chocolate cake", manager.getList().get(0).getTitle());
-        assertEquals("veggie salad", manager.getList().get(1).getTitle());
+        assertEquals("veggie salad", manager.getList().get(0).getTitle());
+        assertEquals("chocolate cake", manager.getList().get(1).getTitle());
         assertEquals(2, manager.getList().size());
 
 
         // Some nonsense input
         Recipe fourthRecipe = new Recipe("Happy Meal", "Go McDonald's");
         manager.addRecipe(fourthRecipe);
-        assertEquals("chocolate cake", manager.getList().get(0).getTitle());
+        assertEquals("Happy Meal", manager.getList().get(0).getTitle());
         assertEquals("veggie salad", manager.getList().get(1).getTitle());
-        assertEquals("Happy Meal", manager.getList().get(2).getTitle());
+        assertEquals("chocolate cake", manager.getList().get(2).getTitle());
     
         manager.removeAllRecipe();
         assertEquals(0, manager.getList().size());

@@ -22,7 +22,6 @@ public class RecipeManager {
 
     public void removeAllRecipe(){
         recipes.clear();
-
         try {
             updateRecipesToDatabase();
         } catch (Exception e) {
@@ -31,26 +30,75 @@ public class RecipeManager {
     }
 
     public void addRecipe(Recipe r){
-        recipes.add(r);
+        // Method 1, replace the previous recipe
+        // Recipe lastRecipe = this.getRecipe(r.getTitle());
+        // if(lastRecipe != null){
+        //     lastRecipe.setDescription(r.getDescription());
+        // updateRecipesToDatabase();
+
+        // ->NEW: Method 2, add a number to the end of the title
+    
+        Recipe lastRecipe = this.getRecipe(r.getTitle());
+        if(lastRecipe != null){
+            int i = 1;
+            while(this.getRecipe(r.getTitle() + " " + Integer.toString(i)) != null){
+                i = Integer.valueOf(i) + 1;
+            }
+            r.setTitle(r.getTitle() + " " + Integer.toString(i));
+        }
+        // <-End of NEW
+        recipes.add(0, r);
         try {
             updateRecipesToDatabase();
         } catch (Exception e) {
             System.out.println("Could not save recipe to database.");
         }
     }
-    public void removeRecipe(Recipe r){
-        recipes.remove(getRecipe(r.getTitle()));
+    public void removeRecipe(Recipe r) {
+    
+        if (recipes == null || recipes.isEmpty() || !recipes.contains(r)) {
+            System.out.println("Recipe not found");
+            return;
+        }
 
+        Iterator<Recipe> iterator = recipes.iterator();
+        while (iterator.hasNext()) {
+            Recipe recipe = iterator.next();
+            if (recipe.equals(r)) {
+                iterator.remove();
+                break;
+            }
+        }
+    
+        try {
+            updateRecipesToDatabase();
+        } catch (Exception e) {
+            System.out.println("Could not update recipe list to the database.");
+        }
+    }
+
+
+    public void editRecipe(String title, String description){
+        Recipe r = getRecipe(title);
+        r.setDescription(description);
         try {
             updateRecipesToDatabase();
         } catch (Exception e) {
             System.out.println("Could not update recipe list to database.");
         }
     }
+
     public ArrayList<Recipe> getList(){
+        try {
+            recipes = loadRecipes();
+        } catch (Exception e) {
+            System.out.println("Could not load recipes from database.");
+        }
         return recipes;
     }
+
     public Recipe getRecipe(String s){
+        recipes = getList();
         for(Recipe r: recipes) {
             if(r.getTitle().equals(s)) {
                 return r;
@@ -66,6 +114,7 @@ public class RecipeManager {
      * in the recipe generation
      * @throws IOException if there's any error opening the outputfile
      */
+
     public void updateRecipesToDatabase() throws IOException{
         String pathName = DATABASE_FILE;
         File outputFile = new File(pathName);
@@ -104,8 +153,6 @@ public class RecipeManager {
         } catch (Exception e) {
             throw new IOException();
         } 
-        
-
         BufferedReader br = new BufferedReader(fr);
         
         while(br.ready()){  //Get each line and make a contact out of it

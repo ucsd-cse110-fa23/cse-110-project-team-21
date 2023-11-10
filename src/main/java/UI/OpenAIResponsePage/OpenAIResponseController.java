@@ -87,6 +87,13 @@ public class OpenAIResponseController{
         return recipe;
     }
 
+    public Recipe sendRequestMock(){
+        String title = "Mock Recipe";
+        String description = "Ingredients: \n" + "Mock Ingredients";
+        recipe = new Recipe(title, description);
+        return recipe;
+    }
+
     public Recipe getRecipe(){
         return recipe;
     }

@@ -52,10 +52,7 @@ public class MainPageMainScene extends BorderPane{
         addListeners();
 
         loadFromDatabase();
-        // Create a new Recipe
-        String title = "Experienced Chef's Meal: Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes";
-        String stuff = "this was annoying the fuck out of me";
-        mockRecipe = new Recipe(title, stuff);
+
     }
 
     public void update() {
@@ -73,10 +70,15 @@ public class MainPageMainScene extends BorderPane{
         });
 
         mockAddButton.setOnAction(e -> {
+            // Create a new Recipe
+            String title = "Experienced Chef's Meal: Beef and Spinach Stuffed Chicken with Cheesy Mashed Potatoes";
+            String stuff = "this was annoying the fuck out of me";
+            mockRecipe = new Recipe(title, stuff);
             Main.recipeManager.addRecipe(mockRecipe);
-            MainPageRecipeCard example = new MainPageRecipeCard(mockRecipe.getTitle());
-            // // Add Recipe to Recipelist
-             recipeList.getChildren().add(example);
+            this.update();
+            // MainPageRecipeCard example = new MainPageRecipeCard(mockRecipe.getTitle());
+            // // // Add Recipe to Recipelist
+            //  recipeList.getChildren().add(example);
              //Main.recipeManager.addRecipe(mockRecipe);
 
             // create a new scene for adding a new Recipe
