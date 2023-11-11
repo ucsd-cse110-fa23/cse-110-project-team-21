@@ -31,13 +31,13 @@ public class OpenAIResponseScene extends BorderPane{
         System.out.println("mealtype: " + mealType);
         System.out.println("ingredients: " + ingredients);
 
-        // try {
-        //     recipe = openAIController.sendRequest();
-        // } catch (Exception e) {
-        //     System.out.println(e);
-        //     e.printStackTrace();
-        //     return ;
-        // }
+        try {
+            recipe = openAIController.sendRequest();
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+            return ;
+        }
 
 
         header = new OpenAIResponsePageHeader(recipe.getTitle());
