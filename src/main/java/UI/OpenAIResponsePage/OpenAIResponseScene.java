@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import main.UI.MainPage.Main;
-import main.UI.MainPage.MainPageMainScene;
-import main.java.RecipeLogic.Recipe;
+import UI.MainPage.Main;
+import UI.MainPage.MainPageMainScene;
+import java.RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
 
 

@@ -7,9 +7,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import main.UI.MainPage.Main;
-import main.UI.OpenAIResponsePage.OpenAIResponseScene;
-import main.controller.Whisper;
+import UI.MainPage.Main;
+import UI.OpenAIResponsePage.OpenAIResponseScene;
+import Controller.Whisper;
 
 public class NewRecipeFooter extends VBox {
     private Button speakButton;
