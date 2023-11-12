@@ -168,5 +168,11 @@ public class Whisper {
         Collections.addAll(mock, "turkey", "tomato", "bread", "mayonaise", "eggs", "syrup", "lettuce", "chicekn", "steak", "potatos", "milk");
         return mock;
     }
+
+    public ArrayList<String> getMockResult() {
+        ArrayList<String> mock = new ArrayList<String>();
+        Collections.addAll(mock, "lunch", "turkey, tomato, bread, cheese, mayonaise");
+        return mock;
+    }
         
 }
