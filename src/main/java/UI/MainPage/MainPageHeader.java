@@ -31,7 +31,7 @@ public class MainPageHeader extends VBox {
         mockAddButton = new Button("Mock Add"); // text displayed on add button
         mockAddButton.setStyle(defaultButtonStyle); // styling the button
 
-        this.getChildren().addAll(addRecipeButton, /*detailButton,*/ mockAddButton); // adding buttons to footer
+        this.getChildren().addAll(addRecipeButton/* , detailButton, mockAddButton*/); // adding buttons to footer
         this.setAlignment(Pos.CENTER); // aligning the buttons to center
     }
 
