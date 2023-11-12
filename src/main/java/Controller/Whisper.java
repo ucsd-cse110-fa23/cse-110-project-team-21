@@ -90,9 +90,9 @@ public class Whisper {
         System.out.println("Error Result: " + errorResult);
     }
     
-    public String execute(String filePath) throws IOException, URISyntaxException {
+    public String execute(File file) throws IOException, URISyntaxException {
       // Create file object from file path
-      File file = new File(filePath);
+      //File file = new File(filePath);
       String res = "";
       
       // Set up HTTP connection

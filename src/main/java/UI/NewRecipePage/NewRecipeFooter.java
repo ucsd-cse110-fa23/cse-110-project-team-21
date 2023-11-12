@@ -21,6 +21,7 @@ public class NewRecipeFooter extends VBox {
     private Label recordingLabel;
     private NewRecipeCenterScreen centerScreen;
     private Whisper whisper;
+    private File curr;
     public int stepCounter = 0; 
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
@@ -53,19 +54,21 @@ public class NewRecipeFooter extends VBox {
         this.setAlignment(Pos.CENTER);
         
         audioFormat = getAudioFormat();
-        addListner();
+        addListener();
     }
     
-    public void addListner() {
+    public void addListener() {
         speakButton.setOnAction(e -> {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    isRecording = true;
-                    startRecording();
-                }
-            });
-            t.start();
+            if(isRecording == false){
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        isRecording = true;
+                        startRecording();
+                    }
+                });
+                t.start();
+            }
         });
 
         // Stop Button
@@ -84,6 +87,11 @@ public class NewRecipeFooter extends VBox {
 
         // Back Button
         backToMain.setOnAction(e -> {
+            if (isRecording == true) {
+                recordingLabel.setVisible(false);
+                targetDataLine.stop();
+                targetDataLine.close();
+            }
             Main.sceneManager.ChangeScene(Main.root);
         });
     }
@@ -119,6 +127,7 @@ public class NewRecipeFooter extends VBox {
                     audioInputStream,
                     AudioFileFormat.Type.WAVE,
                     audioFile);
+            curr = audioFile;
             recordingLabel.setVisible(false);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -126,18 +135,25 @@ public class NewRecipeFooter extends VBox {
     }
 
     private void stopRecording() throws IOException, URISyntaxException {
+        recordingLabel.setVisible(false);
         targetDataLine.stop();
         targetDataLine.close();
         centerScreen.setUpdateText();
         stepCounter++;
 
         if(stepCounter == 1) {
-            whisper.execute("Mealtype.wav");
+            if (whisper.getResult().size()>0) {
+                System.out.println("Caught");
+                whisper.getResult().clear();
+            }
+            //whisper.execute("Mealtype.wav");
+            whisper.execute(curr);
             System.out.println(whisper.getResult().get(0));
         }
 
         if (stepCounter == 2){
-            whisper.execute("Ingredients.wav");
+            //whisper.execute("Ingredients.wav");
+            whisper.execute(curr);
             OpenAIResponseScene temp = new OpenAIResponseScene(whisper.getResult());
             Main.sceneManager.ChangeScene(temp);
         }
