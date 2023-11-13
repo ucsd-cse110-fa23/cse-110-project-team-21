@@ -6,6 +6,7 @@ import javafx.scene.text.*;
 
 
 public class OpenAIResponsePageHeader extends HBox {
+    // this class specifies the header UI for the new recipe response page
     public Text titleText;
     public OpenAIResponsePageHeader(String titleInput) {
         this.setPrefSize(500, 80); // Size of the header

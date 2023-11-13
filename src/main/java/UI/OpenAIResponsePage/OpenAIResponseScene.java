@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 
 
 public class OpenAIResponseScene extends BorderPane{
+    // this class specifies the layout for the new recipe response screen UI and sends the recipe generation request
 
     private OpenAIResponsePageHeader header;
     private OpenAIResponsePageFooter footer;
@@ -19,9 +20,6 @@ public class OpenAIResponseScene extends BorderPane{
     private OpenAIResponseController openAIController;
     private Recipe recipe;
 
-    /*
-     * TODO: make it so that this scene takes a recipe object as an input
-     */
     public OpenAIResponseScene(ArrayList<String> recordingResult) {
 
         String mealType = recordingResult.get(0);
@@ -31,6 +29,7 @@ public class OpenAIResponseScene extends BorderPane{
         System.out.println("mealtype: " + mealType);
         System.out.println("ingredients: " + ingredients);
 
+        // send the recipe generation request
         try {
             recipe = openAIController.sendRequest();
         } catch (Exception e) {
@@ -51,7 +50,7 @@ public class OpenAIResponseScene extends BorderPane{
         this.setBottom(footer);
         addListeners();
 
-        System.out.println(header.titleText);
+        //System.out.println(header.titleText);
     }
 
     public void addListeners() {
@@ -61,15 +60,13 @@ public class OpenAIResponseScene extends BorderPane{
             Main.recipeManager.addRecipe(recipe);
             Main.root.update();
             Main.sceneManager.ChangeScene(Main.root);
-            //do stuff
         });
 
         // Delete button functionality
         Button dontSaveButton = footer.getDontSaveButton();
         dontSaveButton.setOnAction(e -> {
-            System.out.println("Don't Save button pressed");
+            //System.out.println("Don't Save button pressed");
             Main.sceneManager.ChangeScene(Main.root);
-            //do stuff
         });
     }
 

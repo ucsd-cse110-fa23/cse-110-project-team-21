@@ -6,6 +6,8 @@ import javafx.scene.layout.*;
 
 
 public class DetailPageFooter extends HBox{
+    // this class specifies the footer UI (including buttons) of a detail page
+
     private Button deleteButton;
     private Button editButton;
     

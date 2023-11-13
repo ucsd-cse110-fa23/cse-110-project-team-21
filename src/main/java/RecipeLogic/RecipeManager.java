@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class RecipeManager {
+    // this file manages the list of recipes in memory and reads/writes from the database (csv file)
 
     final String DATABASE_FILE = "recipes.csv";
     private ArrayList<Recipe> recipes;
@@ -21,6 +22,7 @@ public class RecipeManager {
     }
 
     public void removeAllRecipe(){
+        // removes all recipes in list then rewrites this to database
         recipes.clear();
         try {
             updateRecipesToDatabase();
@@ -30,6 +32,8 @@ public class RecipeManager {
     }
 
     public void addRecipe(Recipe r){
+        // adds the specified recipe, addresses duplicate titles, then rewrites everything to database
+
         // Method 1, replace the previous recipe
         // Recipe lastRecipe = this.getRecipe(r.getTitle());
         // if(lastRecipe != null){
@@ -37,6 +41,7 @@ public class RecipeManager {
         // updateRecipesToDatabase();
 
         // ->NEW: Method 2, add a number to the end of the title
+
     
         Recipe lastRecipe = this.getRecipe(r.getTitle());
         if(lastRecipe != null){
@@ -55,6 +60,7 @@ public class RecipeManager {
         }
     }
     public void removeRecipe(Recipe r) {
+        // removes the specified recipe then rewrites everything to database
     
         if (recipes == null || recipes.isEmpty() || !recipes.contains(r)) {
             System.out.println("Recipe not found");
@@ -76,6 +82,18 @@ public class RecipeManager {
             System.out.println("Could not update recipe list to the database.");
         }
     }
+
+
+
+//     public void editRecipe(String title, String description){ // updates the edited recipe then rewrites everything to database
+//         Recipe r = getRecipe(title);
+//         r.setDescription(description);
+//         try {
+//             updateRecipesToDatabase();
+//         } catch (Exception e) {
+//             System.out.println("Could not update recipe list to database.");
+//         }
+//     }
 
     public ArrayList<Recipe> getList(){
         try {

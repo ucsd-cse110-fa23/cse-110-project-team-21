@@ -7,7 +7,8 @@ import UI.DetailPage.DetailScene;
 
 
 public class MainPageRecipeCard extends HBox {
-
+    // this class sets up the UI/Button for each recipe on the main page's list 
+    
     private Button clickTitle;
     private DetailScene details;
 
@@ -22,7 +23,7 @@ public class MainPageRecipeCard extends HBox {
         clickTitle.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
         this.getChildren().add(clickTitle);
 
-        System.out.println(Main.recipeManager.getRecipe(title).getTitle() + " " + Main.recipeManager.getRecipe(title).getDescription());
+        //System.out.println(Main.recipeManager.getRecipe(title).getTitle() + " " + Main.recipeManager.getRecipe(title).getDescription());
         details = new DetailScene(Main.recipeManager.getRecipe(title));
 
         clickTitle.setOnAction(e -> {
