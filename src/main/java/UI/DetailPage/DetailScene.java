@@ -79,5 +79,9 @@ public class DetailScene extends BorderPane{
             Main.sceneManager.ChangeScene(new EditPage(this, recipe));
         });
     }
+
+    public void update(String s) {
+        desc.update(s);
+    }
     
 }

@@ -77,17 +77,6 @@ public class RecipeManager {
         }
     }
 
-
-    public void editRecipe(String title, String description){
-        Recipe r = getRecipe(title);
-        r.setDescription(description);
-        try {
-            updateRecipesToDatabase();
-        } catch (Exception e) {
-            System.out.println("Could not update recipe list to database.");
-        }
-    }
-
     public ArrayList<Recipe> getList(){
         try {
             recipes = loadRecipes();

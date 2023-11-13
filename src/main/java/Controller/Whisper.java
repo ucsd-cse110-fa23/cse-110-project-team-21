@@ -3,6 +3,7 @@ package Controller;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.*;
 
@@ -154,6 +155,24 @@ public class Whisper {
     
     public ArrayList<String> getResult() {
       return recordingResult;
+    }
+
+    public ArrayList<String> getMockBLMTResult() {
+        ArrayList<String> mock = new ArrayList<String>();
+        mock.add("lunch");
+        return mock;
+    }
+
+    public ArrayList<String> getMockIngredientResult() {
+        ArrayList<String> mock = new ArrayList<String>();
+        Collections.addAll(mock, "turkey", "tomato", "bread", "mayonaise", "eggs", "syrup", "lettuce", "chicekn", "steak", "potatos", "milk");
+        return mock;
+    }
+
+    public ArrayList<String> getMockResult() {
+        ArrayList<String> mock = new ArrayList<String>();
+        Collections.addAll(mock, "lunch", "turkey, tomato, bread, cheese, mayonaise");
+        return mock;
     }
         
 }

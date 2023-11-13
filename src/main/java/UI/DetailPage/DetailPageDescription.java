@@ -17,4 +17,8 @@ public class DetailPageDescription extends FlowPane {
 
         this.getChildren().add(description);
     }
+
+    public void update(String s) {
+        description.setText(s);
+    }
 }

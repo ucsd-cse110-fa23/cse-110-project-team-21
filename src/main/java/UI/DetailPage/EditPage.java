@@ -6,6 +6,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.*;
 import UI.MainPage.Main;
+
+import java.io.IOException;
+
 import RecipeLogic.Recipe;
 import javafx.scene.control.*;
 
@@ -90,11 +93,14 @@ public class EditPage extends BorderPane{
     //private ScrollPane scrollPane;
     private Button cancelButton;
     private Button saveButton;
+    private Recipe recipe;
 
     EditPage(DetailScene detailScene, Recipe recipe) {
         footer = new EditPageFooter();
         header = new EditPageHeader(recipe.getTitle());
         editor = new EditPageEditor(recipe);
+
+        this.recipe = recipe;
 
         // scrollPane = new ScrollPane(editor);
         // scrollPane.setFitToWidth(true);
@@ -118,9 +124,16 @@ public class EditPage extends BorderPane{
         });
 
         saveButton.setOnAction(e -> {
-            Main.recipeManager.editRecipe(header.getTitle(), editor.desc.getText());
-            DetailScene detailPage = new DetailScene(Main.recipeManager.getRecipe(header.getTitle()));
-            Main.sceneManager.ChangeScene(detailPage);
+            //Main.recipeManager.getRecipe(recipe.getTitle()).setDescription("this is a new description");
+            recipe.setDescription(editor.saveText());
+            try {
+                Main.recipeManager.updateRecipesToDatabase();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                System.out.println("Could not update recipe");
+            }
+            scene.update(editor.saveText());
+            Main.sceneManager.ChangeScene(scene);
         });
     }
 }

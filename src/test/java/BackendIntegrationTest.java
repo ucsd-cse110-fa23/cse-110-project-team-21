@@ -7,6 +7,7 @@ import UI.OpenAIResponsePage.OpenAIResponseController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,8 +25,14 @@ public class BackendIntegrationTest {
         manager.addRecipe(mockRecipe);
         assertEquals("Mock Recipe", manager.getList().get(0).getTitle());
 
-        manager.editRecipe("Mock Recipe", "Mock Description 2");
+        manager.getRecipe(mockRecipe.getTitle()).setDescription("Mock Description 2");
+        try {
+            manager.updateRecipesToDatabase();
+        } catch (IOException e1) {
+            System.out.println("Could not update recipe");
+        }
         assertEquals("Mock Description 2", manager.getList().get(0).getDescription());
+        assertEquals(1, manager.getList().size());
         manager.addRecipe(mockRecipe);
         assertEquals("Mock Recipe 1", manager.getList().get(0).getTitle());
         assertEquals("Mock Recipe", manager.getList().get(1).getTitle());
