@@ -14,3 +14,5 @@
     ```
 4. Run Main.java
 5. Enjoy PantryPal! 
+
+## Burndown Chart Access [here](https://drive.google.com/file/d/1IQ025592ahqUkz1QL4_kW87Gy5KT8S8c/view?usp=sharing)
