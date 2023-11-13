@@ -124,6 +124,7 @@ public class EditPage extends BorderPane{
         });
 
         saveButton.setOnAction(e -> {
+            //Main.recipeManager.getRecipe(recipe.getTitle()).setDescription("this is a new description");
             recipe.setDescription(editor.saveText());
             try {
                 Main.recipeManager.updateRecipesToDatabase();
@@ -131,8 +132,8 @@ public class EditPage extends BorderPane{
                 // TODO Auto-generated catch block
                 System.out.println("Could not update recipe");
             }
-            DetailScene detailPage = new DetailScene(Main.recipeManager.getRecipe(header.getTitle()));
-            Main.sceneManager.ChangeScene(detailPage);
+            scene.update(editor.saveText());
+            Main.sceneManager.ChangeScene(scene);
         });
     }
 }

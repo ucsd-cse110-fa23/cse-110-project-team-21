@@ -45,27 +45,43 @@ public class EndtoEndTest {
         //save function for recipe manger
         manager.addRecipe(recipe);
         assertEquals(1, manager.getList().size());
+        assertEquals(recipe, manager.getList().get(0));
 
         //check csv if it is there, testing if it is visibale from main
 
+
         //creating duplicate recipes
+        Recipe recipe2 = controller.sendRequestMock();
+        manager.addRecipe(recipe2);
+        Recipe recipe3 = controller.sendRequestMock();
+        manager.addRecipe(recipe3);
+        assertEquals("Mock Recipe 2", manager.getList().get(0).getTitle());
+        assertEquals("Mock Recipe 1", manager.getList().get(1).getTitle());
+        assertEquals("Mock Recipe", manager.getList().get(2).getTitle());
 
-
-        //testing viewing a recipe (if that is possible) and mock editting the recipe, then saving
-        recipe.setDescription("this is a new description");
+        //mock editting the recipe
+        manager.getRecipe(recipe.getTitle()).setDescription("this is a new description");
         try {
             manager.updateRecipesToDatabase();
         } catch (IOException e1) {
             System.out.println("Could not update recipe");
         }
-        assertEquals("this is a new description", recipe.getDescription());
+   
+        assertEquals("this is a new description", manager.getList().get(2).getDescription());
+        assertEquals(3, manager.getList().size());
+
+        //test deleting a recipe from recipeManager
+        manager.removeRecipe(recipe2);
+        assertEquals(2, manager.getList().size());
+        assertEquals("Mock Recipe 2", manager.getList().get(0).getTitle());
+        assertEquals("Mock Recipe", manager.getList().get(1).getTitle());
+
+        manager.removeRecipe(recipe3);
         assertEquals(1, manager.getList().size());
+        assertEquals("Mock Recipe", manager.getList().get(0).getTitle());
 
-        //test deleting a recipe from recipeManager and seeing it change in the csv
-
-
-
-        manager.removeAllRecipe();
+        manager.removeRecipe(recipe);
+        assertEquals(0, manager.getList().size());
     }
     
 }
