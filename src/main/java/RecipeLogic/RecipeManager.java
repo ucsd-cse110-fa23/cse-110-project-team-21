@@ -84,15 +84,16 @@ public class RecipeManager {
     }
 
 
-    public void editRecipe(String title, String description){ // updates the edited recipe then rewrites everything to database
-        Recipe r = getRecipe(title);
-        r.setDescription(description);
-        try {
-            updateRecipesToDatabase();
-        } catch (Exception e) {
-            System.out.println("Could not update recipe list to database.");
-        }
-    }
+
+//     public void editRecipe(String title, String description){ // updates the edited recipe then rewrites everything to database
+//         Recipe r = getRecipe(title);
+//         r.setDescription(description);
+//         try {
+//             updateRecipesToDatabase();
+//         } catch (Exception e) {
+//             System.out.println("Could not update recipe list to database.");
+//         }
+//     }
 
     public ArrayList<Recipe> getList(){
         try {
