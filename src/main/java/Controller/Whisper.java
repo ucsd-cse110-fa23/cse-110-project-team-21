@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import org.json.*;
 
 public class Whisper {
+    // a significant amount of the code in this class is taken or inspired from Lab 4
+    // this class facilitates interacting with Whisper using the OpenAI API
+
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN = "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";
     private static final String MODEL = "whisper-1";

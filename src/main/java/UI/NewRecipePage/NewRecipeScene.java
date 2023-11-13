@@ -4,6 +4,8 @@ import javafx.scene.layout.*;
 
 
 public class NewRecipeScene extends BorderPane {
+    // this class specifies the layout for the new recipe input screen UI
+
     private NewRecipeHeader header;
     private NewRecipeCenterScreen centerScreen;
     private NewRecipeFooter footer;

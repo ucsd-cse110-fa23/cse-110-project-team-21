@@ -3,6 +3,7 @@ package RecipeLogic;
 import java.util.Objects;
 
 public class Recipe {
+    // each instance of this class represents a recipe that has been saved
     private String title;
     private String description;
 

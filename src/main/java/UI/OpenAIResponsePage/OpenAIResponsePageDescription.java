@@ -5,6 +5,7 @@ import javafx.scene.text.*;
 import RecipeLogic.Recipe;
 
 public class OpenAIResponsePageDescription extends FlowPane {
+    // this class specifies the description (text) UI for the new recipe response page
     Text description;
 
     public OpenAIResponsePageDescription(Recipe recipe) {

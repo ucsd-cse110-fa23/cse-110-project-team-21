@@ -8,6 +8,8 @@ import javafx.scene.text.*;
 
 
 public class MainPageHeader extends VBox {
+    // this class specifies the header UI (including buttons) for the main page
+    
     private Button addRecipeButton;
     //private Button detailButton;
     private Button mockAddButton;

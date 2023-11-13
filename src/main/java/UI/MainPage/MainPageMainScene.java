@@ -8,7 +8,7 @@ import javafx.scene.control.ScrollPane;
 
 
 public class MainPageMainScene extends BorderPane{
-
+    // this class specifies the layout for the main page UI
 
     private MainPageHeader header;
     private MainPageFooter footer;
@@ -97,7 +97,7 @@ public class MainPageMainScene extends BorderPane{
      * recipe card, which gets added as a MainScene child
      */
     public void loadFromDatabase(){
-        System.out.println("LOADING FROM DATABASE");
+        //System.out.println("LOADING FROM DATABASE");
         recipeList.getChildren().clear();
         for(Recipe r: Main.recipeManager.getList()){
             MainPageRecipeCard toAdd = new MainPageRecipeCard(r.getTitle());

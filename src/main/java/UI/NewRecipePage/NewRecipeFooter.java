@@ -12,6 +12,12 @@ import UI.OpenAIResponsePage.OpenAIResponseScene;
 import Controller.Whisper;
 
 public class NewRecipeFooter extends VBox {
+    // a significant amount of the code in this class is taken or inspired from Lab 5
+
+    // this class specifies the footer UI for the new recipe input page, handles the stop/start/back button behaviors (audio recording),
+    // and calls Whisper on the audio inputs
+
+
     private Button speakButton;
     private Button stopButton;
     private Button backToMain;
@@ -28,6 +34,7 @@ public class NewRecipeFooter extends VBox {
     String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red; visibility: hidden";
 
     public NewRecipeFooter(NewRecipeCenterScreen centerScreen) {
+        // setup UI for the footer and its buttons
         this.whisper = new Whisper();
         this.centerScreen = centerScreen;
         this.setPrefSize(500, 100);
@@ -135,23 +142,25 @@ public class NewRecipeFooter extends VBox {
     }
 
     private void stopRecording() throws IOException, URISyntaxException {
+        // stop recording
         recordingLabel.setVisible(false);
         targetDataLine.stop();
         targetDataLine.close();
         centerScreen.setUpdateText();
         stepCounter++;
 
-        if(stepCounter == 1) {
+        // call Whisper on the recorded audio input
+        if(stepCounter == 1) { // this block runs if this is the first audio input for the new recipe
             if (whisper.getResult().size()>0) {
-                System.out.println("Caught");
+                //System.out.println("Caught");
                 whisper.getResult().clear();
             }
             //whisper.execute("Mealtype.wav");
             whisper.execute(curr);
-            System.out.println(whisper.getResult().get(0));
+            //System.out.println(whisper.getResult().get(0));
         }
 
-        if (stepCounter == 2){
+        if (stepCounter == 2){ // this block runs if this is the second audio input for the new recipe
             //whisper.execute("Ingredients.wav");
             whisper.execute(curr);
             OpenAIResponseScene temp = new OpenAIResponseScene(whisper.getResult());

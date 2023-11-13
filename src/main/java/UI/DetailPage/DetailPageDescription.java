@@ -6,6 +6,8 @@ import javafx.scene.text.*;
 
 
 public class DetailPageDescription extends FlowPane {
+    // this class specifies the description UI of a detail page
+
     Text description;
 
     public DetailPageDescription(String s) {

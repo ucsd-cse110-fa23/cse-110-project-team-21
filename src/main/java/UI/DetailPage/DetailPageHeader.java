@@ -8,6 +8,8 @@ import javafx.scene.text.*;
 
 
 public class DetailPageHeader extends HBox {
+    // this class specifies the header UI (including Back Button) of a detail page
+
     private Button backButton;
 
     public DetailPageHeader(String title) {

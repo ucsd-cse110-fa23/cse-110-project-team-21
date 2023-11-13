@@ -10,6 +10,7 @@ import RecipeLogic.Recipe;
 import javafx.scene.control.*;
 
 class EditPageFooter extends HBox{
+    // this class specifies the layout for the edit page UI (including buttons and editable text) and allows saving of edits
     
     private Button saveButton;
     private Button cancelButton;

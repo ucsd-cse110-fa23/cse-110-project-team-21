@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 
 
 public class OpenAIResponsePageFooter extends HBox{
+    // this class specifies the footer UI and its buttons for the new recipe response page
     private Button saveButton;
     private Button dontSaveButton;
     

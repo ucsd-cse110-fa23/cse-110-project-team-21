@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
 public class NewRecipeHeader extends VBox {
+    // this class specifies the header UI for the new recipe input page
 
     public NewRecipeHeader() {
         this.setPrefSize(500, 60); // Size of the header

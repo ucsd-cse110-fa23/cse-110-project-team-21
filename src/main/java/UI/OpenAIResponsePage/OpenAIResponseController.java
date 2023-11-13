@@ -13,6 +13,9 @@ import RecipeLogic.Recipe;
 
 
 public class OpenAIResponseController{
+    // a significant amount of the code in this class is taken or inspired from Lab 4
+
+    // this class facilitates interacting with "chatGPT" (davinci-003) using the OpenAI API
 
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
     // Api Key Shang

@@ -16,6 +16,8 @@ import javafx.scene.control.ScrollPane;
 
 
 public class DetailScene extends BorderPane{
+    // this class specifies the layout for a detail page's UI
+
     private DetailPageHeader header;
     private DetailPageFooter footer;
     private ScrollPane scrollPane;
@@ -56,7 +58,7 @@ public class DetailScene extends BorderPane{
         });
 
         deleteButton.setOnAction(e -> {
-            // create a alert
+            // create an alert that allows user to confirm deletion
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Delete Recipe Confirmation");
             alert.setHeaderText("Delete Recipe Confirmation");

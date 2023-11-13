@@ -5,6 +5,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
 public class NewRecipeCenterScreen extends VBox {
+    // this class specifies the center (text) UI for both steps of the new recipe input page 
+
     public Text updateText;
 
     public NewRecipeCenterScreen() {
@@ -20,6 +22,7 @@ public class NewRecipeCenterScreen extends VBox {
     }
 
     public void setUpdateText() {
+        // switch to the second prompt after the first input has been accepted
         updateText.setText("Enter Ingredients: ");
     }
 
