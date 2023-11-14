@@ -2,14 +2,18 @@ package UI.MainPage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import UI.SceneLogic.SceneManager;
+import Controller.GPTController;
+import Controller.WhisperController;
 import RecipeLogic.RecipeManager;
+import UI.SceneManager;
 
 
 public class Main extends Application {
     public static SceneManager sceneManager;
-    public static MainPageMainScene root;
+    public static MainScene root;
     public static RecipeManager recipeManager;
+    public static GPTController gptController;
+    public static WhisperController WhisperController;
 
 
     @Override
@@ -19,7 +23,7 @@ public class Main extends Application {
         recipeManager = new RecipeManager();
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        root = new MainPageMainScene();
+        root = new MainScene();
         sceneManager = new SceneManager(primaryStage);
       
         // Set the title of the app

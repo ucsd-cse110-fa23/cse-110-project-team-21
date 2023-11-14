@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.Test;
 
-import Controller.Whisper;
+import Controller.GPTController;
+import Controller.WhisperController;
 import RecipeLogic.Recipe;
 import RecipeLogic.RecipeManager;
 import UI.MainPage.Main;
-import UI.OpenAIResponsePage.OpenAIResponseController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,8 +17,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class EndtoEndTest {
     RecipeManager manager;
-    Whisper whisper;
-    OpenAIResponseController controller;
+    WhisperController whisper;
+    GPTController controller;
 
     @Test
     void EndtoEndScenario() {
@@ -26,7 +26,7 @@ public class EndtoEndTest {
         manager = new RecipeManager();
         manager.removeAllRecipe();
 
-        whisper = new Whisper();
+        whisper = new WhisperController();
 
 
         //adding a new recipe
@@ -35,7 +35,7 @@ public class EndtoEndTest {
         assertEquals("lunch", mealType);
         String ingredients = whisper.getMockResult().get(1);
         assertEquals("turkey, tomato, bread, cheese, mayonaise", ingredients);
-        controller = new OpenAIResponseController(mealType, ingredients);
+        controller = new GPTController(mealType, ingredients);
 
         //chat gpt mock response
         Recipe recipe = controller.sendRequestMock();

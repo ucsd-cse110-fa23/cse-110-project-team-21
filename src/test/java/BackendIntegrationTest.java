@@ -1,9 +1,9 @@
 
 import org.junit.jupiter.api.Test;
 
+import Controller.GPTController;
 import RecipeLogic.Recipe;
 import RecipeLogic.RecipeManager;
-import UI.OpenAIResponsePage.OpenAIResponseController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,7 +17,7 @@ public class BackendIntegrationTest {
 
     @Test
     void testBDDScenario() {
-        OpenAIResponseController controller = new OpenAIResponseController("breakfast", "eggs, bacon, bread");
+        GPTController controller = new GPTController("breakfast", "eggs, bacon, bread");
         RecipeManager manager = new RecipeManager();
         Recipe mockRecipe = controller.sendRequestMock();
 

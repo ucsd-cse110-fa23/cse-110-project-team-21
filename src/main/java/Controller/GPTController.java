@@ -1,4 +1,4 @@
-package UI.OpenAIResponsePage;
+package Controller;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import RecipeLogic.Recipe;
 
 
-public class OpenAIResponseController{
+public class GPTController{
     // a significant amount of the code in this class is taken or inspired from Lab 4
 
     // this class facilitates interacting with "chatGPT" (davinci-003) using the OpenAI API
@@ -27,7 +27,7 @@ public class OpenAIResponseController{
     private String mealType;
     private String ingredients;
     private Recipe recipe;
-    public OpenAIResponseController(String mealType, String ingredients) {
+    public GPTController(String mealType, String ingredients) {
         this.mealType = mealType;
         this.ingredients = ingredients;
     } 

@@ -7,7 +7,7 @@ import java.util.Collections;
 
 import org.json.*;
 
-public class Whisper {
+public class WhisperController {
     // a significant amount of the code in this class is taken or inspired from Lab 4
     // this class facilitates interacting with Whisper using the OpenAI API
 

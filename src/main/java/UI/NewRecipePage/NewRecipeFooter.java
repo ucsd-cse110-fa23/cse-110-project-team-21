@@ -8,8 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import UI.MainPage.Main;
-import UI.OpenAIResponsePage.OpenAIResponseScene;
-import Controller.Whisper;
+import Controller.WhisperController;
 
 public class NewRecipeFooter extends VBox {
     // a significant amount of the code in this class is taken or inspired from Lab 5
@@ -26,7 +25,7 @@ public class NewRecipeFooter extends VBox {
     private TargetDataLine targetDataLine;
     private Label recordingLabel;
     private NewRecipeCenterScreen centerScreen;
-    private Whisper whisper;
+    private WhisperController whisper;
     private File curr;
     public int stepCounter = 0; 
 
@@ -35,7 +34,7 @@ public class NewRecipeFooter extends VBox {
 
     public NewRecipeFooter(NewRecipeCenterScreen centerScreen) {
         // setup UI for the footer and its buttons
-        this.whisper = new Whisper();
+        this.whisper = new WhisperController();
         this.centerScreen = centerScreen;
         this.setPrefSize(500, 100);
         this.setStyle("-fx-background-color: #F0F8FF;");
