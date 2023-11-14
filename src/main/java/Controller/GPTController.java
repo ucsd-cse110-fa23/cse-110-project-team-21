@@ -27,14 +27,15 @@ public class GPTController{
     private String mealType;
     private String ingredients;
     private Recipe recipe;
-    public GPTController(String mealType, String ingredients) {
+    private String prompt;
+
+    public void setPerameters(String mealType, String ingredients) {
         this.mealType = mealType;
         this.ingredients = ingredients;
-    } 
+        prompt = " I am a college student with little cooking experience. In my kitchen, I have" + ingredients + ". Can you give me a " + mealType + " recipe for a meal I can make using these ingredients? Please do not include any other ingredients in the recipe as I do not have the time to purchase more ingredients. List the title of the recipe as the first line of your output.";
+    }
 
     public Recipe sendRequest() throws IOException, InterruptedException, URISyntaxException {
-
-        String prompt = " I am a college student with little cooking experience. In my kitchen, I have" + ingredients + ". Can you give me a " + mealType + " recipe for a meal I can make using these ingredients? Please do not include any other ingredients in the recipe as I do not have the time to purchase more ingredients. List the title of the recipe as the first line of your output.";
 
         // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();

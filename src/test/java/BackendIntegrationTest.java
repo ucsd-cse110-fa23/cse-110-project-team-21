@@ -17,10 +17,11 @@ public class BackendIntegrationTest {
 
     @Test
     void testBDDScenario() {
-        GPTController controller = new GPTController("breakfast", "eggs, bacon, bread");
+        GPTController controller = new GPTController();
         RecipeManager manager = new RecipeManager();
         Recipe mockRecipe = controller.sendRequestMock();
 
+        controller.setPerameters("breakfast", "eggs, bacon, bread");
         manager.removeAllRecipe();
         manager.addRecipe(mockRecipe);
         assertEquals("Mock Recipe", manager.getList().get(0).getTitle());

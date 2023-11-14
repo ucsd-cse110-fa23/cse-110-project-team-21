@@ -6,10 +6,10 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
-public class NewRecipeHeader extends VBox {
+public class VInputHeader extends VBox {
     // this class specifies the header UI for the new recipe input page
 
-    public NewRecipeHeader() {
+    public VInputHeader() {
         this.setPrefSize(500, 60); // Size of the header
         this.setStyle("-fx-background-color: #F0F8FF;");
         Text titleText = new Text("Adding New Recipe"); // Text of the Header

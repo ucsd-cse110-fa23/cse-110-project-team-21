@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import UI.DetailPage.DetailScene;
-import UI.NewRecipePage.NewRecipeScene;
+import UI.NewRecipePage.VInputScene;
 import RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
 
@@ -161,7 +161,7 @@ public class MainScene extends BorderPane{
         // Add button functionality
         addButton.setOnAction(e -> {
             // create a new scene for adding a new Recipe
-            NewRecipeScene newRecipeScene = new NewRecipeScene();
+            VInputScene newRecipeScene = new VInputScene();
             Main.sceneManager.ChangeScene(newRecipeScene);
         });
 

@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 import UI.MainPage.Main;
 import Controller.WhisperController;
 
-public class NewRecipeFooter extends VBox {
+public class VInputFooter extends VBox {
     // a significant amount of the code in this class is taken or inspired from Lab 5
 
     // this class specifies the footer UI for the new recipe input page, handles the stop/start/back button behaviors (audio recording),
@@ -24,7 +24,7 @@ public class NewRecipeFooter extends VBox {
     private AudioFormat audioFormat;
     private TargetDataLine targetDataLine;
     private Label recordingLabel;
-    private NewRecipeCenterScreen centerScreen;
+    private VInputCenterScreen centerScreen;
     private WhisperController whisper;
     private File curr;
     public int stepCounter = 0; 
@@ -32,7 +32,7 @@ public class NewRecipeFooter extends VBox {
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
     String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red; visibility: hidden";
 
-    public NewRecipeFooter(NewRecipeCenterScreen centerScreen) {
+    public VInputFooter(VInputCenterScreen centerScreen) {
         // setup UI for the footer and its buttons
         this.whisper = new WhisperController();
         this.centerScreen = centerScreen;
@@ -162,7 +162,7 @@ public class NewRecipeFooter extends VBox {
         if (stepCounter == 2){ // this block runs if this is the second audio input for the new recipe
             //whisper.execute("Ingredients.wav");
             whisper.execute(curr);
-            OpenAIResponseScene temp = new OpenAIResponseScene(whisper.getResult());
+            NewRecipeScene temp = new NewRecipeScene(whisper.getResult());
             Main.sceneManager.ChangeScene(temp);
         }
     }

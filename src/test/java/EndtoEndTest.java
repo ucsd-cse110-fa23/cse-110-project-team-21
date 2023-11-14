@@ -35,7 +35,8 @@ public class EndtoEndTest {
         assertEquals("lunch", mealType);
         String ingredients = whisper.getMockResult().get(1);
         assertEquals("turkey, tomato, bread, cheese, mayonaise", ingredients);
-        controller = new GPTController(mealType, ingredients);
+        controller = new GPTController();
+        controller.setPerameters(mealType, ingredients);
 
         //chat gpt mock response
         Recipe recipe = controller.sendRequestMock();
