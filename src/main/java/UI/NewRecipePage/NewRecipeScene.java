@@ -13,10 +13,10 @@ import UI.MainPage.MainScene;
 import RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
 
-class OpenAIResponsePageHeader extends HBox {
+class NewRecipeHeader extends HBox {
     // this class specifies the header UI for the new recipe response page
     public Text titleText;
-    public OpenAIResponsePageHeader(String titleInput) {
+    public NewRecipeHeader(String titleInput) {
         this.setPrefSize(500, 80); // Size of the header
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.titleText = new Text(titleInput); // Text of the Header
@@ -35,11 +35,11 @@ class OpenAIResponsePageHeader extends HBox {
     }
 }
 
-class OpenAIResponsePageDescription extends FlowPane {
+class NewRecipeDescription extends FlowPane {
     // this class specifies the description (text) UI for the new recipe response page
     Text description;
 
-    public OpenAIResponsePageDescription(Recipe recipe) {
+    public NewRecipeDescription(Recipe recipe) {
         description = new Text(recipe.getDescription());
 
         //this.setPrefWrapLength(400);
@@ -54,44 +54,12 @@ class OpenAIResponsePageDescription extends FlowPane {
     }
 }
 
-class DetailPageFooter extends HBox{
-    // this class specifies the footer UI (including buttons) of a detail page
-
-    private Button deleteButton;
-    private Button editButton;
-    
-    public DetailPageFooter() {
-        this.setPrefSize(500, 60);
-        this.setStyle("-fx-background-color: #F0F8FF;");
-        this.setSpacing(15);
-
-        String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 16 arial; -fx-pref-width: 100; -fx-pref-height: 60";
-
-        deleteButton = new Button("Delete");
-        deleteButton.setStyle(defaultButtonStyle);
-        editButton = new Button("Edit");
-        editButton.setStyle(defaultButtonStyle);
-        this.getChildren().addAll(deleteButton, editButton);
-        deleteButton.setAlignment(Pos.CENTER);
-        this.setSpacing(20);
-        //editButton.setAlignment(Pos.CENTER_RIGHT);
-    }
-
-    public Button getDeleteButton() {
-        return deleteButton;
-    }
-
-    public Button getEditButton() {
-        return editButton;
-    }
-}
-
-class OpenAIResponsePageFooter extends HBox{
+class NewRecipeFooter extends HBox{
     // this class specifies the footer UI and its buttons for the new recipe response page
     private Button saveButton;
     private Button dontSaveButton;
     
-    public OpenAIResponsePageFooter() {
+    public NewRecipeFooter() {
         this.setPrefSize(500, 60);
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.setSpacing(15);
@@ -118,10 +86,10 @@ class OpenAIResponsePageFooter extends HBox{
 public class NewRecipeScene extends BorderPane{
     // this class specifies the layout for the new recipe response screen UI and sends the recipe generation request
 
-    private OpenAIResponsePageHeader header;
-    private OpenAIResponsePageFooter footer;
+    private NewRecipeHeader header;
+    private NewRecipeFooter footer;
     private ScrollPane scrollPane;
-    private OpenAIResponsePageDescription desc;
+    private NewRecipeDescription desc;
     private GPTController openAIController;
     private Recipe recipe;
 
@@ -138,6 +106,7 @@ public class NewRecipeScene extends BorderPane{
         // send the recipe generation request
         try {
             recipe = openAIController.sendRequest();
+            recipe.setTitle(mealType+ ": " + recipe.getTitle());
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -145,9 +114,9 @@ public class NewRecipeScene extends BorderPane{
         }
 
 
-        header = new OpenAIResponsePageHeader(recipe.getTitle());
-        footer = new OpenAIResponsePageFooter();
-        desc = new OpenAIResponsePageDescription(recipe);
+        header = new NewRecipeHeader(recipe.getTitle());
+        footer = new NewRecipeFooter();
+        desc = new NewRecipeDescription(recipe);
         scrollPane = new ScrollPane(desc);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
@@ -176,15 +145,15 @@ public class NewRecipeScene extends BorderPane{
         });
     }
 
-    public OpenAIResponsePageHeader getHeader() {
+    public NewRecipeHeader getHeader() {
         return header;
     }
 
-    public OpenAIResponsePageFooter getFooter() {
+    public NewRecipeFooter getFooter() {
         return footer;
     }
 
-    public OpenAIResponsePageDescription getDesc() {
+    public NewRecipeDescription getDesc() {
         return desc;
     }
 
