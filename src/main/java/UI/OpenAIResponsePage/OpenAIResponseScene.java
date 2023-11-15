@@ -32,6 +32,7 @@ public class OpenAIResponseScene extends BorderPane{
         // send the recipe generation request
         try {
             recipe = openAIController.sendRequest();
+            recipe.setTitle(mealType+ ": " + recipe.getTitle());
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
