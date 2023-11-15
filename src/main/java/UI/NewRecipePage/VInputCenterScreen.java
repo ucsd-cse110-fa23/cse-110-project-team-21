@@ -4,12 +4,12 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
-public class NewRecipeCenterScreen extends VBox {
+public class VInputCenterScreen extends VBox {
     // this class specifies the center (text) UI for both steps of the new recipe input page 
 
     public Text updateText;
 
-    public NewRecipeCenterScreen() {
+    public VInputCenterScreen() {
         this.setSpacing(5); // sets spacing between Recipes
         this.setPrefSize(500, 560);
         this.setStyle("-fx-background-color: #F0F8FF;");

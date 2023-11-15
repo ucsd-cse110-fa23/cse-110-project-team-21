@@ -1,4 +1,4 @@
-package UI.OpenAIResponsePage;
+package Controller;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import RecipeLogic.Recipe;
 
 
-public class OpenAIResponseController{
+public class GPTController{
     // a significant amount of the code in this class is taken or inspired from Lab 4
 
     // this class facilitates interacting with "chatGPT" (davinci-003) using the OpenAI API
@@ -27,14 +27,15 @@ public class OpenAIResponseController{
     private String mealType;
     private String ingredients;
     private Recipe recipe;
-    public OpenAIResponseController(String mealType, String ingredients) {
+    private String prompt;
+
+    public void setPerameters(String mealType, String ingredients) {
         this.mealType = mealType;
         this.ingredients = ingredients;
-    } 
+        prompt = " I am a college student with little cooking experience. In my kitchen, I have" + ingredients + ". Can you give me a " + mealType + " recipe for a meal I can make using these ingredients? Please do not include any other ingredients in the recipe as I do not have the time to purchase more ingredients. List the title of the recipe as the first line of your output.";
+    }
 
     public Recipe sendRequest() throws IOException, InterruptedException, URISyntaxException {
-
-        String prompt = " I am a college student with little cooking experience. In my kitchen, I have" + ingredients + ". Can you give me a " + mealType + " recipe for a meal I can make using these ingredients? Please do not include any other ingredients in the recipe as I do not have the time to purchase more ingredients. List the title of the recipe as the first line of your output.";
 
         // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
