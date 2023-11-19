@@ -6,10 +6,12 @@ public class Recipe {
     // each instance of this class represents a recipe that has been saved
     private String title;
     private String description;
+    private String mealType;
 
     public Recipe(String title, String description) {
         this.title = title;
         this.description = description;
+        //this.mealType = mealType;
     }
 
     public String getTitle() {
@@ -26,6 +28,14 @@ public class Recipe {
 
     public void setDescription(String newDesc) {
         this.description = newDesc;
+    }
+
+    public void setMealType(String mealType) {
+        this.mealType = mealType;
+    }
+
+    public String getMealType() {
+        return this.mealType;
     }
 
 
