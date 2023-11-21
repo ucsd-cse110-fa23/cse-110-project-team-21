@@ -38,14 +38,10 @@ public class GPTHandler implements HttpHandler {
 
         try {
             if(method.equals("GET")) {
-                response = this.sendRequest();
-                handleGet(httpExchange);
+                //response = this.sendRequest();
+                response = handleGet(httpExchange);
                 //urlThing();
                 //response = this.handleGet(httpExchange);
-            }
-            else if(method.equals("PUT")) {
-                response = this.handlePut(httpExchange);
-                //this.setPerameters(response, method);
             }
             else if(method.equals("CONNECT")) {
                 response = "TODO: Connection established";
@@ -64,56 +60,39 @@ public class GPTHandler implements HttpHandler {
         outStream.write(response.getBytes());
         outStream.close();
     }
-
-    public void urlThing() {
-
-    }
+    
     public String handleGet(HttpExchange httpExchange) throws IOException, InterruptedException, URISyntaxException {
-        //String response = sendRequest();
-        StringBuilder htmlBuilder = new StringBuilder();
-        htmlBuilder
-        .append("<html>")
-        .append("<body>")
-        .append("<h1>")
-        .append("Recipe: ")
-        //.append(response)
-        .append("this is your recipe")
-        .append("</h1>")
-        .append("</body>")
-        .append("</html>");
-
-
-        // encode HTML content
-        //response = htmlBuilder.toString();
-        //return response;
-        return "dw";
-    }
-
-    public String handlePut(HttpExchange httpExchange) {
-        InputStream inStream = httpExchange.getRequestBody();
-        Scanner scanner = new Scanner(inStream);
-        String postData = scanner.nextLine();
-        String mealType = postData.substring(
-          0,
-          postData.indexOf(",")
-        ), ingredients = postData.substring(postData.indexOf(",") + 1);
-
-        setPerameters(mealType, ingredients);
-
-        String response = "Posted Entry {" + mealType + ", " + ingredients + "}";
-        System.out.println(response);
-        scanner.close();
+        String response = "Invalid GET request";
+        URI uri = httpExchange.getRequestURI();
+        String query = uri.getRawQuery();
+        if (query != null) {
+            String mealType = query.substring(query.indexOf("=") + 1);
+            String ingredients = query.substring(query.lastIndexOf("=") + 1);
+            response = sendRequest(mealType, ingredients);
+        } else {
+            response = "Insufficient input. Please input a meal type and your ingredients.";
+        }
         return response;
+        // StringBuilder htmlBuilder = new StringBuilder();
+        // htmlBuilder
+        // .append("<html>")
+        // .append("<body>")
+        // .append("<h1>")
+        // .append("Recipe: ")
+        // .append(response)
+        // .append("this is your recipe")
+        // .append("</h1>")
+        // .append("</body>")
+        // .append("</html>");
+
+
+        // // encode HTML content
+        // response = htmlBuilder.toString();
+        // return response;
     }
 
-    public void setPerameters(String mealType, String ingredients) {
-        this.mealType = mealType;
-        this.ingredients = ingredients;
-        prompt = "I am a college student with little cooking experience. In my kitchen, I have" + ingredients + ". Can you give me a " + mealType + " recipe for a meal I can make using these ingredients? Please do not include any other ingredients in the recipe as I do not have the time to purchase more ingredients. List the title of the recipe as the first line of your output.";
-    }
-
-    public String sendRequest() throws IOException, InterruptedException, URISyntaxException {
-
+    public String sendRequest(String mealType, String ingredients) throws IOException, InterruptedException, URISyntaxException {
+        String prompt = "I am a college student with little cooking experience. In my kitchen, I have" + ingredients + ". Can you give me a " + mealType + " recipe for a meal I can make using these ingredients? Please do not include any other ingredients in the recipe as I do not have the time to purchase more ingredients. List the title of the recipe as the first line of your output.";
         // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", MODEL);
@@ -166,24 +145,5 @@ public class GPTHandler implements HttpHandler {
         }
         */
         return trimmedResponse;
-    }
-
-    public Recipe sendRequestMock(){
-        String title = "Mock Recipe";
-        String description = "Ingredients: \n" + "Mock Ingredients";
-        recipe = new Recipe(title, description);
-        return recipe;
-    }
-
-    public Recipe getRecipe(){
-        return recipe;
-    }
-
-    public String getMealType(){
-        return mealType;
-    }
-
-    public String getIngredients(){
-        return ingredients;
     }
 }
