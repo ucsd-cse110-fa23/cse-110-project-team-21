@@ -1,7 +1,7 @@
 package server;
 import com.sun.net.httpserver.*;
 
-import Controller.GPTController;
+import Controller.GPTHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -32,6 +32,8 @@ public class Server {
 
   // TODO: create the context
   server.createContext("/", new RequestHandler(data));
+  //server.createContext("/recipe", new WebsiteHandler());
+  server.createContext("/gpt", new GPTHandler());
   //server.createContext("/GPT", new GPTController());
   //server.createContext("/Whisper", new WhisperController());
   //server.createContext("/recipe", new Database());
