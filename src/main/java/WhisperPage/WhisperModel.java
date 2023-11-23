@@ -1,4 +1,5 @@
-package Controller;
+package WhisperPage;
+
 
 import java.io.*;
 import java.net.*;
@@ -7,9 +8,12 @@ import java.util.Collections;
 
 import org.json.*;
 
-public class WhisperController {
-    // a significant amount of the code in this class is taken or inspired from Lab 4
-    // this class facilitates interacting with Whisper using the OpenAI API
+public class WhisperModel {
+
+
+    public WhisperModel() {
+
+    }
 
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN = "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";
@@ -31,6 +35,7 @@ public class WhisperController {
         );
         outputStream.write((parameterValue + "\r\n").getBytes());
     }
+
     // Helper method to write a file to the output stream in multipart form data format
     private static void writeFileToOutputStream(
         OutputStream outputStream,
@@ -55,6 +60,7 @@ public class WhisperController {
         }
         fileInputStream.close();
     }
+
     // Helper method to handle a successful response
     private static void handleSuccessResponse(HttpURLConnection connection)
         throws IOException, JSONException {
@@ -67,17 +73,12 @@ public class WhisperController {
             response.append(inputLine);
         }
         in.close();
-
-
         JSONObject responseJson = new JSONObject(response.toString());
-
-
         String generatedText = responseJson.getString("text");
-
-
         // Print the transcription result
         recordingResult.add(generatedText);
     }
+
     // Helper method to handle an error response
     private static void handleErrorResponse(HttpURLConnection connection)
         throws IOException, JSONException {
@@ -98,14 +99,12 @@ public class WhisperController {
       // Create file object from file path
       //File file = new File(filePath);
       String res = "";
-      
       // Set up HTTP connection
       URL url = new URI(API_ENDPOINT).toURL();
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestMethod("POST");
       connection.setDoOutput(true);
-      
-      
+    
       // Set up request headers
       String boundary = "Boundary-" + System.currentTimeMillis();
       connection.setRequestProperty(
@@ -117,40 +116,28 @@ public class WhisperController {
       
       // Set up output stream to write request body
       OutputStream outputStream = connection.getOutputStream();
-      
-      
       // Write model parameter to request body
       writeParameterToOutputStream(outputStream, "model", MODEL, boundary);
-      
       // If the API supports language specification, you would add it like this:
       writeParameterToOutputStream(outputStream, "language", "en", boundary);
-  
-      
       // Write file parameter to request body
       writeFileToOutputStream(outputStream, file, boundary);
-      
-      
       // Write closing boundary to request body
       outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
-      
       
       // Flush and close output stream
       outputStream.flush();
       outputStream.close();
-      
-      
+    
       // Get response code
       int responseCode = connection.getResponseCode();
-      
-      
+    
       // Check response code and handle response accordingly
       if (responseCode == HttpURLConnection.HTTP_OK) {
           handleSuccessResponse(connection);
       } else {
           handleErrorResponse(connection);
       }
-      
-      
       // Disconnect connection
       connection.disconnect();
       return res;
@@ -177,5 +164,5 @@ public class WhisperController {
         Collections.addAll(mock, "lunch", "turkey, tomato, bread, cheese, mayonaise");
         return mock;
     }
-        
+
 }

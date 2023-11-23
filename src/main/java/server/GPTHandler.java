@@ -1,18 +1,17 @@
-package Controller;
+package Server;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.sun.net.httpserver.*;
-import RecipeLogic.Recipe;
+
+import RecipeManager.RecipeModel;
 
 
 public class GPTHandler implements HttpHandler {
@@ -29,7 +28,7 @@ public class GPTHandler implements HttpHandler {
 
     private String mealType;
     private String ingredients;
-    private Recipe recipe;
+    private RecipeModel recipe;
     private String prompt;
 
     public void handle(HttpExchange httpExchange) throws IOException{
@@ -66,8 +65,8 @@ public class GPTHandler implements HttpHandler {
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
         if (query != null) {
-            String mealType = query.substring(query.indexOf("=") + 1);
-            String ingredients = query.substring(query.lastIndexOf("=") + 1);
+            mealType = query.substring(query.indexOf("=") + 1);
+            ingredients = query.substring(query.lastIndexOf("=") + 1);
             response = sendRequest(mealType, ingredients);
         } else {
             response = "Insufficient input. Please input a meal type and your ingredients.";
@@ -132,7 +131,7 @@ public class GPTHandler implements HttpHandler {
         String[] lines = trimmedResponse.split("\n", 2);
         String title = lines[0];
         String description = lines[1];
-        recipe = new Recipe(title, description);
+        recipe = new RecipeModel(title, description);
 
         /*
         if(trimmedResponse.split("Ingredients:").length != 2){

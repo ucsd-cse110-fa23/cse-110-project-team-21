@@ -2,11 +2,11 @@
 
 
 import org.junit.jupiter.api.Test;
-import RecipeLogic.Recipe;
-import RecipeLogic.RecipeManager;
+
+import RecipeManager.RecipeManagerModel;
+import RecipeManager.RecipeModel;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 
 
 
@@ -16,13 +16,13 @@ public class RecipeIntegrationTest {
     @Test
     void testBDDScenario() {
 
-        RecipeManager manager = new RecipeManager();
+        RecipeManagerModel manager = new RecipeManagerModel();
         manager.removeAllRecipe();
-        Recipe firstRecipe = new Recipe("sandwich", "put stuff between two slices of bread");
+        RecipeModel firstRecipe = new RecipeModel("sandwich", "put stuff between two slices of bread");
         manager.addRecipe(firstRecipe);
-        Recipe secondRecipe = new Recipe("chocolate cake", "delicious dark chocolate cake");
+        RecipeModel secondRecipe = new RecipeModel("chocolate cake", "delicious dark chocolate cake");
         manager.addRecipe(secondRecipe);
-        Recipe thirdRecipe = new Recipe("veggie salad", "healthy salad");
+        RecipeModel thirdRecipe = new RecipeModel("veggie salad", "healthy salad");
         manager.addRecipe(thirdRecipe);
         assertEquals("veggie salad", manager.getList().get(0).getTitle());
         assertEquals("chocolate cake", manager.getList().get(1).getTitle());
@@ -36,7 +36,7 @@ public class RecipeIntegrationTest {
 
 
         // Some nonsense input
-        Recipe fourthRecipe = new Recipe("Happy Meal", "Go McDonald's");
+        RecipeModel fourthRecipe = new RecipeModel("Happy Meal", "Go McDonald's");
         manager.addRecipe(fourthRecipe);
         assertEquals("Happy Meal", manager.getList().get(0).getTitle());
         assertEquals("veggie salad", manager.getList().get(1).getTitle());

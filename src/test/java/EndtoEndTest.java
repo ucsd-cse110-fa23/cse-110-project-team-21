@@ -1,32 +1,28 @@
 import org.junit.jupiter.api.Test;
 
-import Controller.GPTController;
-import Controller.WhisperController;
-import RecipeLogic.Recipe;
-import RecipeLogic.RecipeManager;
-import UI.MainPage.Main;
+import GPTPage.GPTModel;
+import RecipeManager.RecipeManagerModel;
+import RecipeManager.RecipeModel;
+import WhisperPage.WhisperModel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
+
 
 
 
 public class EndtoEndTest {
-    RecipeManager manager;
-    WhisperController whisper;
-    GPTController controller;
+    RecipeManagerModel manager;
+    WhisperModel whisper;
+    GPTModel model;
 
     @Test
     void EndtoEndScenario() {
         //when app starts
-        manager = new RecipeManager();
+        manager = new RecipeManagerModel();
         manager.removeAllRecipe();
-
-        whisper = new WhisperController();
+        whisper = new WhisperModel();
 
 
         //adding a new recipe
@@ -35,11 +31,11 @@ public class EndtoEndTest {
         assertEquals("lunch", mealType);
         String ingredients = whisper.getMockResult().get(1);
         assertEquals("turkey, tomato, bread, cheese, mayonaise", ingredients);
-        controller = new GPTController();
-        controller.setPerameters(mealType, ingredients);
+        model = new GPTModel();
+        model.setPerameters(mealType, ingredients);
 
         //chat gpt mock response
-        Recipe recipe = controller.sendRequestMock();
+        RecipeModel recipe = model.sendRequestMock();
         assertEquals("Mock Recipe", recipe.getTitle());
         assertEquals("Ingredients: \n" + "Mock Ingredients", recipe.getDescription());
 
@@ -52,9 +48,9 @@ public class EndtoEndTest {
 
 
         //creating duplicate recipes
-        Recipe recipe2 = controller.sendRequestMock();
+        RecipeModel recipe2 = model.sendRequestMock();
         manager.addRecipe(recipe2);
-        Recipe recipe3 = controller.sendRequestMock();
+        RecipeModel recipe3 = model.sendRequestMock();
         manager.addRecipe(recipe3);
         assertEquals("Mock Recipe 2", manager.getList().get(0).getTitle());
         assertEquals("Mock Recipe 1", manager.getList().get(1).getTitle());

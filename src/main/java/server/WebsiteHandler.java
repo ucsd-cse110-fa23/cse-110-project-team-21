@@ -1,8 +1,8 @@
-package Controller;
+package Server;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
-import java.util.*;
+
 
 public class WebsiteHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {

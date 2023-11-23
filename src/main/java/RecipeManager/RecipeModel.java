@@ -1,14 +1,14 @@
-package RecipeLogic;
+package RecipeManager;
 
 import java.util.Objects;
 
-public class Recipe {
+public class RecipeModel {
     // each instance of this class represents a recipe that has been saved
     private String title;
     private String description;
     private String mealType;
 
-    public Recipe(String title, String description) {
+    public RecipeModel(String title, String description) {
         this.title = title;
         this.description = description;
         //this.mealType = mealType;
@@ -43,7 +43,7 @@ public class Recipe {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Recipe recipe = (Recipe) obj;
+        RecipeModel recipe = (RecipeModel) obj;
         return Objects.equals(getTitle(), recipe.getTitle());
     }
 }

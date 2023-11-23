@@ -1,4 +1,4 @@
-package RecipeLogic;
+package RecipeManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,17 +7,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class RecipeManager {
+public class RecipeManagerModel {
     // this file manages the list of recipes in memory and reads/writes from the database (csv file)
 
     final String DATABASE_FILE = "recipes.csv";
-    private ArrayList<Recipe> recipes;
+    private ArrayList<RecipeModel> recipes;
 
-    public RecipeManager() {
+    public RecipeManagerModel() {
         try {
             recipes = loadRecipes();
         } catch (Exception e) {
-            recipes = new ArrayList<Recipe>();
+            recipes = new ArrayList<RecipeModel>();
         }
     }
 
@@ -31,7 +31,7 @@ public class RecipeManager {
         }
     }
 
-    public void addRecipe(Recipe r){
+    public void addRecipe(RecipeModel r){
         // adds the specified recipe, addresses duplicate titles, then rewrites everything to database
 
         // Method 1, replace the previous recipe
@@ -43,7 +43,7 @@ public class RecipeManager {
         // ->NEW: Method 2, add a number to the end of the title
 
     
-        Recipe lastRecipe = this.getRecipe(r.getTitle());
+        RecipeModel lastRecipe = this.getRecipe(r.getTitle());
         if(lastRecipe != null){
             int i = 1;
             while(this.getRecipe(r.getTitle() + " " + Integer.toString(i)) != null){
@@ -59,7 +59,7 @@ public class RecipeManager {
             System.out.println("Could not save recipe to database.");
         }
     }
-    public void removeRecipe(Recipe r) {
+    public void removeRecipe(RecipeModel r) {
         // removes the specified recipe then rewrites everything to database
     
         if (recipes == null || recipes.isEmpty() || !recipes.contains(r)) {
@@ -67,9 +67,9 @@ public class RecipeManager {
             return;
         }
 
-        Iterator<Recipe> iterator = recipes.iterator();
+        Iterator<RecipeModel> iterator = recipes.iterator();
         while (iterator.hasNext()) {
-            Recipe recipe = iterator.next();
+            RecipeModel recipe = iterator.next();
             if (recipe.equals(r)) {
                 iterator.remove();
                 break;
@@ -95,7 +95,7 @@ public class RecipeManager {
 //         }
 //     }
 
-    public ArrayList<Recipe> getList(){
+    public ArrayList<RecipeModel> getList(){
         try {
             recipes = loadRecipes();
         } catch (Exception e) {
@@ -104,9 +104,9 @@ public class RecipeManager {
         return recipes;
     }
 
-    public Recipe getRecipe(String s){
+    public RecipeModel getRecipe(String s){
         recipes = getList();
-        for(Recipe r: recipes) {
+        for(RecipeModel r: recipes) {
             if(r.getTitle().equals(s)) {
                 return r;
             }
@@ -133,7 +133,7 @@ public class RecipeManager {
         }
 
         for(int i = 0; i < recipes.size(); i ++){
-            Recipe r = recipes.get(i);
+            RecipeModel r = recipes.get(i);
             String title = "\"" + r.getTitle() + "\"";
 
             String description = "\"" + r.getDescription() + "\"";
@@ -150,10 +150,10 @@ public class RecipeManager {
      * @return Arraylist of Recipe objects based on what was retrieved from the recipe/database CSV file
      * @throws IOException if there's an issue opening the recipe/database file.
      */
-    private ArrayList<Recipe> loadRecipes() throws IOException{
+    private ArrayList<RecipeModel> loadRecipes() throws IOException{
         FileReader fr;
         String pathName = DATABASE_FILE;
-        ArrayList<Recipe> retrievedDataBase = new ArrayList<Recipe>();
+        ArrayList<RecipeModel> retrievedDataBase = new ArrayList<RecipeModel>();
 
         try {
             fr = new FileReader(pathName);
@@ -172,7 +172,7 @@ public class RecipeManager {
             String description = data[1].substring(1, data[1].length() - 1);
             description = description.replace("\\n", "\n").replace("\\r","\r");
 
-            Recipe add = new Recipe(title, description);
+            RecipeModel add = new RecipeModel(title, description);
 
             retrievedDataBase.add(add); 
         }
