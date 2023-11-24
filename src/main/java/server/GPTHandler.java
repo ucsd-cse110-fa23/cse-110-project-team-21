@@ -1,4 +1,4 @@
-package Server;
+package server;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
