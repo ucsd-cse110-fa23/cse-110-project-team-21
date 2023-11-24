@@ -96,38 +96,11 @@ class MainPageRecipeCard extends HBox {
 
 class MainPageFooter extends HBox {
     // this class specifies the footer UI for the main page
-    private Button loginButton;
-    private Button signUpButton;
-    private LoginScene loginScene;
-    private SignUpScene signUpScene;
 
     public MainPageFooter() {
-        loginButton = new Button("Mock Login");
-        loginButton.setPrefSize(500, 20);
-        loginButton.setPrefHeight(Double.MAX_VALUE);
-        loginButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
-
-        signUpButton = new Button("Mock Sign Up");
-        signUpButton.setPrefSize(500, 20);
-        signUpButton.setPrefHeight(Double.MAX_VALUE);
-        signUpButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
-
-        loginButton.setOnAction(e -> {
-            loginScene = new LoginScene();
-            Main.sceneManager.ChangeScene(loginScene);
-        });
-
-        signUpButton.setOnAction(e -> {
-            signUpScene = new SignUpScene();
-            Main.sceneManager.ChangeScene(signUpScene);
-        });
-
         this.setPrefSize(500, 60);
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.setSpacing(15);
-        this.setAlignment(Pos.CENTER);
-        this.getChildren().add(loginButton);
-        this.getChildren().add(signUpButton);
     }
 }
 
