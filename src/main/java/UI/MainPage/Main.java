@@ -6,6 +6,7 @@ import Controller.GPTController;
 import Controller.WhisperController;
 import RecipeLogic.RecipeManager;
 import UI.SceneManager;
+import UI.LoginPage.LoginScene;
 
 
 public class Main extends Application {
@@ -23,7 +24,8 @@ public class Main extends Application {
         recipeManager = new RecipeManager();
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        root = new MainScene();
+        // root = new LoginScene();
+        LoginScene root = new LoginScene();
         sceneManager = new SceneManager(primaryStage);
       
         // Set the title of the app
