@@ -1,4 +1,4 @@
-package Controller;
+package GPTPage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,16 +9,20 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import RecipeLogic.Recipe;
+import RecipeManager.RecipeModel;
 
 
-public class GPTController{
+public class GPTModel{
+
+    public GPTModel(){
+
+    }
     // a significant amount of the code in this class is taken or inspired from Lab 4
 
     // this class facilitates interacting with "chatGPT" (davinci-003) using the OpenAI API
 
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
-    // Api Key Shang
+    // Personal Api Key From Shang
     private static final String API_KEY = "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";
     private static final String MODEL = "text-davinci-003";
     private static final int maxTokens = 300;
@@ -26,7 +30,7 @@ public class GPTController{
 
     private String mealType;
     private String ingredients;
-    private Recipe recipe;
+    private RecipeModel recipe;
     private String prompt;
 
     public void setPerameters(String mealType, String ingredients) {
@@ -35,7 +39,7 @@ public class GPTController{
         prompt = " I am a college student with little cooking experience. In my kitchen, I have" + ingredients + ". Can you give me a " + mealType + " recipe for a meal I can make using these ingredients? Please do not include any other ingredients in the recipe as I do not have the time to purchase more ingredients. List the title of the recipe as the first line of your output.";
     }
 
-    public Recipe sendRequest() throws IOException, InterruptedException, URISyntaxException {
+    public RecipeModel sendRequest() throws IOException, InterruptedException, URISyntaxException {
 
         // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
@@ -76,7 +80,7 @@ public class GPTController{
         String[] lines = trimmedResponse.split("\n", 2);
         String title = lines[0];
         String description = lines[1];
-        recipe = new Recipe(title, description);
+        recipe = new RecipeModel(title, description);
 
         /*
         if(trimmedResponse.split("Ingredients:").length != 2){
@@ -91,14 +95,14 @@ public class GPTController{
         return recipe;
     }
 
-    public Recipe sendRequestMock(){
+    public RecipeModel sendRequestMock(){
         String title = "Mock Recipe";
         String description = "Ingredients: \n" + "Mock Ingredients";
-        recipe = new Recipe(title, description);
+        recipe = new RecipeModel(title, description);
         return recipe;
     }
 
-    public Recipe getRecipe(){
+    public RecipeModel getRecipe(){
         return recipe;
     }
 

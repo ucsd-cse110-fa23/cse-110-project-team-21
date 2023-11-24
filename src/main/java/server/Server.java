@@ -1,7 +1,6 @@
-package server;
+package Server;
 import com.sun.net.httpserver.*;
-
-import Controller.GPTHandler;
+ 
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

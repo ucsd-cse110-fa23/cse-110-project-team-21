@@ -3,44 +3,43 @@
 
 import org.junit.jupiter.api.Test;
 
-import RecipeLogic.Recipe;
-import RecipeLogic.RecipeManager;
+import RecipeManager.RecipeManagerModel;
+import RecipeManager.RecipeModel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 
 
 public class RecipeJunitTest {
-    private RecipeManager manager;
-    private Recipe firstRecipe;
+    private RecipeManagerModel manager;
+    private RecipeModel firstRecipe;
     
     @BeforeEach
     void setUp() {
-        firstRecipe = new Recipe("sandwich", "put stuff between two slices of bread");
-        manager = new RecipeManager();
+        firstRecipe = new RecipeModel("sandwich", "put stuff between two slices of bread");
+        manager = new RecipeManagerModel();
         manager.removeAllRecipe();
     }
 
     // Testing the Recipe 
     @Test
     void testGetTitle_shouldReturnCorrectTitle() {
-        Recipe newRecipe = new Recipe("Chocolate Cake", "Delicious dark chocolate cake");
+        RecipeModel newRecipe = new RecipeModel("Chocolate Cake", "Delicious dark chocolate cake");
         assertEquals("Chocolate Cake", newRecipe.getTitle(), "The title should be 'Chocolate Cake'.");
     }
 
     @Test
     void testGetDescription_shouldReturnCorrectDescription() {
-        Recipe newRecipe = new Recipe("Chocolate Cake", "Delicious dark chocolate cake");
+        RecipeModel newRecipe = new RecipeModel("Chocolate Cake", "Delicious dark chocolate cake");
         assertEquals("Delicious dark chocolate cake", newRecipe.getDescription(), "The description should match the initial value.");
     }
 
     @Test
     void testSetDescription_shouldUpdateDescription() {
         String newDescription = "Moist chocolate cake with ganache";
-        Recipe oldRecipe = new Recipe("Chocolate Cake", "Delicious dark chocolate cake");
+        RecipeModel oldRecipe = new RecipeModel("Chocolate Cake", "Delicious dark chocolate cake");
         oldRecipe.setDescription(newDescription);
         assertEquals(newDescription, oldRecipe.getDescription(), "The description should be updated to the new value.");
     }
@@ -85,13 +84,13 @@ public class RecipeJunitTest {
         /**
          * In Description
          */
-        Recipe fRecipe = new Recipe("macarrao", "DEAD\n DEAD\n DEMONS \r DEDEDEDEDE\r DESTRUCTION");
+        RecipeModel fRecipe = new RecipeModel("macarrao", "DEAD\n DEAD\n DEMONS \r DEDEDEDEDE\r DESTRUCTION");
         manager.addRecipe(fRecipe);
-        Recipe secondRecipe = new Recipe("Sauteed elder thing", "Get 4 \r\r\r eyes Jouurhk \r\n put it in bowl\n\n uuurhy with tomato\n\n\n\r sauce.");
+        RecipeModel secondRecipe = new RecipeModel("Sauteed elder thing", "Get 4 \r\r\r eyes Jouurhk \r\n put it in bowl\n\n uuurhy with tomato\n\n\n\r sauce.");
         manager.addRecipe(secondRecipe);
-        Recipe thirdRecipe = new Recipe("CS student healthy meal", "\n\r\r\r");
+        RecipeModel thirdRecipe = new RecipeModel("CS student healthy meal", "\n\r\r\r");
         manager.addRecipe(thirdRecipe);
-        Recipe fourthRecipe = new Recipe("Food for black holes", "");
+        RecipeModel fourthRecipe = new RecipeModel("Food for black holes", "");
         manager.addRecipe(fourthRecipe);
 
         //Recipe thirdRecipe = new Recipe("Sarcastic's buffet", "healthy salad");
@@ -103,13 +102,13 @@ public class RecipeJunitTest {
         /**
          * In Title
          */
-        Recipe fifthRecipe = new Recipe("Birds\nneck\r", "dummy");
+        RecipeModel fifthRecipe = new RecipeModel("Birds\nneck\r", "dummy");
         manager.addRecipe(fifthRecipe);
-        Recipe sixthRecipe = new Recipe("\n\n\rGotcha", "dummy");
+        RecipeModel sixthRecipe = new RecipeModel("\n\n\rGotcha", "dummy");
         manager.addRecipe(sixthRecipe);
-        Recipe seventhRecipe = new Recipe("\n\r\r\n", "dummy");
+        RecipeModel seventhRecipe = new RecipeModel("\n\r\r\n", "dummy");
         manager.addRecipe(seventhRecipe);
-        Recipe eighthRecipe = new Recipe("", "dummy");
+        RecipeModel eighthRecipe = new RecipeModel("", "dummy");
         manager.addRecipe(eighthRecipe);
 
         assertEquals("Birds\nneck\r", manager.getList().get(3).getTitle());
@@ -120,18 +119,18 @@ public class RecipeJunitTest {
 
     @Test
     void testQuotes() {
-        Recipe fRecipe = new Recipe("dummy", "i'll assume you \"know\" how 'a' recipe work\"");
+        RecipeModel fRecipe = new RecipeModel("dummy", "i'll assume you \"know\" how 'a' recipe work\"");
         manager.addRecipe(fRecipe);
-        Recipe secondRecipe = new Recipe("Sarcastic delight", "\"\"\"\"''''");
+        RecipeModel secondRecipe = new RecipeModel("Sarcastic delight", "\"\"\"\"''''");
         manager.addRecipe(secondRecipe);
         assertEquals("i'll assume you \"know\" how 'a' recipe work\"", manager.getList().get(1).getDescription());
         assertEquals("\"\"\"\"''''", manager.getList().get(0).getDescription());
         
-        Recipe thirdRecipe = new Recipe("\"Pasta\"", "dummy");
+        RecipeModel thirdRecipe = new RecipeModel("\"Pasta\"", "dummy");
         manager.addRecipe(thirdRecipe);
-        Recipe fourhRecipe = new Recipe("\"Lonelyquote", "dummy");
+        RecipeModel fourhRecipe = new RecipeModel("\"Lonelyquote", "dummy");
         manager.addRecipe(fourhRecipe);
-        Recipe fifthRecipe = new Recipe("Mamma's Special \"Teaa\" J\" \" '' '", "dummy");
+        RecipeModel fifthRecipe = new RecipeModel("Mamma's Special \"Teaa\" J\" \" '' '", "dummy");
         manager.addRecipe(fifthRecipe);
 
         assertEquals("\"Pasta\"", manager.getList().get(2).getTitle());
@@ -141,7 +140,7 @@ public class RecipeJunitTest {
 
     @Test
     void specialCharacters() {
-        Recipe fRecipe = new Recipe(".?!#$&%{}[]<>_-+=/*^;:", ".?!#$&%{}[]<>_-+=/*^;:");
+        RecipeModel fRecipe = new RecipeModel(".?!#$&%{}[]<>_-+=/*^;:", ".?!#$&%{}[]<>_-+=/*^;:");
         manager.addRecipe(fRecipe);
         assertEquals(".?!#$&%{}[]<>_-+=/*^;:", manager.getList().get(0).getTitle());
         assertEquals(".?!#$&%{}[]<>_-+=/*^;:", manager.getList().get(0).getDescription());

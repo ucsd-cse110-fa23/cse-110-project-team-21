@@ -1,4 +1,4 @@
-package server;
+package Server;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
@@ -16,7 +16,6 @@ public class RequestHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "Request Received";
         String method = httpExchange.getRequestMethod();
-
         try {
             if (method.equals("GET")) {
               response = handleGet(httpExchange);
@@ -40,8 +39,6 @@ public class RequestHandler implements HttpHandler {
         OutputStream outStream = httpExchange.getResponseBody();
         outStream.write(response.getBytes());
         outStream.close();
-
-       
     }
 
     private String handleGet(HttpExchange httpExchange) throws IOException {
