@@ -5,8 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import UI.DetailPage.DetailScene;
-import UI.LoginPage.LoginScene;
-import UI.SignUpPage.SignUpScene;
 import UI.NewRecipePage.VInputScene;
 import RecipeLogic.Recipe;
 import javafx.scene.control.ScrollPane;
@@ -52,6 +50,7 @@ class MainPageHeader extends VBox {
     }
 }
 
+
 class MainPageRecipeList extends VBox {
     // this class specifies that the main page's recipe list is a VBox
 
@@ -67,6 +66,7 @@ class MainPageRecipeCard extends HBox {
     
     private Button clickTitle;
     private DetailScene details;
+
 
     public MainPageRecipeCard(String title) {
         this.setPrefSize(500, 20); // sets size of Recipe
@@ -86,7 +86,6 @@ class MainPageRecipeCard extends HBox {
             //System.out.println("This is the main page");
             Main.sceneManager.ChangeScene(details);
         });
-
     }
 
     public Button getTitleDetailsButton() {
@@ -96,7 +95,7 @@ class MainPageRecipeCard extends HBox {
 
 class MainPageFooter extends HBox {
     // this class specifies the footer UI for the main page
-
+    
     public MainPageFooter() {
         this.setPrefSize(500, 60);
         this.setStyle("-fx-background-color: #F0F8FF;");
@@ -117,7 +116,7 @@ public class MainScene extends BorderPane{
     private Recipe mockRecipe;
 
 
-    public MainScene()
+    MainScene()
     {
         // Initialise the header Object
         header = new MainPageHeader();
