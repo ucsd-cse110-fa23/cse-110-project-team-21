@@ -105,11 +105,25 @@ public class DallEHandler implements HttpHandler{
             InputStream in = new URI(generatedImageURL).toURL().openStream()
         )
         {
-            Files.copy(in, Paths.get("image.jpg"));
+            Files.copy(in, Paths.get(prompt + ".jpg"));
         } catch(Exception e) {
             System.out.println("Error: " + e);
         }
+        
+        // StringBuilder htmlBuilder = new StringBuilder();
+        // htmlBuilder
+        // .append("<html>")
+        // .append("<body>")
+        // .append("<h1>")
+        // .append("Recipe: ")
+        // .append("<img src='C:/Users/sammy/Desktop/CSE 110/Final Project/cse-110-project-team-21/=" + prompt + ".jpg' />")
+        // .append("this is your recipe")
+        // .append("</h1>")
+        // .append("</body>")
+        // .append("</html>");
+        //response = htmlBuilder.toString();
 
+        response = prompt + ".jpg";
         return response;
     }
 }
