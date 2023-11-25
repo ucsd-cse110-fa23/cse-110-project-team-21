@@ -59,6 +59,11 @@ public class DBHandler implements HttpHandler {
             mongoClient = MongoClients.create(uri);
             pantrypal_db = mongoClient.getDatabase("pantrypal_db");
 
+            //should clear stuff from prior server runs 
+            for (String name : pantrypal_db.listCollectionNames()) {
+                pantrypal_db.getCollection(name).drop();
+            }
+
             // recipeCollection.drop();
     }
 

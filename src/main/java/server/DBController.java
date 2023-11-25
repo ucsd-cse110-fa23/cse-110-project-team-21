@@ -47,12 +47,12 @@ public class DBController {
     }
 
 
-    public void handlePostButton(ActionEvent event, /*temp*/ int misc, int num) { // add
+    public void handlePostButton(ActionEvent event, int misc/*testing , int num */) { // add
         // add one recipe: needs user info, recipe info, and misc=nextIndex
         // add new user: needs user info, misc=-1
         String response;
-        if (num==1) {response = model.performRequest("POST", fakeUser, fakeRecipe, misc);}
-        else {response = model.performRequest("POST", fakeUser, fakeRecipe2, misc);}
+        /*if (num==1) {*/response = model.performRequest("POST", fakeUser, fakeRecipe, misc);/* }
+        else {response = model.performRequest("POST", fakeUser, fakeRecipe2, misc);} */
         System.out.println("Response: " + response);
         //view.showAlert("Response", response);
     }
