@@ -12,6 +12,7 @@ public class RecipeManagerModel {
 
     final String DATABASE_FILE = "recipes.csv";
     private ArrayList<RecipeModel> recipes;
+    private int nextIndex;
 
     public RecipeManagerModel() {
         try {

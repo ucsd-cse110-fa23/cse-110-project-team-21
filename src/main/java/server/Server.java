@@ -1,12 +1,14 @@
-package Server;
+package server;
 import com.sun.net.httpserver.*;
  
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
+import RecipeManager.RecipeModel;
 
 
 public class Server {
@@ -36,11 +38,32 @@ public class Server {
   //server.createContext("/GPT", new GPTController());
   //server.createContext("/Whisper", new WhisperController());
   //server.createContext("/recipe", new Database());
+  server.createContext("/db", new DBHandler());
+
   // TODO: set the executor
   server.setExecutor(threadPoolExecutor);
   // TODO: start the server
   server.start();
 
    System.out.println("Server started on port " + SERVER_PORT);
- }
+
+   /*DBController test = new DBController(new DBModel());
+   test.handleGetButton(null, 1);
+   test.handleGetButton(null, 2);
+   test.handlePostButton(null,-1, 1);
+   test.handleGetButton(null, 1);
+   test.handleGetButton(null, 2);
+   test.handlePostButton(null,0, 1);
+   test.handlePutButton(null);
+   test.handlePostButton(null,0, 2);
+   test.handleDeleteButton(null);
+   ArrayList<RecipeModel> recipes = test.parseDBRecipes(test.handleGetButton(null, 3));
+   for (RecipeModel recipe : recipes) {
+    System.out.println();
+    System.out.println(recipe.getTitle());
+    System.out.println(recipe.getDescription());
+    System.out.println(recipe.getMealType());
+    System.out.println(recipe.getIndex());
+   } */
+  }
 }

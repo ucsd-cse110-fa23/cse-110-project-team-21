@@ -7,6 +7,7 @@ public class RecipeModel {
     private String title;
     private String description;
     private String mealType;
+    private int index;
 
     public RecipeModel(String title, String description) {
         this.title = title;
@@ -36,6 +37,14 @@ public class RecipeModel {
 
     public String getMealType() {
         return this.mealType;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return this.index;
     }
 
 
