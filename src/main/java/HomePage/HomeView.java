@@ -1,7 +1,11 @@
 package HomePage;
 
+import Main.Main;
+import LoginPage.LoginView;
+import SignUpPage.SignUpView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.ScrollPane;
@@ -64,10 +68,39 @@ class MainPageRecipeCard extends HBox {
 }
 
 class MainPageFooter extends HBox {
+    private Button loginButton;
+    private Button signUpButton;
+
     public MainPageFooter() {
         this.setPrefSize(500, 60);
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.setSpacing(15);
+    
+        loginButton = new Button("Mock Login");
+        loginButton.setPrefSize(500, 20);
+        loginButton.setPrefHeight(Double.MAX_VALUE);
+        loginButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
+
+        signUpButton = new Button("Mock Sign Up");
+        signUpButton.setPrefSize(500, 20);
+        signUpButton.setPrefHeight(Double.MAX_VALUE);
+        signUpButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
+
+        loginButton.setOnAction(e -> {
+            LoginView loginView = new LoginView();
+            Main.sceneManager.ChangeScene(loginView);
+        });
+
+        signUpButton.setOnAction(e -> {
+            SignUpView signUpView = new SignUpView();
+            Main.sceneManager.ChangeScene(signUpView);
+        });
+
+        this.setPrefSize(500, 60);
+        this.setStyle("-fx-background-color: #F0F8FF;");
+        this.setSpacing(15);
+        this.setAlignment(Pos.CENTER);
+        this.getChildren().addAll(loginButton, signUpButton);
     }
 }
 
