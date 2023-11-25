@@ -2,15 +2,28 @@ package RecipeManager;
 
 import java.util.Objects;
 
+/**
+ * TODO: Decide if the images are gonna have fixed, uniform dimensions or variable ones which cap at a max and min value
+ */
 public class RecipeModel {
+    private static final String DEFAULT_IMAGE = "resources/previewimgs/notfound.png";
     // each instance of this class represents a recipe that has been saved
     private String title;
     private String description;
     private String mealType;
+    private String previewImgPath;
 
     public RecipeModel(String title, String description) {
         this.title = title;
         this.description = description;
+        this.previewImgPath = DEFAULT_IMAGE;
+        //this.mealType = mealType;
+    }
+
+    public RecipeModel(String title, String description, String previewImgPath) {
+        this.title = title;
+        this.description = description;
+        this.previewImgPath = previewImgPath;
         //this.mealType = mealType;
     }
 
@@ -38,6 +51,13 @@ public class RecipeModel {
         return this.mealType;
     }
 
+    public String getPreviewImgPath(){
+        return this.previewImgPath;
+    }
+
+    public void setPreviewImage(String previewImgPath){
+        this.previewImgPath = previewImgPath;
+    }
 
     @Override
     public boolean equals(Object obj) {
