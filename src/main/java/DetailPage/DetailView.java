@@ -1,12 +1,17 @@
 package DetailPage;
 
+import java.io.File;
+
 import RecipeManager.RecipeModel;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 class DetailPageHeader extends HBox {
     private Button backButton;
@@ -32,11 +37,22 @@ class DetailPageHeader extends HBox {
     }
 }
 
-
 class DetailPageDescription extends FlowPane {
     Text description;
+    ImageView previewImage;
+    HBox previewImageRegion;
 
-    public DetailPageDescription(String s) {
+    public DetailPageDescription(String s, String previewImgPath) {
+
+        Image img = new Image(new File(previewImgPath).toURI().toString());
+        this.previewImage = new ImageView(img);
+        previewImageRegion = new HBox();
+        previewImageRegion.setPadding(new Insets(20,0,0,20));
+        previewImageRegion.getChildren().add(previewImage);
+        this.getChildren().add(previewImageRegion);
+        previewImageRegion.setAlignment(Pos.CENTER);
+
+
         description = new Text(s);
         description.setWrappingWidth(400);
         this.getChildren().add(description);
@@ -45,7 +61,6 @@ class DetailPageDescription extends FlowPane {
         this.description.setText(newDescription);
     }
 }
-
 
 class DetailPageFooter extends HBox{
     private Button deleteButton;
@@ -86,7 +101,7 @@ public class DetailView extends BorderPane{
         recipe = currRecipe;
         header = new DetailPageHeader(recipe.getTitle());
         footer = new DetailPageFooter();
-        desc = new DetailPageDescription(recipe.getDescription());
+        desc = new DetailPageDescription(recipe.getDescription(), recipe.getPreviewImgPath());
         controller = new DetailController(this);
         controller.activate();
 

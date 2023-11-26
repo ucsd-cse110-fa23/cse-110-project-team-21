@@ -1,14 +1,19 @@
 package GPTPage;
 
+import java.io.File;
+
 import java.util.ArrayList;
 
 import RecipeManager.RecipeModel;
 import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 class GPTHeader extends HBox {
     public Text titleText;
@@ -37,7 +42,19 @@ class GPTHeader extends HBox {
 
 class GPTDescription extends FlowPane {
     Text description;
+    ImageView previewImage;
+    HBox previewImageRegion;
+
     public GPTDescription(RecipeModel recipe) {
+        
+        Image img = new Image(new File(recipe.getPreviewImgPath()).toURI().toString());
+        this.previewImage = new ImageView(img);
+        previewImageRegion = new HBox();
+        previewImageRegion.setPadding(new Insets(20,0,0,20));
+        previewImageRegion.getChildren().add(previewImage);
+        this.getChildren().add(previewImageRegion);
+        previewImageRegion.setAlignment(Pos.CENTER);
+
         description = new Text(recipe.getDescription());
         description.setWrappingWidth(400);
         this.getChildren().add(description);
