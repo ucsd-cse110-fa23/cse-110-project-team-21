@@ -2,6 +2,8 @@ package SignUpPage;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -20,8 +22,6 @@ public class SignUpView extends BorderPane{
 
     public SignUpView()
     {
-      controller = new SignUpController(this);
-      controller.activate();
 
       usernameField = new TextField();
       passwordField = new PasswordField();
@@ -32,6 +32,9 @@ public class SignUpView extends BorderPane{
       Label usernameLabel = new Label("Username:");
       Label passwordLabel = new Label("Password:");
       Label confirmedPasswordLabel = new Label("Re-enter Password:");
+
+      controller = new SignUpController(this);
+      controller.activate();
 
       GridPane formLayout = new GridPane();
       formLayout.setVgap(10);
@@ -57,7 +60,7 @@ public class SignUpView extends BorderPane{
       this.setCenter(centralLayout);
       this.setBottom(footer);
     }
-    public SignUpFooter getFooter() {
+      public SignUpFooter getFooter() {
         return this.footer;
       }
   
@@ -77,6 +80,25 @@ public class SignUpView extends BorderPane{
         return confirmedpasswordField.getText();
       }
 
+      public boolean getCheckboxStatus() {
+        return autoLoginCheckBox.isSelected();
+      }
+
+      public void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+      }
+
+      public void showNoServerAlert (){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Sorry :(");
+        alert.setHeaderText(null);
+        alert.setContentText("Sorry, the Server is not running. Please try again later.");
+        alert.showAndWait();
+      }
 }
 
 class SignUpHeader extends HBox{

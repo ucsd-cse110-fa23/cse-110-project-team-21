@@ -1,4 +1,4 @@
-package server;
+package Server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +90,10 @@ public class DBController {
             recipes.add(tmp);
         }
         return recipes;
+    }
+
+    public void setUser (UserModel user) {
+        this.fakeUser = user;
     }
     
 }
