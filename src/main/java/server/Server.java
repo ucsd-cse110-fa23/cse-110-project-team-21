@@ -35,7 +35,7 @@ public class Server {
   server.createContext("/", new RequestHandler(data));
   //server.createContext("/recipe", new WebsiteHandler());
   server.createContext("/gpt", new GPTHandler());
-  //server.createContext("/GPT", new GPTController());
+  server.createContext("/dalle", new DallEHandler());
   //server.createContext("/Whisper", new WhisperController());
   //server.createContext("/recipe", new Database());
   server.createContext("/db", new DBHandler());
