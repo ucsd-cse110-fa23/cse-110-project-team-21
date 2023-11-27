@@ -28,6 +28,8 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 
     implementation 'org.json:json:20230227'
+
+    implementation 'org.mongodb:mongodb-driver-sync:4.11.0'
     
 }
 

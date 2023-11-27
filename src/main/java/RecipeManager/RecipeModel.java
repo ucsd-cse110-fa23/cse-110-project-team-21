@@ -11,6 +11,7 @@ public class RecipeModel {
     private String title;
     private String description;
     private String mealType;
+    private int index;
     private String previewImgPath;
 
     public RecipeModel(String title, String description) {
@@ -49,6 +50,14 @@ public class RecipeModel {
 
     public String getMealType() {
         return this.mealType;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return this.index;
     }
 
     public String getPreviewImgPath(){
