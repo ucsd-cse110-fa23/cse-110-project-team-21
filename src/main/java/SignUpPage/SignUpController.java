@@ -76,7 +76,6 @@ public class SignUpController {
     dbController.setUser(userModel);
     if(isMocked){
       if(dbController.handleGetButtonMock(e, 1).equals("Username taken")){
-        this.signUpView.showAlert("User Creation Error", "Username already taken");
         return;
       }
     } else{

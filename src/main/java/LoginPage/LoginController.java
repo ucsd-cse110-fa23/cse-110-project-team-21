@@ -44,7 +44,9 @@ public class LoginController {
             password = lines.get(1);
             ActionEvent e = null;
             System.out.println("Auto-login with username: " + username + " and password: " + password);
-            Platform.runLater(() -> login(e, username, password, true));
+            Platform.runLater(() -> {
+                login(e, username, password, true, false);
+            });
         }
       }
       catch (IOException e) {
@@ -69,11 +71,11 @@ public class LoginController {
     loginButton.setOnAction(e -> {
       String username = this.loginView.getUsername();
       String password = this.loginView.getPassword();
-      login(e, username, password, false);
+      login(e, username, password, false, false);
     });
   }
 
-  public void login (ActionEvent e, String username, String password, boolean autoLogin){
+  public void login (ActionEvent e, String username, String password, boolean autoLogin, boolean isMocked){
       try {
         // check if null
         if(username.equals("") || password.equals("")){
@@ -87,8 +89,16 @@ public class LoginController {
         // check if the username exists
         userModel = new UserModel(username, password);
         dbController.setUser(userModel);
-        String response = dbController.handleGetButton(e, 1);
+        String response = "";
+        if (isMocked){
+          response = dbController.handleGetButtonMock(e, 1);
+        }else{
+          response = dbController.handleGetButton(e, 1);
+        }
         if(response.equals("Available")){
+          if(isMocked){
+            throw new Exception("Username not found. Please try again.");
+          }
           if(autoLogin){
             this.loginView.showAlert("Login Error", "Your autosaved username is wrong. Please try manual input or sign up.");
           }else{
@@ -96,8 +106,15 @@ public class LoginController {
           }
           return;
         }
-        response = dbController.handleGetButton(e, 2);
+        if(isMocked){
+          response = dbController.handleGetButtonMock(e, 2);
+        }else{
+          response = dbController.handleGetButton(e, 2);
+        }
         if(response.equals("Incorrect")){
+          if(isMocked){
+            throw new Exception("Incorrect password. Please try again.");
+          }
           if(autoLogin){
             this.loginView.showAlert("Login Error", "Your autosaved password is wrong. Please try manual input or sign up.");
           }else{
