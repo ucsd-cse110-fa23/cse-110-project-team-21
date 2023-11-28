@@ -77,7 +77,7 @@ public class LoginController {
     });
   }
 
-  public void login (ActionEvent e, String username, String password, boolean autoLogin, boolean isMocked){
+  public void login (ActionEvent e, String username, String password, boolean autoLogin, boolean isMocked) {
       try {
         // check if null
         if(username.equals("") || password.equals("")){
@@ -132,8 +132,10 @@ public class LoginController {
 
         // Log the user in and go to the home page.
         // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
-        HomeView root = new HomeView();
-        Main.sceneManager.ChangeScene(root);
+        if(!isMocked){
+          HomeView root = new HomeView();
+          Main.sceneManager.ChangeScene(root);
+        }
       } catch (Exception ex) {
         ex.printStackTrace();
         showAlert("Server Down Error", "Server could not be connected. Please try again later.");

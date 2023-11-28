@@ -104,8 +104,10 @@ public class SignUpController {
       }
     }
     // In the end, if the function has not been returned by previous catch cases, go to the home page.
-    HomeView root = new HomeView();
-    Main.sceneManager.ChangeScene(root);
+    if(!isMocked){
+      HomeView root = new HomeView();
+      Main.sceneManager.ChangeScene(root); 
+    }
   }
 
   public void showAlert(String title, String message) {
