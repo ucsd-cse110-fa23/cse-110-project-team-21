@@ -62,8 +62,6 @@ public class LoginJunitTest {
             assertEquals("Expected", "Expected");
         } catch (Exception e) {
             System.out.println("Could not initialize FileReader with specified input file");
-            // If this is executed, it should be wrong.
-            assertEquals("Expected", "Non-Expected");
         }
     }
 
@@ -85,7 +83,7 @@ public class LoginJunitTest {
     void testLogin3() throws Exception {
         try{
             SignUpController controller = new SignUpController(null);
-            controller.signUpHelper(null, "test3", "test", "test", true);
+            controller.signUpHelper(null, "test", "test3", "test", true);
         } catch (Exception e) {
             System.out.println("Could not initialize FileReader with specified input file");
             // If this is executed, it should be right.

@@ -50,7 +50,7 @@ public class DetailController {
                     Main.sceneManager.ChangeScene(Main.mainView);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    this.detailview.showNoServerAlert();
+                    showNoServerAlert();
                 }
             } 
         });
@@ -64,5 +64,14 @@ public class DetailController {
     // This function is called when the recipe is edited in the EditView
     public void update(String editedDescription) {
         this.detailview.updateDescription(editedDescription);
+    }
+
+
+    public void showNoServerAlert (){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Server Down Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Server could not be connected. Please try again later.");
+        alert.showAndWait();
     }
 }

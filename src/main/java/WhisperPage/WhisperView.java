@@ -118,12 +118,4 @@ public class WhisperView extends BorderPane {
     public WhisperFooter getFooter() {
         return footer;
     }
-
-    public void showNoServerAlert (){
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Sorry :(");
-        alert.setHeaderText(null);
-        alert.setContentText("Sorry, the Server is not running. Please try again later.");
-        alert.showAndWait();
-      }
 }

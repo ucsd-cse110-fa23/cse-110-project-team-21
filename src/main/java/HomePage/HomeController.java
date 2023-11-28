@@ -6,6 +6,8 @@ import DetailPage.DetailView;
 import Main.Main;
 import RecipeManager.RecipeModel;
 import WhisperPage.WhisperView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class HomeController {
 
@@ -37,7 +39,7 @@ public class HomeController {
             addListeners();
         } catch (Exception e) {
             e.printStackTrace();
-            this.mainPageView.showNoServerAlert();
+            showNoServerAlert();
             return ;
         }
     }
@@ -58,5 +60,13 @@ public class HomeController {
             WhisperView whisperPageView = new WhisperView();
             Main.sceneManager.ChangeScene(whisperPageView);
         });
+    }
+
+    public void showNoServerAlert (){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Server Down Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Server could not be connected. Please try again later.");
+        alert.showAndWait();
     }
 }

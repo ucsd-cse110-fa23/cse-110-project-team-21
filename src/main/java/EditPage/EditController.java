@@ -1,6 +1,8 @@
 package EditPage;
 import Main.Main;
 import RecipeManager.RecipeModel;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class EditController {
 
@@ -36,12 +38,20 @@ public class EditController {
                 Main.sceneManager.ChangeScene(editview.getDetailView());
             } catch (Exception ex) {
                 ex.printStackTrace();
-                this.editview.showNoServerAlert();
+                showNoServerAlert();
             }
         });
     }
 
     public RecipeModel getRecipe() {
         return recipe;
+    }
+
+    public void showNoServerAlert (){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Server Down Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Server could not be connected. Please try again later.");
+        alert.showAndWait();
     }
 }

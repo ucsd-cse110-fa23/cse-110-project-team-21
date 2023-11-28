@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import Main.Main;
 import RecipeManager.RecipeModel;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class GPTController {
 
@@ -29,7 +31,7 @@ public class GPTController {
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-            this.gptView.showNoServerAlert();
+            showNoServerAlert();
             return ;
         }
         gptView.getHeader().setTitleText(recipe.getTitle());
@@ -51,6 +53,14 @@ public class GPTController {
             System.out.println("Don't Save button pressed");
             Main.sceneManager.ChangeScene(Main.mainView);
         });
+    }
+
+    public void showNoServerAlert (){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Server Down Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Server could not be connected. Please try again later.");
+        alert.showAndWait();
     }
 }
 

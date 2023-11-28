@@ -69,10 +69,10 @@ public class WhisperController {
                     this.whispeview.getCenterScreen().setUpdateText("Enter Ingredients:");
                 } catch (IOException e1) {
                     e1.printStackTrace();
-                    this.whispeview.showNoServerAlert();
+                    showNoServerAlert();
                 } catch (URISyntaxException e1) {
                     e1.printStackTrace();
-                    this.whispeview.showNoServerAlert();
+                    showNoServerAlert();
                 } 
             }
         });
@@ -235,4 +235,12 @@ public class WhisperController {
                 signed,
                 bigEndian);
     }   
+
+    public void showNoServerAlert (){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Server Down Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Server could not be connected. Please try again later.");
+        alert.showAndWait();
+    }
 }

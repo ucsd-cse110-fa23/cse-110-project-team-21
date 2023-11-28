@@ -124,11 +124,4 @@ public class EditView extends BorderPane{
         return detailView;
     }
 
-    public void showNoServerAlert (){
-      Alert alert = new Alert(AlertType.WARNING);
-      alert.setTitle("Sorry :(");
-      alert.setHeaderText(null);
-      alert.setContentText("Sorry, the Server is not running. Please try again later.");
-      alert.showAndWait();
-    }
 }
