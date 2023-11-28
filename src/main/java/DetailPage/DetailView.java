@@ -5,6 +5,8 @@ import java.io.File;
 import RecipeManager.RecipeModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -128,5 +130,13 @@ public class DetailView extends BorderPane{
     }
     public void updateDescription(String newDescription) {
         desc.updateDescription(newDescription);
+    }
+
+    public void showNoServerAlert (){
+      Alert alert = new Alert(AlertType.WARNING);
+      alert.setTitle("Sorry :(");
+      alert.setHeaderText(null);
+      alert.setContentText("Sorry, the Server is not running. Please try again later.");
+      alert.showAndWait();
     }
 }

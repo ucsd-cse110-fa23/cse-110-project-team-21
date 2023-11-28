@@ -7,6 +7,7 @@ import javafx.scene.text.TextAlignment;
 import DetailPage.DetailView;
 import RecipeManager.RecipeModel;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 
 class EditPageFooter extends HBox{
     private Button saveButton;
@@ -121,5 +122,13 @@ public class EditView extends BorderPane{
 
     public DetailView getDetailView() {
         return detailView;
+    }
+
+    public void showNoServerAlert (){
+      Alert alert = new Alert(AlertType.WARNING);
+      alert.setTitle("Sorry :(");
+      alert.setHeaderText(null);
+      alert.setContentText("Sorry, the Server is not running. Please try again later.");
+      alert.showAndWait();
     }
 }

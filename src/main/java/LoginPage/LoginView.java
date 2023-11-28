@@ -76,6 +76,14 @@ public class LoginView extends BorderPane {
         alert.showAndWait();
       }
 
+    public void showNoServerAlert (){
+      Alert alert = new Alert(AlertType.WARNING);
+      alert.setTitle("Sorry :(");
+      alert.setHeaderText(null);
+      alert.setContentText("Sorry, the Server is not running. Please try again later.");
+      alert.showAndWait();
+    }
+
 } 
 
 class LoginHeader extends HBox{

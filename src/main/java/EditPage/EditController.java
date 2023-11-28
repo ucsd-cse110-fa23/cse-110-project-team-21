@@ -29,10 +29,15 @@ public class EditController {
         // 1. Update the recipe in the database using the model
         // 2. Update the DetailView
         editview.getSaveButton().setOnAction(e -> {
-            String editedDescription = editview.getEditedText();
-            editmodel.updateRecipe(editedDescription);
-            editview.getDetailView().controller.update(editedDescription);
-            Main.sceneManager.ChangeScene(editview.getDetailView());
+            try{
+                String editedDescription = editview.getEditedText();
+                editmodel.updateRecipe(editedDescription);
+                editview.getDetailView().controller.update(editedDescription);
+                Main.sceneManager.ChangeScene(editview.getDetailView());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                this.editview.showNoServerAlert();
+            }
         });
     }
 

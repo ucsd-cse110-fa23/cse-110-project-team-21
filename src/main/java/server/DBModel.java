@@ -26,6 +26,8 @@ public class DBModel {
             }
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            // conn.setConnectTimeout(5000); // Set a 5-second connection timeout
+            // conn.setReadTimeout(5000);    // Set a 5-second read timeout
             conn.setRequestMethod(method);
             conn.setDoOutput(true);
 
@@ -45,7 +47,6 @@ public class DBModel {
                 out.flush();
                 out.close();
             }
-
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String response = in.readLine();
             in.close();

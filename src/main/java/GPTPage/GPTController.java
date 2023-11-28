@@ -29,6 +29,7 @@ public class GPTController {
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
+            this.gptView.showNoServerAlert();
             return ;
         }
         gptView.getHeader().setTitleText(recipe.getTitle());
