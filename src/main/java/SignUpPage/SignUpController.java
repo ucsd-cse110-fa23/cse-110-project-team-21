@@ -12,6 +12,7 @@ import Main.Main;
 import Server.DBController;
 import Server.DBModel;
 import Server.UserModel;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 public class SignUpController {
@@ -39,48 +40,14 @@ public class SignUpController {
     Button signupButton = this.signUpView.getFooter().getSignupButton();
     signupButton.setOnAction(e -> {
       try{
-        // check if anything is null
-        if(this.signUpView.getUsername().equals("") || this.signUpView.getPassword().equals("") || this.signUpView.getConfirmedPassword().equals("")){
-          this.signUpView.showAlert("User Creation Error", "Please fill out all fields");
-          return;
-        }
-        // check if passwords match
-        if(!this.signUpView.getPassword().equals(this.signUpView.getConfirmedPassword())){
-          this.signUpView.showAlert("User Creation Error", "Passwords do not match");
-          return;
-        }
-        // check if username is taken
-        userModel = new UserModel(this.signUpView.getUsername(), this.signUpView.getPassword());
-        dbController.setUser(userModel);
-        if(dbController.handleGetButton(e, 1).equals("Taken")){
-          this.signUpView.showAlert("User Creation Error", "Username already taken");
-          return;
-        }
-
-        // All good, go and create user.
-        dbController.handlePostButton(e, -1);
-
-        // If autoSave is checked, save the username and password to a file.
-        boolean autoSave = this.signUpView.getCheckboxStatus();
-        if (autoSave) {
-          System.out.println("Saving username and password to file");
-          String pathName = "password.txt";
-          File outputFile = new File(pathName);
-          FileWriter fw;
-          try {
-            fw = new FileWriter(outputFile, false);
-            fw.write(this.signUpView.getUsername() + "\n");
-            fw.write(this.signUpView.getPassword() + "\n");
-            fw.close();
-          } catch (IOException ex) {
-            System.out.println("Could not initialize FileWriter with specified output file");
-          }
-        }
+        String username = this.signUpView.getUsername();
+        String password = this.signUpView.getPassword();
+        String confirmedPassword = this.signUpView.getConfirmedPassword();
+        signUpHelper(e, username, password, confirmedPassword, false);
 
         // System.out.println(this.signUpView.getUsername());
         // System.out.println(this.signUpView.getPassword());
         // System.out.println(this.signUpView.getConfirmedPassword());
-
 
         // Log the user in and go to the home page.
         // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
@@ -91,5 +58,52 @@ public class SignUpController {
         this.signUpView.showNoServerAlert();
       }
     });
+  }
+
+  public void signUpHelper (ActionEvent e, String username, String password, String confirmedPassword, boolean isMocked) throws Exception {
+    // check if anything is null
+    if(username == null || password == null || confirmedPassword == null){
+      this.signUpView.showAlert("User Creation Error", "Please fill out all fields");
+      return;
+    }
+    // check if passwords match
+    if(!password.equals(confirmedPassword)){
+      this.signUpView.showAlert("User Creation Error", "Passwords do not match");
+      return;
+    }
+    // check if username is taken
+    userModel = new UserModel(username, password);
+    dbController.setUser(userModel);
+    if(isMocked){
+      if(dbController.handleGetButtonMock(e, 1).equals("Username taken")){
+        this.signUpView.showAlert("User Creation Error", "Username already taken");
+        return;
+      }
+    } else{
+      if(dbController.handleGetButton(e, 1).equals("Username taken")){
+        this.signUpView.showAlert("User Creation Error", "Username already taken");
+        return;
+      }
+    }
+    // All good, go and create user.
+    dbController.handlePostButton(e, -1);
+    // If autoSave is checked, save the username and password to a file.
+    if(!isMocked){
+      boolean autoSave = this.signUpView.getCheckboxStatus();
+      if (autoSave) {
+        System.out.println("Saving username and password to file");
+        String pathName = "password.txt";
+        File outputFile = new File(pathName);
+        FileWriter fw;
+        try {
+          fw = new FileWriter(outputFile, false);
+          fw.write(this.signUpView.getUsername() + "\n");
+          fw.write(this.signUpView.getPassword() + "\n");
+          fw.close();
+        } catch (IOException ex) {
+          System.out.println("Could not initialize FileWriter with specified output file");
+        }
+      }
+    }
   }
 }
