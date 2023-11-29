@@ -28,12 +28,18 @@ public class HomeController {
     // It is called when a new recipe is added, edited, or deleted
     public void updateRecipeList(){
         this.mainPageView.recipeList.getChildren().clear();
-        List<RecipeModel> newRecipeList = mainPageModel.loadFromDatabase();
-        for(RecipeModel r: newRecipeList){
-            MainPageRecipeCard toAdd = new MainPageRecipeCard(r.getTitle());
-            this.mainPageView.recipeList.getChildren().add(toAdd);
+        try{
+            List<RecipeModel> newRecipeList = mainPageModel.loadFromDatabase();
+            for(RecipeModel r: newRecipeList){
+                MainPageRecipeCard toAdd = new MainPageRecipeCard(r.getTitle());
+                this.mainPageView.recipeList.getChildren().add(toAdd);
+            }
+            addListeners();
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.mainPageView.showNoServerAlert();
+            return ;
         }
-        addListeners();
     }
 
 

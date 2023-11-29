@@ -1,5 +1,7 @@
 package LoginPage;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,9 +46,11 @@ public class LoginController {
             System.out.println("Auto-login with username: " + username + " and password: " + password);
             Platform.runLater(() -> login(e, username, password, true));
         }
-      }catch (Exception e) {
+      }
+      catch (IOException e) {
         e.printStackTrace();
-    }
+        this.loginView.showNoServerAlert();
+      }
   }
 
   public void activate(){
@@ -70,42 +74,47 @@ public class LoginController {
   }
 
   public void login (ActionEvent e, String username, String password, boolean autoLogin){
-      // check if null
-      if(username.equals("") || password.equals("")){
-        if (autoLogin) {
-          this.loginView.showAlert("Login Error", "Your autosaved password is contaminated. Please try manual input or sign up.");
-        }else{
-          this.loginView.showAlert("Login Error", "Please fill out all fields.");
+      try {
+        // check if null
+        if(username.equals("") || password.equals("")){
+          if (autoLogin) {
+            this.loginView.showAlert("Login Error", "Your autosaved password is contaminated. Please try manual input or sign up.");
+          }else{
+            this.loginView.showAlert("Login Error", "Please fill out all fields.");
+          }
+          return;
         }
-        return;
-      }
-      // check if the username exists
-      userModel = new UserModel(username, password);
-      dbController.setUser(userModel);
-      String response = dbController.handleGetButton(e, 1);
-      if(response.equals("Available")){
-        if(autoLogin){
-          this.loginView.showAlert("Login Error", "Your autosaved username is wrong. Please try manual input or sign up.");
-        }else{
-          this.loginView.showAlert("Login Error", "Username not found. Please try again.");
+        // check if the username exists
+        userModel = new UserModel(username, password);
+        dbController.setUser(userModel);
+        String response = dbController.handleGetButton(e, 1);
+        if(response.equals("Available")){
+          if(autoLogin){
+            this.loginView.showAlert("Login Error", "Your autosaved username is wrong. Please try manual input or sign up.");
+          }else{
+            this.loginView.showAlert("Login Error", "Username not found. Please try again.");
+          }
+          return;
         }
-        return;
-      }
-      response = dbController.handleGetButton(e, 2);
-      if(response.equals("Incorrect")){
-        if(autoLogin){
-          this.loginView.showAlert("Login Error", "Your autosaved password is wrong. Please try manual input or sign up.");
-        }else{
-          this.loginView.showAlert("Login Error", "Incorrect password. Please try again.");
+        response = dbController.handleGetButton(e, 2);
+        if(response.equals("Incorrect")){
+          if(autoLogin){
+            this.loginView.showAlert("Login Error", "Your autosaved password is wrong. Please try manual input or sign up.");
+          }else{
+            this.loginView.showAlert("Login Error", "Incorrect password. Please try again.");
+          }
+          return;
         }
-        return;
-      }
-      // System.out.println(username);
-      // System.out.println(password);
+        // System.out.println(username);
+        // System.out.println(password);
 
-      // Log the user in and go to the home page.
-      // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
-      HomeView root = new HomeView();
-      Main.sceneManager.ChangeScene(root);
+        // Log the user in and go to the home page.
+        // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
+        HomeView root = new HomeView();
+        Main.sceneManager.ChangeScene(root);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+        this.loginView.showNoServerAlert();
+      }
   }
 }

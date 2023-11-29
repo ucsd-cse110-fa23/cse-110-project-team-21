@@ -20,7 +20,7 @@ public class WhisperController {
     WhisperModel whispermodel;
 
 
-    
+
     private File curr;
     // *** Number of audio inputs that have been recorded. Step = 0 : recoring meal type, Step = 1 : recording ingredients.
     private int stepCounter = 0;
@@ -69,9 +69,11 @@ public class WhisperController {
                     this.whispeview.getCenterScreen().setUpdateText("Enter Ingredients:");
                 } catch (IOException e1) {
                     e1.printStackTrace();
+                    this.whispeview.showNoServerAlert();
                 } catch (URISyntaxException e1) {
                     e1.printStackTrace();
-                }
+                    this.whispeview.showNoServerAlert();
+                } 
             }
         });
     }

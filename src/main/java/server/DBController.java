@@ -1,5 +1,6 @@
 package Server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class DBController {
     }
 
 
-    public void handlePostButton(ActionEvent event, int misc/*testing , int num */) { // add
+    public void handlePostButton(ActionEvent event, int misc/*testing , int num */) throws Exception { // add
         // add one recipe: needs user info, recipe info, and misc=nextIndex
         // add new user: needs user info, misc=-1
         String response;
@@ -57,7 +58,7 @@ public class DBController {
         //view.showAlert("Response", response);
     }
 
-    public String handleGetButton(ActionEvent event, int misc) { // get
+    public String handleGetButton(ActionEvent event, int misc) throws Exception { // get
         // get a user (check if the user name is taken for account creation): needs user info, misc=1
         // get a user (verify their password matches for login): needs user info, misc=2
         // get all of a user's recipes: needs user info, misc=3
@@ -66,13 +67,13 @@ public class DBController {
         //view.showAlert("Response", response);
     }
 
-    public void handlePutButton(ActionEvent event) { // edit
+    public void handlePutButton(ActionEvent event) throws Exception{ // edit
         // edit: needs user info, recipe info, misc=0
         String response = model.performRequest("PUT", fakeUser, editedRecipe, 0);
         //view.showAlert("Response", response);
     }
 
-    public void handleDeleteButton(ActionEvent event) { // delete
+    public void handleDeleteButton(ActionEvent event) throws Exception{ // delete
         // delete: needs user info and recipe info
 
         String response = model.performRequest("DELETE", fakeUser, fakeRecipe, 0);

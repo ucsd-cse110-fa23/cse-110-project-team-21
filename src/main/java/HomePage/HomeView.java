@@ -4,6 +4,8 @@ import Main.Main;
 import LoginPage.LoginView;
 import SignUpPage.SignUpView;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.layout.*;
@@ -100,6 +102,7 @@ class MainPageFooter extends HBox {
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.setSpacing(15);
         this.setAlignment(Pos.CENTER);
+        // Comment this to add the login and sign up buttons to the footer
         this.getChildren().addAll(loginButton, signUpButton);
     }
 }
@@ -132,5 +135,13 @@ public class HomeView extends BorderPane{
 
     public Button getAddButton() {
         return this.header.getAddRecipeButton();
+    }
+
+    public void showNoServerAlert (){
+      Alert alert = new Alert(AlertType.WARNING);
+      alert.setTitle("Sorry :(");
+      alert.setHeaderText(null);
+      alert.setContentText("Sorry, the Server is not running. Please try again later.");
+      alert.showAndWait();
     }
 }

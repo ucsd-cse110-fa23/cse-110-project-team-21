@@ -44,9 +44,14 @@ public class DetailController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonConfirm){
-                Main.recipeManager.removeRecipe(detailview.getRecipe());
-                Main.mainView.homecontroller.updateRecipeList();
-                Main.sceneManager.ChangeScene(Main.mainView);
+                try{
+                    Main.recipeManager.removeRecipe(detailview.getRecipe());
+                    Main.mainView.homecontroller.updateRecipeList();
+                    Main.sceneManager.ChangeScene(Main.mainView);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    this.detailview.showNoServerAlert();
+                }
             } 
         });
 
