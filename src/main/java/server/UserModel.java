@@ -1,4 +1,4 @@
-package Server;
+package server;
 public class UserModel {
     // each instance of this class represents a recipe that has been saved
     private String username;

@@ -10,12 +10,14 @@ import java.util.List;
 import HomePage.HomeView;
 import SignUpPage.SignUpView;
 import Main.Main;
-import Server.DBController;
-import Server.DBModel;
-import Server.UserModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import server.DBController;
+import server.DBModel;
+import server.UserModel;
 
 
 
@@ -34,25 +36,25 @@ public class LoginController {
     // If there is, do the auto-login automatically for the user.
     String filePath = "password.txt";
     try {
-        Path path = (Path) Paths.get(filePath);
-        if (!Files.exists(path)) {
-          return;
-        } 
-        List<String> lines = Files.readAllLines(path);
-        if (!lines.isEmpty() && lines.size() == 2) {
-            username = lines.get(0);
-            password = lines.get(1);
-            ActionEvent e = null;
-            System.out.println("Auto-login with username: " + username + " and password: " + password);
-            Platform.runLater(() -> {
-                login(e, username, password, true, false);
-            });
-        }
+      Path path = (Path) Paths.get(filePath);
+      if (!Files.exists(path)) {
+        return;
+      } 
+      List<String> lines = Files.readAllLines(path);
+      if (!lines.isEmpty() && lines.size() == 2) {
+          username = lines.get(0);
+          password = lines.get(1);
+          ActionEvent e = null;
+          // System.out.println("Auto-login with username: " + username + " and password: " + password);
+          Platform.runLater(() -> {
+              login(e, username, password, true, false);
+          });
       }
-      catch (IOException e) {
-        e.printStackTrace();
-        this.loginView.showNoServerAlert();
-      }
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+      showAlert("Server Down Error", "Server could not be connected. Please try again later.");
+    }
   }
 
   public void activate(){
@@ -75,17 +77,18 @@ public class LoginController {
     });
   }
 
-  public void login (ActionEvent e, String username, String password, boolean autoLogin, boolean isMocked){
+  public void login (ActionEvent e, String username, String password, boolean autoLogin, boolean isMocked) {
       try {
         // check if null
         if(username.equals("") || password.equals("")){
           if (autoLogin) {
-            this.loginView.showAlert("Login Error", "Your autosaved password is contaminated. Please try manual input or sign up.");
+            showAlert("Login Error", "Your autosaved password is contaminated. Please try manual input or sign up.");
           }else{
-            this.loginView.showAlert("Login Error", "Please fill out all fields.");
+            showAlert("Login Error", "Please fill out all fields.");
           }
           return;
         }
+
         // check if the username exists
         userModel = new UserModel(username, password);
         dbController.setUser(userModel);
@@ -100,12 +103,14 @@ public class LoginController {
             throw new Exception("Username not found. Please try again.");
           }
           if(autoLogin){
-            this.loginView.showAlert("Login Error", "Your autosaved username is wrong. Please try manual input or sign up.");
+            showAlert("Login Error", "Your autosaved username is wrong. Please try manual input or sign up.");
           }else{
-            this.loginView.showAlert("Login Error", "Username not found. Please try again.");
+            showAlert("Login Error", "Username not found. Please try again.");
           }
           return;
         }
+
+        // Check is the password is correct
         if(isMocked){
           response = dbController.handleGetButtonMock(e, 2);
         }else{
@@ -116,9 +121,9 @@ public class LoginController {
             throw new Exception("Incorrect password. Please try again.");
           }
           if(autoLogin){
-            this.loginView.showAlert("Login Error", "Your autosaved password is wrong. Please try manual input or sign up.");
+            showAlert("Login Error", "Your autosaved password is wrong. Please try manual input or sign up.");
           }else{
-            this.loginView.showAlert("Login Error", "Incorrect password. Please try again.");
+            showAlert("Login Error", "Incorrect password. Please try again.");
           }
           return;
         }
@@ -127,11 +132,21 @@ public class LoginController {
 
         // Log the user in and go to the home page.
         // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
-        HomeView root = new HomeView();
-        Main.sceneManager.ChangeScene(root);
+        if(!isMocked){
+          HomeView root = new HomeView();
+          Main.sceneManager.ChangeScene(root);
+        }
       } catch (Exception ex) {
         ex.printStackTrace();
-        this.loginView.showNoServerAlert();
+        showAlert("Server Down Error", "Server could not be connected. Please try again later.");
       }
+  }
+
+  public void showAlert(String title, String message) {
+    Alert alert = new Alert(AlertType.WARNING);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
   }
 }

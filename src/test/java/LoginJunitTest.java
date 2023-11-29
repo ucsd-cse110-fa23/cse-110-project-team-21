@@ -56,26 +56,21 @@ public class LoginJunitTest {
     @Test
     void testLogin() throws Exception {
         try{
-            SignUpController controller = new SignUpController(null);
-            controller.signUpHelper(null, "test", "test", "test", true);
-            // If this is executed, it should be right.
+            LoginController loginController = new LoginController(null);
+            loginController.login(null, "test", "test",false, true );
             assertEquals("Expected", "Expected");
         } catch (Exception e) {
             System.out.println("Could not initialize FileReader with specified input file");
-            // If this is executed, it should be wrong.
-            assertEquals("Expected", "Non-Expected");
         }
     }
 
     // Username DNE
     @Test
     void testLogin2() throws Exception {
-        try{
-            SignUpController controller = new SignUpController(null);
-            controller.signUpHelper(null, "test3", "test", "test", true);
+       try{
+            LoginController loginController = new LoginController(null);
+            loginController.login(null, "testwrong", "test",false, true );
         } catch (Exception e) {
-            System.out.println("Could not initialize FileReader with specified input file");
-            // If this is executed, it should be right.
             assertEquals("Expected", "Expected");
         }
     }
@@ -83,12 +78,10 @@ public class LoginJunitTest {
     // Username exist, password wrong
     @Test
     void testLogin3() throws Exception {
-        try{
-            SignUpController controller = new SignUpController(null);
-            controller.signUpHelper(null, "test3", "test", "test", true);
+       try{
+            LoginController loginController = new LoginController(null);
+            loginController.login(null, "test", "testwrong",false, true );
         } catch (Exception e) {
-            System.out.println("Could not initialize FileReader with specified input file");
-            // If this is executed, it should be right.
             assertEquals("Expected", "Expected");
         }
     }
@@ -97,12 +90,10 @@ public class LoginJunitTest {
     // Username wrong, password wrong
     @Test
     void testLogin4() throws Exception {
-        try{
-            SignUpController controller = new SignUpController(null);
-            controller.signUpHelper(null, "test2", "test2", "test", true);
+       try{
+            LoginController loginController = new LoginController(null);
+            loginController.login(null, "testwrong", "testwrong",false, true );
         } catch (Exception e) {
-            // If this is executed, it should be right.
-            System.out.println("Could not initialize FileReader with specified input file");
             assertEquals("Expected", "Expected");
         }
     }

@@ -83,22 +83,6 @@ public class SignUpView extends BorderPane{
       public boolean getCheckboxStatus() {
         return autoLoginCheckBox.isSelected();
       }
-
-      public void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-      }
-
-      public void showNoServerAlert (){
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Sorry :(");
-        alert.setHeaderText(null);
-        alert.setContentText("Sorry, the Server is not running. Please try again later.");
-        alert.showAndWait();
-      }
 }
 
 class SignUpHeader extends HBox{

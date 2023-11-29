@@ -9,11 +9,13 @@ import HomePage.HomeView;
 import LoginPage.LoginView;
 import SignUpPage.SignUpView;
 import Main.Main;
-import Server.DBController;
-import Server.DBModel;
-import Server.UserModel;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import server.DBController;
+import server.DBModel;
+import server.UserModel;
 
 public class SignUpController {
   private SignUpView signUpView;
@@ -51,11 +53,9 @@ public class SignUpController {
 
         // Log the user in and go to the home page.
         // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
-        HomeView root = new HomeView();
-        Main.sceneManager.ChangeScene(root);
       } catch (Exception ex) {
         ex.printStackTrace();
-        this.signUpView.showNoServerAlert();
+        showAlert("Server Down Error", "Server could not be connected. Please try again later.");
       }
     });
   }
@@ -63,24 +63,24 @@ public class SignUpController {
   public void signUpHelper (ActionEvent e, String username, String password, String confirmedPassword, boolean isMocked) throws Exception {
     // check if anything is null
     if(username == null || password == null || confirmedPassword == null){
-      this.signUpView.showAlert("User Creation Error", "Please fill out all fields");
+      showAlert("User Creation Error", "Please fill out all fields");
       return;
     }
     // check if passwords match
     if(!password.equals(confirmedPassword)){
-      this.signUpView.showAlert("User Creation Error", "Passwords do not match");
+      showAlert("User Creation Error", "Passwords do not match");
       return;
     }
     // check if username is taken
     userModel = new UserModel(username, password);
     dbController.setUser(userModel);
     if(isMocked){
-      if(dbController.handleGetButtonMock(e, 1).equals("Username taken")){
+      if(dbController.handleGetButtonMock(e, 1).equals("Taken")){
         return;
       }
     } else{
-      if(dbController.handleGetButton(e, 1).equals("Username taken")){
-        this.signUpView.showAlert("User Creation Error", "Username already taken");
+      if(dbController.handleGetButton(e, 1).equals("Taken")){
+        showAlert("User Creation Error", "Username already taken");
         return;
       }
     }
@@ -90,7 +90,6 @@ public class SignUpController {
     if(!isMocked){
       boolean autoSave = this.signUpView.getCheckboxStatus();
       if (autoSave) {
-        System.out.println("Saving username and password to file");
         String pathName = "password.txt";
         File outputFile = new File(pathName);
         FileWriter fw;
@@ -104,5 +103,18 @@ public class SignUpController {
         }
       }
     }
+    // In the end, if the function has not been returned by previous catch cases, go to the home page.
+    if(!isMocked){
+      HomeView root = new HomeView();
+      Main.sceneManager.ChangeScene(root); 
+    }
+  }
+
+  public void showAlert(String title, String message) {
+    Alert alert = new Alert(AlertType.WARNING);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
   }
 }
