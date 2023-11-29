@@ -1,7 +1,7 @@
 package server;
 import com.sun.net.httpserver.*;
- 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -46,6 +46,11 @@ public class Server {
   server.start();
 
    System.out.println("Server started on port " + SERVER_PORT);
+
+   // delete any autologin info stored from a previous run of the server
+   String pathName = "password.txt";
+   File infoFile = new File(pathName);
+   infoFile.delete();
 
    /*DBController test = new DBController(new DBModel());
    test.handleGetButton(null, 1);

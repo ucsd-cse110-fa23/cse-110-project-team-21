@@ -1,7 +1,7 @@
 
 import org.junit.jupiter.api.Test;
 
-import GPTPage.GPTModel;
+import NewRecipePage.GPTModel;
 import RecipeManager.RecipeManagerModel;
 import RecipeManager.RecipeModel;
 

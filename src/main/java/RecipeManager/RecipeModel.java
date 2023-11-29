@@ -17,6 +17,7 @@ public class RecipeModel {
     public RecipeModel(String title, String description) {
         this.title = title;
         this.description = description;
+        this.mealType = mealType;
         this.previewImgPath = DEFAULT_IMAGE;
         //this.mealType = mealType;
     }

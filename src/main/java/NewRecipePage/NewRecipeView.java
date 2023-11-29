@@ -1,4 +1,4 @@
-package GPTPage;
+package NewRecipePage;
 
 import java.io.File;
 
@@ -17,9 +17,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-class GPTHeader extends HBox {
+class NewRecipeHeader extends HBox {
     public Text titleText;
-    public GPTHeader(String titleInput) {
+    public NewRecipeHeader(String titleInput) {
         this.setPrefSize(500, 80); // Size of the header
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.titleText = new Text(titleInput); // Text of the Header
@@ -42,12 +42,12 @@ class GPTHeader extends HBox {
 
 
 
-class GPTDescription extends FlowPane {
+class NewRecipeDescription extends FlowPane {
     Text description;
     ImageView previewImage;
     HBox previewImageRegion;
 
-    public GPTDescription(RecipeModel recipe) {
+    public NewRecipeDescription(RecipeModel recipe) {
         
         Image img = new Image(new File(recipe.getPreviewImgPath()).toURI().toString());
         this.previewImage = new ImageView(img);
@@ -72,11 +72,11 @@ class GPTDescription extends FlowPane {
 
 
 
-class GPTFooter extends HBox{
+class NewRecipeFooter extends HBox{
     private Button saveButton;
     private Button dontSaveButton;
     
-    public GPTFooter() {
+    public NewRecipeFooter() {
         this.setPrefSize(500, 60);
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.setSpacing(15);
@@ -99,45 +99,45 @@ class GPTFooter extends HBox{
 }
 
 
-public class GPTView extends BorderPane{
-    private GPTHeader header;
-    private GPTFooter footer;
+public class NewRecipeView extends BorderPane{
+    private NewRecipeHeader header;
+    private NewRecipeFooter footer;
     private ScrollPane scrollPane;
-    private GPTDescription desc;
+    private NewRecipeDescription desc;
     private RecipeModel recipe;
-    public GPTController GPTcontroller;
+    public NewRecipeController NewRecipecontroller;
     ArrayList<String> recordingResult;
 
 
     // Constructor, Note: the recordingResult is the result from the recording page
     // You must have the recordingResult in order create this page!
     // Calling the OpenAI will be done in the Model
-    public GPTView(ArrayList<String> recordingResult) {
-        header = new GPTHeader("New Recipe");
-        footer = new GPTFooter();
-        desc = new GPTDescription(new RecipeModel("Title", "Description"));
+    public NewRecipeView(ArrayList<String> recordingResult) {
+        header = new NewRecipeHeader("New Recipe");
+        footer = new NewRecipeFooter();
+        desc = new NewRecipeDescription(new RecipeModel("Title", "Description"));
         scrollPane = new ScrollPane(desc);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         this.recordingResult = recordingResult;
 
         // Creating the controller and activating it. Passing the view (this) to help the controller to access.
-        GPTcontroller = new GPTController(this);
-        GPTcontroller.activate(recordingResult);
+        NewRecipecontroller = new NewRecipeController(this);
+        NewRecipecontroller.activate(recordingResult);
         this.setTop(header);
         this.setCenter(scrollPane);
         this.setBottom(footer);
     }
 
-    public GPTHeader getHeader() {
+    public NewRecipeHeader getHeader() {
         return this.header;
     }
 
-    public GPTFooter getFooter() {
+    public NewRecipeFooter getFooter() {
         return this.footer;
     }
 
-    public GPTDescription getDesc() {
+    public NewRecipeDescription getDesc() {
         return this.desc;
     }
 
