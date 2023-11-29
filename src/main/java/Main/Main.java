@@ -16,11 +16,6 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    // Save two pages as static variables
-    public static HomeView mainView;
-    public static LoginView loginView;
-
-
     public static SceneController sceneManager;
     public static RecipeManagerModel recipeManager;
     public static GPTController gptController;
@@ -28,6 +23,8 @@ public class Main extends Application {
     public static GPTModel  gptModel;
     public static WhisperModel whisperModel;
 
+    public static HomeView mainView;
+    public static LoginView loginView;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -37,13 +34,14 @@ public class Main extends Application {
 
         //  Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
         mainView = new HomeView();
-        loginView = new LoginView();
+        LoginView loginView = new LoginView();
         sceneManager = new SceneController(primaryStage);
       
-        // primaryStage, which is the ONLY entry window of the application
+        // primaryStage, which is the ONLY main window of the application
         // The main window will contain the mainView, which is the home page
+        // TO DO: If doing authentication, the main window should be the login page instead.
         primaryStage.setTitle("PantryPal");
-        primaryStage.setScene(new Scene(mainView, 500, 600));
+        primaryStage.setScene(new Scene(loginView, 500, 600));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

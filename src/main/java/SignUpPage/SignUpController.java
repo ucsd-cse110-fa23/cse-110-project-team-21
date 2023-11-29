@@ -82,7 +82,6 @@ public class SignUpController {
 
 
       // Log the user in and go to the home page.
-
       // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
       HomeView root = new HomeView();
       Main.sceneManager.ChangeScene(root);
