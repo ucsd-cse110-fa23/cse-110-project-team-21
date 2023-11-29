@@ -1,11 +1,11 @@
 package Main;
 
-import GPTPage.GPTController;
-import GPTPage.GPTModel;
 import RecipeManager.RecipeManagerModel;
 import SceneController.SceneController;
 import HomePage.HomeView;
 import LoginPage.LoginView;
+import NewRecipePage.NewRecipeController;
+import NewRecipePage.GPTModel;
 import WhisperPage.WhisperController;
 import WhisperPage.WhisperModel;
 import javafx.application.Application;
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public static SceneController sceneManager;
     public static RecipeManagerModel recipeManager;
-    public static GPTController gptController;
+    public static NewRecipeController gptController;
     public static WhisperController WhisperController;
     public static GPTModel  gptModel;
     public static WhisperModel whisperModel;

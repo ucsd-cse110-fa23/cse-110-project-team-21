@@ -62,7 +62,7 @@ public class SignUpController {
 
   public void signUpHelper (ActionEvent e, String username, String password, String confirmedPassword, boolean isMocked) throws Exception {
     // check if anything is null
-    if(username == null || password == null || confirmedPassword == null){
+    if(username == null || password == null || confirmedPassword == null || username.equals("") || password.equals("")){
       showAlert("User Creation Error", "Please fill out all fields");
       return;
     }

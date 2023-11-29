@@ -8,8 +8,8 @@ import java.io.*;
 import java.util.Optional;
 import javax.sound.sampled.*;
 
-import GPTPage.GPTView;
 import Main.Main;
+import NewRecipePage.NewRecipeView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -147,7 +147,7 @@ public class WhisperController {
             if (ingredients!=null) {
                 whispermodel.getResult().set(1, ingredients);
                 System.out.println("Ingredients: " + whispermodel.getResult().get(1));
-                GPTView GPTview= new GPTView(whispermodel.getResult());
+                NewRecipeView GPTview= new NewRecipeView(whispermodel.getResult());
                 Main.sceneManager.ChangeScene(GPTview);
             } else{
                 invalidInput();

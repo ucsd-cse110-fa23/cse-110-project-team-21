@@ -1,4 +1,4 @@
-package GPTPage;
+package NewRecipePage;
 
 import java.util.ArrayList;
 
@@ -7,14 +7,14 @@ import RecipeManager.RecipeModel;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class GPTController {
+public class NewRecipeController {
 
-    GPTView gptView;
+    NewRecipeView newRecipeView;
     GPTModel gptModel;
     RecipeModel recipe;
 
-    public GPTController(GPTView gptView) {
-        this.gptView = gptView;
+    public NewRecipeController(NewRecipeView newRecipeView) {
+        this.newRecipeView = newRecipeView;
     }
 
     // Binding the controller to the view
@@ -34,14 +34,14 @@ public class GPTController {
             showNoServerAlert();
             return ;
         }
-        gptView.getHeader().setTitleText(recipe.getTitle());
-        this.gptView.getDesc().setDescription(recipe.getDescription());
+        newRecipeView.getHeader().setTitleText(recipe.getTitle());
+        this.newRecipeView.getDesc().setDescription(recipe.getDescription());
     }
 
 
     public void addListeners() {
         // Save button functionality
-        gptView.getFooter().getSaveButton().setOnAction(e -> {
+        newRecipeView.getFooter().getSaveButton().setOnAction(e -> {
             System.out.println("Save button pressed");
             Main.recipeManager.addRecipe(recipe);
             Main.mainView.homecontroller.updateRecipeList();
@@ -49,7 +49,7 @@ public class GPTController {
         });
 
         // Dont save button functionality
-        gptView.getFooter().getDontSaveButton().setOnAction(e -> {
+        newRecipeView.getFooter().getDontSaveButton().setOnAction(e -> {
             System.out.println("Don't Save button pressed");
             Main.sceneManager.ChangeScene(Main.mainView);
         });

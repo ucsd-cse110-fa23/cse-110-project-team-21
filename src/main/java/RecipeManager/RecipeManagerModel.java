@@ -173,7 +173,7 @@ public class RecipeManagerModel {
             String description = data[1].substring(1, data[1].length() - 1);
             description = description.replace("\\n", "\n").replace("\\r","\r");
 
-            RecipeModel add = new RecipeModel(title, description);
+            RecipeModel add = new RecipeModel(title, description); //uses old contructor, I kept it because it's an old add
 
             retrievedDataBase.add(add); 
         }
@@ -182,5 +182,11 @@ public class RecipeManagerModel {
         br.close();
 
         return retrievedDataBase;
+    }
+
+    public int incrementNextIndex(){
+        int temp = nextIndex;
+        this.nextIndex++;
+        return temp;
     }
 }
