@@ -41,12 +41,11 @@ public class SignupJunitTest {
         // read from the mockUsers.txt file
         String pathName = "mockUsers.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(pathName))) {
-            reader.readLine();
-            reader.readLine();
-            reader.readLine();
             assertEquals(reader, "Username: test");
             reader.readLine();
             assertEquals(reader, "Password: test");
+            reader.readLine();
+            assertEquals(reader, "");
             reader.close();
         } catch (Exception e) {
             System.out.println("Could not initialize FileReader with specified input file");
