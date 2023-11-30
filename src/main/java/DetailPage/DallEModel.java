@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URI;
 
-public class DetailModel {
+public class DallEModel {
 
     /*
      * this method takes a recipe title as a query to generate a new image, then returns the file
@@ -22,11 +22,13 @@ public class DetailModel {
             return query + ".jpg";
         }
         try {
-            String urlString = "http://localhost:8100/";
+            String urlString = "http://localhost:8100/dalle/";
             if (query != null) {
-                urlString += "?=" + query;
+                urlString += "?=" + query.replace(":", "_");
             }
+            
             URL url = new URI(urlString).toURL();
+            //System.out.println(url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setDoOutput(true);

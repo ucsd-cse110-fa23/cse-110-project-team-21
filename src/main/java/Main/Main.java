@@ -2,6 +2,7 @@ package Main;
 
 import RecipeManager.RecipeManagerModel;
 import SceneController.SceneController;
+import DetailPage.DallEModel;
 import HomePage.HomeView;
 import LoginPage.LoginView;
 import NewRecipePage.NewRecipeController;
@@ -21,6 +22,7 @@ public class Main extends Application {
     public static NewRecipeController gptController;
     public static WhisperController WhisperController;
     public static GPTModel  gptModel;
+    public static DallEModel dallEModel;
     public static WhisperModel whisperModel;
 
     public static HomeView mainView;
@@ -28,7 +30,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        dallEModel = new DallEModel();
         //  Create a RecipeManager object to hold/manage stored recipe data
         recipeManager = new RecipeManagerModel();
 
@@ -36,7 +38,7 @@ public class Main extends Application {
         mainView = new HomeView();
         LoginView loginView = new LoginView();
         sceneManager = new SceneController(primaryStage);
-      
+        
         // primaryStage, which is the ONLY main window of the application
         // The main window will contain the mainView, which is the home page
         // TO DO: If doing authentication, the main window should be the login page instead.

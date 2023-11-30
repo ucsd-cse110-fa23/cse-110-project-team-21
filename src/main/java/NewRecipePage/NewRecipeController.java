@@ -27,7 +27,7 @@ public class NewRecipeController {
         this.gptModel.setPerameters(mealType, ingredients);  
         try {
             recipe = gptModel.sendRequest();
-            recipe.setTitle(mealType+ ": " + recipe.getTitle());
+            //recipe.setTitle(mealType+ ": " + recipe.getTitle());
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -53,6 +53,10 @@ public class NewRecipeController {
             System.out.println("Don't Save button pressed");
             Main.sceneManager.ChangeScene(Main.mainView);
         });
+    }
+
+    public String generateImage(String title){
+        return Main.dallEModel.performImageRequest(title);
     }
 
     public void showNoServerAlert (){
