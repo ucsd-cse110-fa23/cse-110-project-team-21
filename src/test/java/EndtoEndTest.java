@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import NewRecipePage.GPTModel;
-import RecipeManager.RecipeManagerModel;
+import RecipeManager.MockRecipeManagerModel;
 import RecipeManager.RecipeModel;
 import WhisperPage.WhisperModel;
 
@@ -13,14 +13,14 @@ import java.io.IOException;
 
 
 public class EndtoEndTest {
-    RecipeManagerModel manager;
+    MockRecipeManagerModel manager;
     WhisperModel whisper;
     GPTModel model;
 
     @Test
     void EndtoEndScenario() {
         //when app starts
-        manager = new RecipeManagerModel();
+        manager = new MockRecipeManagerModel();
         manager.removeAllRecipe();
         whisper = new WhisperModel();
 

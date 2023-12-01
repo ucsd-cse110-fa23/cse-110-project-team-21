@@ -2,7 +2,7 @@ package EditPage;
 
 import java.io.IOException;
 
-import Main.Main;
+/*import Main.Main;
 
 
 public class EditModel {
@@ -22,5 +22,5 @@ public class EditModel {
             System.out.println("Could not update recipe");
         }
     }
-}
+} */
 

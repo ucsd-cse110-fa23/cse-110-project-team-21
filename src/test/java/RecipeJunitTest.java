@@ -3,7 +3,7 @@
 
 import org.junit.jupiter.api.Test;
 
-import RecipeManager.RecipeManagerModel;
+import RecipeManager.MockRecipeManagerModel;
 import RecipeManager.RecipeModel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,13 +13,13 @@ import org.junit.jupiter.api.BeforeEach;
 
 
 public class RecipeJunitTest {
-    private RecipeManagerModel manager;
+    private MockRecipeManagerModel manager;
     private RecipeModel firstRecipe;
     
     @BeforeEach
     void setUp() {
         firstRecipe = new RecipeModel("sandwich", "put stuff between two slices of bread");
-        manager = new RecipeManagerModel();
+        manager = new MockRecipeManagerModel();
         manager.removeAllRecipe();
     }
 
