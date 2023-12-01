@@ -37,9 +37,9 @@ public class DBModel {
                     if (misc==-1) {
                         out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(user.getPassword()));
                     } else {
-                        System.out.println("Type: " + recipe.getMealType());
-                        System.out.println("Index: " + recipe.getIndex());
-                        System.out.println("Desc: " + recipe.getDescription());
+                        //System.out.println("Type: " + recipe.getMealType());
+                        //System.out.println("Index: " + recipe.getIndex());
+                        //System.out.println("Desc: " + recipe.getDescription());
                         out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(recipe.getTitle()) + "&" + replaceSpace(recipe.getDescription()) + "&" + replaceSpace(recipe.getMealType()) + "&" + recipe.getIndex() + "&" + misc);
                     }
                     

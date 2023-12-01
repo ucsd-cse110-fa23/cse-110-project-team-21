@@ -156,7 +156,7 @@ public class DBHandler implements HttpHandler {
         InputStream inStream = httpExchange.getRequestBody();
         Scanner scanner = new Scanner(inStream);
         String postData = scanner.nextLine();
-        System.out.println(postData);
+        //System.out.println(postData);
         postData = replaceUnderscore(postData);
         String[] quers = postData.split("&");
         /*
@@ -205,9 +205,9 @@ public class DBHandler implements HttpHandler {
         InputStream inStream = httpExchange.getRequestBody();
         Scanner scanner = new Scanner(inStream);
         String postData = scanner.nextLine();
-        System.out.println("Before: " + postData);
+        //System.out.println("Before: " + postData);
         postData = replaceUnderscore(postData);
-        System.out.println("After: " + postData);
+        //System.out.println("After: " + postData);
         String[] quers = postData.split("&");
         String username = quers[0];
         MongoCollection<Document> userCollection = pantrypal_db.getCollection(username);
