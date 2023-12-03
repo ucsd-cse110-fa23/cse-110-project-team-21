@@ -12,6 +12,7 @@ public class NewRecipeController {
     NewRecipeView newRecipeView;
     GPTModel gptModel;
     RecipeModel recipe;
+    ArrayList<String> recordingResult;
 
     public NewRecipeController(NewRecipeView newRecipeView) {
         this.newRecipeView = newRecipeView;
@@ -20,6 +21,7 @@ public class NewRecipeController {
     // Binding the controller to the view
     // This function is called when the view is first loaded.
     public void activate(ArrayList<String> recordingResult) {
+        this.recordingResult = recordingResult;
         addListeners();
         String mealType = recordingResult.get(0);
         String ingredients = recordingResult.get(1);
@@ -28,6 +30,7 @@ public class NewRecipeController {
         try {
             recipe = gptModel.sendRequest();
             recipe.setTitle(mealType+ ": " + recipe.getTitle());
+            recipe.setMealType(mealType);
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -52,6 +55,21 @@ public class NewRecipeController {
         newRecipeView.getFooter().getDontSaveButton().setOnAction(e -> {
             System.out.println("Don't Save button pressed");
             Main.sceneManager.ChangeScene(Main.mainView);
+        });
+
+        newRecipeView.getFooter().getRefreshButton().setOnAction(e -> {
+            System.out.println("Refresh button pressed");
+            try {
+                recipe = gptModel.sendRequest();
+                recipe.setTitle(recordingResult.get(0)+ ": " + recipe.getTitle());
+            } catch (Exception e1) {
+                System.out.println(e1);
+                e1.printStackTrace();
+                showNoServerAlert();
+                return;
+            }
+            newRecipeView.getHeader().setTitleText(recipe.getTitle());
+            this.newRecipeView.getDesc().setDescription(recipe.getDescription());
         });
     }
 
