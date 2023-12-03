@@ -56,6 +56,10 @@ public class NewRecipeController {
         });
     }
 
+    public String generateImage(String title){
+        return Main.dallEModel.performImageRequest(title);
+    }
+
     public void showNoServerAlert (){
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Server Down Error");

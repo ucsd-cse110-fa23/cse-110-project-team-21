@@ -100,12 +100,18 @@ public class DetailView extends BorderPane{
     public DetailController controller;
     
     public DetailView(RecipeModel currRecipe) {
+        controller = new DetailController(this);
+        
         recipe = currRecipe;
+        String imgPath = controller.generateImage(recipe.getTitle().replace(" ", "%20"));
+        imgPath = imgPath.replace(" ", "%20");
+        imgPath = imgPath.replace(":", "_");
+        
+        System.out.println("PRINT STATEMENT: " + imgPath);
         header = new DetailPageHeader(recipe.getTitle());
         footer = new DetailPageFooter();
-        desc = new DetailPageDescription(recipe.getDescription(), recipe.getPreviewImgPath());
-        controller = new DetailController(this);
-        controller.activate();
+        desc = new DetailPageDescription(recipe.getDescription(), imgPath);
+
 
         scrollPane = new ScrollPane(desc);
         scrollPane.setFitToWidth(true);
@@ -114,6 +120,7 @@ public class DetailView extends BorderPane{
         this.setTop(header);
         this.setCenter(scrollPane);
         this.setBottom(footer);
+        controller.activate();
     }
 
     public Button getBackButton() {

@@ -2,6 +2,7 @@ package Main;
 
 import RecipeManager.RecipeManagerModel;
 import SceneController.SceneController;
+import DetailPage.DallEModel;
 import HomePage.HomeView;
 import LoginPage.LoginView;
 import NewRecipePage.NewRecipeController;
@@ -22,6 +23,7 @@ public class Main extends Application {
     public static NewRecipeController gptController;
     public static WhisperController WhisperController;
     public static GPTModel  gptModel;
+    public static DallEModel dallEModel;
     public static WhisperModel whisperModel;
     public static DBModel dbModel;
 
@@ -30,7 +32,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        dallEModel = new DallEModel();
         //  Create a RecipeManager object to hold/manage stored recipe data
         // Note: the ReciperManagerModel now takes in a UserModel and is initialized upon login (as is mainView)
         //recipeManager = new RecipeManagerModel(); 

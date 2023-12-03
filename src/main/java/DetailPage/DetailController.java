@@ -14,6 +14,7 @@ public class DetailController {
     // NOTE: Detail Page does not have a model. This is because there is no saving/loading logic for the detail page.
 
     private DetailView detailview;
+    
     public DetailController(DetailView view) {
         this.detailview = view;
     }
@@ -59,6 +60,10 @@ public class DetailController {
         detailview.getEditButton().setOnAction(e -> {
             Main.sceneManager.ChangeScene(new EditView(this.detailview));
         });
+    }
+
+    public String generateImage(String title){
+        return Main.dallEModel.performImageRequest(title);
     }
 
     // This function is called when the recipe is edited in the EditView
