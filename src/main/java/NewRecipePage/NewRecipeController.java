@@ -12,7 +12,6 @@ public class NewRecipeController {
     NewRecipeView newRecipeView;
     GPTModel gptModel;
     RecipeModel recipe;
-    ArrayList<String> recordingResult;
 
     public NewRecipeController(NewRecipeView newRecipeView) {
         this.newRecipeView = newRecipeView;
@@ -21,7 +20,6 @@ public class NewRecipeController {
     // Binding the controller to the view
     // This function is called when the view is first loaded.
     public void activate(ArrayList<String> recordingResult) {
-        this.recordingResult = recordingResult;
         addListeners();
         String mealType = recordingResult.get(0);
         String ingredients = recordingResult.get(1);
@@ -29,8 +27,7 @@ public class NewRecipeController {
         this.gptModel.setPerameters(mealType, ingredients);  
         try {
             recipe = gptModel.sendRequest();
-            recipe.setTitle(mealType+ ": " + recipe.getTitle());
-            recipe.setMealType(mealType);
+            //recipe.setTitle(mealType+ ": " + recipe.getTitle());
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -46,6 +43,7 @@ public class NewRecipeController {
         // Save button functionality
         newRecipeView.getFooter().getSaveButton().setOnAction(e -> {
             System.out.println("Save button pressed");
+            recipe.setIndex(Main.recipeManager.incrementNextIndex());
             Main.recipeManager.addRecipe(recipe);
             Main.mainView.homecontroller.updateRecipeList();
             Main.sceneManager.ChangeScene(Main.mainView);
@@ -61,7 +59,7 @@ public class NewRecipeController {
             System.out.println("Refresh button pressed");
             try {
                 recipe = gptModel.sendRequest();
-                recipe.setTitle(recordingResult.get(0)+ ": " + recipe.getTitle());
+                recipe.setTitle(recipe.getMealType() + ": " + recipe.getTitle());
             } catch (Exception e1) {
                 System.out.println(e1);
                 e1.printStackTrace();
@@ -73,6 +71,10 @@ public class NewRecipeController {
         });
     }
 
+    public String generateImage(String title){
+        return Main.dallEModel.performImageRequest(title);
+    }
+
     public void showNoServerAlert (){
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Server Down Error");
@@ -81,9 +83,3 @@ public class NewRecipeController {
         alert.showAndWait();
     }
 }
-
-
-
-
-
-
