@@ -43,6 +43,7 @@ public class NewRecipeController {
         // Save button functionality
         newRecipeView.getFooter().getSaveButton().setOnAction(e -> {
             System.out.println("Save button pressed");
+            recipe.setIndex(Main.recipeManager.incrementNextIndex());
             Main.recipeManager.addRecipe(recipe);
             Main.mainView.homecontroller.updateRecipeList();
             Main.sceneManager.ChangeScene(Main.mainView);

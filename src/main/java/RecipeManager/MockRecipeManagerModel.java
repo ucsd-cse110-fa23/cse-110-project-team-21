@@ -6,19 +6,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import Main.Main;
-import server.UserModel;
 
-public class RecipeManagerModel implements IRecipeManager {
+public class MockRecipeManagerModel implements IRecipeManager{
     // this file manages the list of recipes in memory and reads/writes from the database (csv file)
 
-
+    final String DATABASE_FILE = "recipes.csv";
     private ArrayList<RecipeModel> recipes;
-    private int nextIndex;
-    private UserModel user;
+    //private int nextIndex;
 
-    public RecipeManagerModel(UserModel user) {
-        this.user = user;
+    public MockRecipeManagerModel() {
         try {
             recipes = loadRecipes();
         } catch (Exception e) {
@@ -26,7 +22,7 @@ public class RecipeManagerModel implements IRecipeManager {
         }
     }
 
-    /*public void removeAllRecipe(){
+    public void removeAllRecipe(){
         // removes all recipes in list then rewrites this to database
         recipes.clear();
         try {
@@ -34,10 +30,10 @@ public class RecipeManagerModel implements IRecipeManager {
         } catch (Exception e) {
             System.out.println("Could not update recipe list to database.");
         }
-    } not used in real database */
+    }
 
     public void addRecipe(RecipeModel r){
-        // adds the specified recipe, addresses duplicate titles, and adds to database
+        // adds the specified recipe, addresses duplicate titles, then rewrites everything to database
 
         // Method 1, replace the previous recipe
         // Recipe lastRecipe = this.getRecipe(r.getTitle());
@@ -47,7 +43,7 @@ public class RecipeManagerModel implements IRecipeManager {
 
         // ->NEW: Method 2, add a number to the end of the title
 
-    
+
         RecipeModel lastRecipe = this.getRecipe(r.getTitle());
         if(lastRecipe != null){
             int i = 1;
@@ -57,24 +53,21 @@ public class RecipeManagerModel implements IRecipeManager {
             r.setTitle(r.getTitle() + " " + Integer.toString(i));
         }
         // <-End of NEW
-
-        // add to local ArrayList
         recipes.add(0, r);
-
-        // Database: add one recipe: needs user info, recipe info, and misc=nextIndex
-        String response;
-        response = Main.dbModel.performRequest("POST", user, r, incrementNextIndex());
-        System.out.println("Response: " + response);
+        try {
+            updateRecipesToDatabase();
+        } catch (Exception e) {
+            System.out.println("Could not save recipe to database.");
+        }
     }
     public void removeRecipe(RecipeModel r) {
-        // removes the specified recipe from local and database
-    
+        // removes the specified recipe then rewrites everything to database
+
         if (recipes == null || recipes.isEmpty() || !recipes.contains(r)) {
             System.out.println("Recipe not found");
             return;
         }
 
-        // delete recipe locally
         Iterator<RecipeModel> iterator = recipes.iterator();
         while (iterator.hasNext()) {
             RecipeModel recipe = iterator.next();
@@ -84,45 +77,30 @@ public class RecipeManagerModel implements IRecipeManager {
             }
         }
 
-        // delete recipe from database
-        String response = Main.dbModel.performRequest("DELETE", user, r, 0);
-        System.out.println("Response: " + response);
-    }
-
-    public void editRecipe(RecipeModel r, String newDesc) {
-        // edit the specified recipe locally and in database
-    
-        if (recipes == null || recipes.isEmpty() || !recipes.contains(r)) {
-            System.out.println("Recipe not found");
-            return;
+        try {
+            updateRecipesToDatabase();
+        } catch (Exception e) {
+            System.out.println("Could not update recipe list to the database.");
         }
-
-        // edit local recipe first
-        recipes.get(recipes.indexOf(r)).setDescription(newDesc);
-
-        // edit in DB: needs user info, recipe info, misc=0
-        String response = Main.dbModel.performRequest("PUT", user, r, 0);
-        System.out.println("Response: " + response);
     }
 
 
 
-//     public void editRecipe(String title, String description){ // updates the edited recipe then rewrites everything to database
-//         Recipe r = getRecipe(title);
-//         r.setDescription(description);
-//         try {
-//             updateRecipesToDatabase();
-//         } catch (Exception e) {
-//             System.out.println("Could not update recipe list to database.");
-//         }
-//     }
+    //     public void editRecipe(String title, String description){ // updates the edited recipe then rewrites everything to database
+    //         Recipe r = getRecipe(title);
+    //         r.setDescription(description);
+    //         try {
+    //             updateRecipesToDatabase();
+    //         } catch (Exception e) {
+    //             System.out.println("Could not update recipe list to database.");
+    //         }
+    //     }
 
     public ArrayList<RecipeModel> getList(){
         try {
             recipes = loadRecipes();
         } catch (Exception e) {
             System.out.println("Could not load recipes from database.");
-            e.printStackTrace();
         }
         return recipes;
     }
@@ -145,7 +123,7 @@ public class RecipeManagerModel implements IRecipeManager {
      * @throws IOException if there's any error opening the outputfile
      */
 
-    /*public void updateRecipesToDatabase() throws IOException{
+    public void updateRecipesToDatabase() throws IOException{
         String pathName = DATABASE_FILE;
         File outputFile = new File(pathName);
         FileWriter fw;
@@ -166,8 +144,7 @@ public class RecipeManagerModel implements IRecipeManager {
         }
 
         fw.close();
-    } not used in real database */
-
+    }
     /**
      * Reads a CSV file and creates a new list of Recipe objects by retrieving each title (item 0) and
      * description (item 1) from it.
@@ -175,32 +152,41 @@ public class RecipeManagerModel implements IRecipeManager {
      * @throws IOException if there's an issue opening the recipe/database file.
      */
     private ArrayList<RecipeModel> loadRecipes() throws IOException{
-        // get all of a user's recipes: needs user info, misc=3
-        String response = Main.dbModel.performRequest("GET", user, null, 3);
-        // get a user's nextIndex: needs user info, misc=4
-        this.nextIndex = Integer.parseInt(Main.dbModel.performRequest("GET", user, null, 4));
-        //System.out.println("Response: " + response);
-        return parseDBRecipes(response);
+        FileReader fr;
+        String pathName = DATABASE_FILE;
+        ArrayList<RecipeModel> retrievedDataBase = new ArrayList<RecipeModel>();
+
+        try {
+            fr = new FileReader(pathName);
+        } catch (Exception e) {
+            throw new IOException();
+        } 
+        BufferedReader br = new BufferedReader(fr);
+        
+        while(br.ready()){  //Get each line and make a contact out of it
+            String currLine = br.readLine();    //Read a line
+
+            String[] data = currLine.split("\\|");
+
+            String title = data[0].substring(1, data[0].length() - 1);
+
+            String description = data[1].substring(1, data[1].length() - 1);
+            description = description.replace("\\n", "\n").replace("\\r","\r");
+
+            RecipeModel add = new RecipeModel(title, description); //uses old contructor, I kept it because it's an old add
+
+            retrievedDataBase.add(add); 
+        }
+
+        fr.close();
+        br.close();
+
+        return retrievedDataBase;
     }
 
-    public int incrementNextIndex(){
+    /*public int incrementNextIndex(){
         int temp = nextIndex;
         this.nextIndex++;
         return temp;
-    }
-
-    public ArrayList<RecipeModel> parseDBRecipes(String raw) {
-        ArrayList<RecipeModel> recipes = new ArrayList<>();
-        if (raw.equals("Empty")) {return recipes;}
-        String[] rawRecipes = raw.split("&");
-        for (String rawRecipe : rawRecipes) {
-            String[] recipeInfo = rawRecipe.split("_");
-            RecipeModel tmp = new RecipeModel(recipeInfo[0], recipeInfo[1].replace("%0A", "\n"));
-            tmp.setMealType(recipeInfo[2]);
-            tmp.setIndex(Integer.parseInt(recipeInfo[3]));
-            recipes.add(tmp);
-        }
-        Collections.reverse(recipes);
-        return recipes;
-    }
+    } not used in mock database */ 
 }

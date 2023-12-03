@@ -2,7 +2,7 @@
 import org.junit.jupiter.api.Test;
 
 import NewRecipePage.GPTModel;
-import RecipeManager.RecipeManagerModel;
+import RecipeManager.MockRecipeManagerModel;
 import RecipeManager.RecipeModel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +16,7 @@ public class BackendIntegrationTest {
     @Test
     void testBDDScenario() {
         GPTModel model = new GPTModel();
-        RecipeManagerModel manager = new RecipeManagerModel();
+        MockRecipeManagerModel manager = new MockRecipeManagerModel();
         RecipeModel mockRecipe = model.sendRequestMock();
 
         model.setPerameters("breakfast", "eggs, bacon, bread");

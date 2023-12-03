@@ -3,7 +3,7 @@
 
 import org.junit.jupiter.api.Test;
 
-import RecipeManager.RecipeManagerModel;
+import RecipeManager.MockRecipeManagerModel;
 import RecipeManager.RecipeModel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +16,7 @@ public class RecipeIntegrationTest {
     @Test
     void testBDDScenario() {
 
-        RecipeManagerModel manager = new RecipeManagerModel();
+        MockRecipeManagerModel manager = new MockRecipeManagerModel();
         manager.removeAllRecipe();
         RecipeModel firstRecipe = new RecipeModel("sandwich", "put stuff between two slices of bread");
         manager.addRecipe(firstRecipe);

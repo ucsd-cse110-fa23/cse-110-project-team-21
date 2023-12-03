@@ -130,15 +130,21 @@ public class DBHandler implements HttpHandler {
                     response = "Correct";
                  }
             } else if (quers[2].equals("3")) { // get all of a user's recipes
-                List<Document> studentList = userCollection.find(gte("index", 0)).into(new ArrayList<>());
-                response = "";
-                for (Document student : studentList) {
-                    response = response + student.get("title");
-                    response = response + "_" + student.get("description");
-                    response = response + "_" + student.get("meal_type");
-                    response = response + "_" + student.get("index");
-                    response = response + "&";
+                response = "Empty";
+                if (userCollection.countDocuments() > 1) {
+                    response = "";
+                    List<Document> studentList = userCollection.find(gte("index", 0)).into(new ArrayList<>());
+                    for (Document student : studentList) {
+                        response = response + student.get("title");
+                        response = response + "_" + student.get("description");
+                        response = response + "_" + student.get("meal_type");
+                        response = response + "_" + student.get("index");
+                        response = response + "&";
+                    }
                 }
+            } else if (quers[2].equals("4")) { // get a user'a nextIndex
+                Document studentInfo = userCollection.find(gte("nextIndex",0)).first();
+                response = studentInfo.get("nextIndex").toString();
             } else {System.out.println("Invalid input for misc param in DB GET");}
             //response = result.toString();
         } 
@@ -151,6 +157,7 @@ public class DBHandler implements HttpHandler {
         Scanner scanner = new Scanner(inStream);
         String postData = scanner.nextLine();
         //System.out.println(postData);
+        postData = replaceUnderscore(postData);
         String[] quers = postData.split("&");
         /*
          * String language = postData.substring(
@@ -198,7 +205,9 @@ public class DBHandler implements HttpHandler {
         InputStream inStream = httpExchange.getRequestBody();
         Scanner scanner = new Scanner(inStream);
         String postData = scanner.nextLine();
-        //System.out.println(postData);
+        //System.out.println("Before: " + postData);
+        postData = replaceUnderscore(postData);
+        //System.out.println("After: " + postData);
         String[] quers = postData.split("&");
         String username = quers[0];
         MongoCollection<Document> userCollection = pantrypal_db.getCollection(username);

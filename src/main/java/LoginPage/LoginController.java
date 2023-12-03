@@ -15,8 +15,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import server.DBController;
-import server.DBModel;
+import RecipeManager.DBController;
+import RecipeManager.DBModel;
+import RecipeManager.RecipeManagerModel;
 import server.UserModel;
 
 
@@ -133,8 +134,9 @@ public class LoginController {
         // Log the user in and go to the home page.
         // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.
         if(!isMocked){
-          HomeView root = new HomeView();
-          Main.sceneManager.ChangeScene(root);
+          Main.recipeManager = new RecipeManagerModel(new UserModel(username, password));
+          Main.mainView = new HomeView();
+          Main.sceneManager.ChangeScene(Main.mainView);
         }
       } catch (Exception ex) {
         ex.printStackTrace();

@@ -7,13 +7,13 @@ import javafx.scene.control.Alert.AlertType;
 public class EditController {
 
     private EditView editview;
-    private EditModel editmodel;
+    //private EditModel editmodel;
     private RecipeModel recipe;
 
     public EditController(EditView view) {
         this.editview = view;
         this.recipe = view.getRecipe();
-        this.editmodel = new EditModel(this);
+        //this.editmodel = new EditModel(this);
     }
 
     public void activate() {
@@ -33,7 +33,8 @@ public class EditController {
         editview.getSaveButton().setOnAction(e -> {
             try{
                 String editedDescription = editview.getEditedText();
-                editmodel.updateRecipe(editedDescription);
+                //editmodel.updateRecipe(editedDescription);
+                Main.recipeManager.editRecipe(recipe, editedDescription);
                 editview.getDetailView().controller.update(editedDescription);
                 Main.sceneManager.ChangeScene(editview.getDetailView());
             } catch (Exception ex) {

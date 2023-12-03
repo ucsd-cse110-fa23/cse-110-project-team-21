@@ -1,4 +1,4 @@
-package server;
+package RecipeManager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
-import RecipeManager.RecipeModel;
+import server.UserModel;
 
 public class DBModel {
     public String performRequest(String method, UserModel user, RecipeModel recipe, int misc) {
@@ -35,13 +35,16 @@ public class DBModel {
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
                 if (method.equals("POST")) {
                     if (misc==-1) {
-                        out.write(user.getUsername() + "&" + user.getPassword());
+                        out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(user.getPassword()));
                     } else {
-                        out.write(user.getUsername() + "&" + recipe.getTitle() + "&" + recipe.getDescription() + "&" + recipe.getMealType() + "&" + recipe.getIndex() + "&" + misc);
+                        //System.out.println("Type: " + recipe.getMealType());
+                        //System.out.println("Index: " + recipe.getIndex());
+                        //System.out.println("Desc: " + recipe.getDescription());
+                        out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(recipe.getTitle()) + "&" + replaceSpace(recipe.getDescription()) + "&" + replaceSpace(recipe.getMealType()) + "&" + recipe.getIndex() + "&" + misc);
                     }
                     
                 } else {
-                    out.write(user.getUsername() + "&" + recipe.getTitle() + "&" + recipe.getDescription());
+                    out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(recipe.getTitle()) + "&" + replaceSpace(recipe.getDescription()));
 
                 } 
                 out.flush();
@@ -59,6 +62,7 @@ public class DBModel {
 
     private String replaceSpace(String spaced) {
         String underscored = spaced.replace(" ", "_");
+        underscored = underscored.replace("\n", "%0A");
         return underscored;
     }
     

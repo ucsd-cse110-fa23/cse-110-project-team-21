@@ -1,4 +1,4 @@
-package server;
+package RecipeManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import RecipeManager.RecipeModel;
+import server.UserModel;
 import javafx.event.ActionEvent;
 
 public class DBController {
@@ -66,6 +66,7 @@ public class DBController {
         // get a user (check if the user name is taken for account creation): needs user info, misc=1
         // get a user (verify their password matches for login): needs user info, misc=2
         // get all of a user's recipes: needs user info, misc=3
+        // get a user's nextIndex: needs user info, misc=4
         String response = model.performRequest("GET", fakeUser, null, misc);
         return response;
         //view.showAlert("Response", response);

@@ -9,6 +9,7 @@ import NewRecipePage.NewRecipeController;
 import NewRecipePage.GPTModel;
 import WhisperPage.WhisperController;
 import WhisperPage.WhisperModel;
+import RecipeManager.DBModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ public class Main extends Application {
     public static GPTModel  gptModel;
     public static DallEModel dallEModel;
     public static WhisperModel whisperModel;
+    public static DBModel dbModel;
 
     public static HomeView mainView;
     public static LoginView loginView;
@@ -32,13 +34,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         dallEModel = new DallEModel();
         //  Create a RecipeManager object to hold/manage stored recipe data
-        recipeManager = new RecipeManagerModel();
+        // Note: the ReciperManagerModel now takes in a UserModel and is initialized upon login (as is mainView)
+        //recipeManager = new RecipeManagerModel(); 
 
         //  Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        mainView = new HomeView();
         LoginView loginView = new LoginView();
         sceneManager = new SceneController(primaryStage);
-        
+        dbModel = new DBModel();
+      
         // primaryStage, which is the ONLY main window of the application
         // The main window will contain the mainView, which is the home page
         // TO DO: If doing authentication, the main window should be the login page instead.
