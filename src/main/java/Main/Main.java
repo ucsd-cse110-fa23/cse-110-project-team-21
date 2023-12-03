@@ -30,6 +30,8 @@ public class Main extends Application {
     public static HomeView mainView;
     public static LoginView loginView;
 
+    public static final String HOSTNAME_URL = "http://localhost:8100";
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         dallEModel = new DallEModel();

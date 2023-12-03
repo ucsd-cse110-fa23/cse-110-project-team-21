@@ -8,13 +8,15 @@ import java.net.URI;
 import java.net.URL;
 
 import server.UserModel;
+import Main.Main;
 
 public class DBModel {
     public String performRequest(String method, UserModel user, RecipeModel recipe, int misc) {
         // Implement your HTTP request logic here and return the response
 
         try {
-            String urlString = "http://localhost:8100/db";
+            // String urlString = "http://localhost:8100/db";
+            String urlString = Main.HOSTNAME_URL + "/db";
 
             if (method.equals("GET") || method.equals("DELETE")) {
                 // make query for get/delete

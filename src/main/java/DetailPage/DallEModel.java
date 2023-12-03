@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URI;
 
+import Main.Main;
+
 public class DallEModel {
 
     /*
@@ -16,13 +18,17 @@ public class DallEModel {
      * the already existing file name.
      */
     public String performImageRequest(String query) {
-        File tmpDir = new File(query + ".jpg");
+        query = query.replace(" ", "%20");
+        System.out.println("Query: " + query);
+        File tmpDir = new File("=" + query + ".jpg");
         boolean exists = tmpDir.exists();
         if(exists) {
-            return query + ".jpg";
+            //System.out.println("it already exists");
+            return "="+ query + ".jpg";
         }
         try {
-            String urlString = "http://localhost:8100/dalle/";
+            //String urlString = "http://localhost:8100/dalle/";
+            String urlString = Main.HOSTNAME_URL + "/dalle";
             if (query != null) {
                 urlString += "?=" + query.replace(":", "_");
             }

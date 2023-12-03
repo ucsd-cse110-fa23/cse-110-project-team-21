@@ -56,6 +56,7 @@ public class DallEHandler implements HttpHandler{
         String response = "Invalid GET Request";
         URI uri = httpExchange.getRequestURI();
         String prompt = uri.getRawQuery();
+        System.out.println("Prompt: " + prompt);
         int n = 1;
 
         // Create a request body which you will pass into request object
