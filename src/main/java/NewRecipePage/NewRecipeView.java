@@ -4,7 +4,6 @@ import java.io.File;
 
 import java.util.ArrayList;
 
-import DetailPage.DetailController;
 import RecipeManager.RecipeModel;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
@@ -17,6 +16,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 class NewRecipeHeader extends HBox {
     public Text titleText;
@@ -48,11 +48,9 @@ class NewRecipeDescription extends FlowPane {
     ImageView previewImage;
     HBox previewImageRegion;
 
-    public NewRecipeDescription(RecipeModel recipe, String previewImgPath) {
+    public NewRecipeDescription(RecipeModel recipe) {
         
-        
-        //Creating an ImageView (and assigning it a region) that takes in the image path generated from the DallEModel 
-        Image img = new Image(new File(previewImgPath).toURI().toString());
+        Image img = new Image(new File(recipe.getPreviewImgPath()).toURI().toString());
         this.previewImage = new ImageView(img);
         previewImageRegion = new HBox();
         previewImageRegion.setPadding(new Insets(20,0,0,20));
@@ -71,18 +69,14 @@ class NewRecipeDescription extends FlowPane {
     public void setDescription(String description) {
         this.description.setText(description);
     }
-
-    public void setPreviewImagePath(String previewImgPath){
-        Image img = new Image(new File(previewImgPath).toURI().toString());
-        previewImage.setImage(img);
-    }
 }
 
 
 
-class NewRecipeFooter extends HBox{
+class NewRecipeFooter extends VBox{
     private Button saveButton;
     private Button dontSaveButton;
+    private Button refreshButton;
     
     public NewRecipeFooter() {
         this.setPrefSize(500, 60);
@@ -93,8 +87,18 @@ class NewRecipeFooter extends HBox{
         saveButton.setStyle(defaultButtonStyle);
         dontSaveButton = new Button("Don't Save");
         dontSaveButton.setStyle(defaultButtonStyle);
-        this.getChildren().addAll(saveButton, dontSaveButton);    
+        refreshButton = new Button("Refresh");
+        refreshButton.setStyle(defaultButtonStyle);
+        
+        HBox topHbox = new HBox();
+        HBox bottomHbox = new HBox();
+        bottomHbox.getChildren().addAll(saveButton, dontSaveButton);
+        bottomHbox.setAlignment(Pos.CENTER);        
+        topHbox.setAlignment(Pos.CENTER);
+        topHbox.getChildren().addAll(refreshButton);
+        this.getChildren().addAll(topHbox, bottomHbox);    
         this.setAlignment(Pos.CENTER); // aligning the buttons to center
+
     }
 
     public Button getSaveButton() {
@@ -104,12 +108,14 @@ class NewRecipeFooter extends HBox{
     public Button getDontSaveButton() {
         return dontSaveButton;
     }
+
+    public Button getRefreshButton() {
+        return refreshButton;
+    }
 }
 
 
 public class NewRecipeView extends BorderPane{
-    private static final String DEFAULT_IMAGE = "resources/previewimgs/notfound.png";
-
     private NewRecipeHeader header;
     private NewRecipeFooter footer;
     private ScrollPane scrollPane;
@@ -123,33 +129,17 @@ public class NewRecipeView extends BorderPane{
     // You must have the recordingResult in order create this page!
     // Calling the OpenAI will be done in the Model
     public NewRecipeView(ArrayList<String> recordingResult) {
-        
-        NewRecipecontroller = new NewRecipeController(this); //Creating the controller. Passing the view (this) to help the controller to access.
-
-        /**
-         * The following items (header, footer, desc) must be initialized before calling the
-         * NewRecipecontroller activate() method. This is because activate will pass in the generated recipe's 
-         * title/description to the header, desc, etc.
-         */
         header = new NewRecipeHeader("New Recipe");
         footer = new NewRecipeFooter();
-        desc = new NewRecipeDescription(new RecipeModel("Title", "Description"), DEFAULT_IMAGE);
+        desc = new NewRecipeDescription(new RecipeModel("Title", "Description"));
         scrollPane = new ScrollPane(desc);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         this.recordingResult = recordingResult;
 
-        NewRecipecontroller.activate(recordingResult); //Activating controller
-        
-        /**
-         * Only after activating the controller will we have a recipe and its title. Which is why we
-         * generate an image after activating the controller, so we can feed the recipe title to the prompt.
-         */
-        String imgPath = NewRecipecontroller.generateImage(header.getTitleText().getText().replace(" ", "%20"));
-        imgPath = imgPath.replace(" ", "%20");
-        imgPath = imgPath.replace(":", "_");
-        desc.setPreviewImagePath(imgPath);  //Updating the displayed image
-        
+        // Creating the controller and activating it. Passing the view (this) to help the controller to access.
+        NewRecipecontroller = new NewRecipeController(this);
+        NewRecipecontroller.activate(recordingResult);
         this.setTop(header);
         this.setCenter(scrollPane);
         this.setBottom(footer);

@@ -1,12 +1,18 @@
 package HomePage;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import DetailPage.DetailView;
 import Main.Main;
 import RecipeManager.RecipeModel;
 import WhisperPage.WhisperView;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
 
 public class HomeController {
@@ -60,6 +66,54 @@ public class HomeController {
             WhisperView whisperPageView = new WhisperView();
             Main.sceneManager.ChangeScene(whisperPageView);
         });
+
+        this.mainPageView.getHeader().getSortDropDown().setOnAction(e -> {
+            ComboBox<String> sortDropDown = this.mainPageView.getHeader().getSortDropDown();
+            String selectedOption = sortDropDown.getValue();
+            System.out.println("Selected Option: " + selectedOption);
+
+            List<RecipeModel> sortedList = mainPageModel.loadFromDatabase();
+            List<RecipeModel> dateList = new ArrayList<RecipeModel>();
+            Comparator<RecipeModel> titleComparator = Comparator.comparing(RecipeModel::getTitle);
+            Comparator<RecipeModel> dateComparator = Comparator.comparing(RecipeModel::getIndex);
+
+            dateList = sortedList.stream().collect(Collectors.toList());
+
+            Collections.sort(sortedList, titleComparator);
+            Collections.sort(dateList, dateComparator);
+
+            switch (selectedOption) {
+                case "A-Z":
+                    showSortedRecipe(sortedList);
+                    break;
+
+                case "Z-A":
+                    Collections.reverse(sortedList);
+                    showSortedRecipe(sortedList);
+                    break;
+                
+                case "Old-New":
+                    showSortedRecipe(dateList);
+                    break;
+                
+                case "New-Old":
+                    Collections.reverse(dateList);
+                    showSortedRecipe(dateList);
+                    break;
+            }
+        });
+
+        this.mainPageView.getHeader().getFilterDropDown().setOnAction(e -> {
+            ComboBox<String> filterDropDown = this.mainPageView.getHeader().getFilterDropDown();
+            String selectedOption = filterDropDown.getValue();
+            System.out.println("Selected Option: " + selectedOption);
+            List<RecipeModel> filteredList = mainPageModel.loadFromDatabase();
+            filteredList = filteredList.stream()
+                .filter(recipe -> selectedOption.equals(recipe.getMealType()))
+                .collect(Collectors.toList());
+            showSortedRecipe(filteredList);
+        });
+
     }
 
     public void showNoServerAlert (){
@@ -68,5 +122,15 @@ public class HomeController {
         alert.setHeaderText(null);
         alert.setContentText("Server could not be connected. Please try again later.");
         alert.showAndWait();
+    }
+
+    public void showSortedRecipe(List<RecipeModel> newRecipeList){
+        this.mainPageView.recipeList.getChildren().clear();
+        for(RecipeModel r: newRecipeList){
+            MainPageRecipeCard toAdd = new MainPageRecipeCard(
+                r.getTitle());
+            this.mainPageView.recipeList.getChildren().add(toAdd);
+        }
+        addListeners();
     }
 }
