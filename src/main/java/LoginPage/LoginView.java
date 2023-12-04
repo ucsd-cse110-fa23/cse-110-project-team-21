@@ -8,6 +8,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URI;
+import Main.Main;
 
 public class LoginView extends BorderPane {
     private TextField usernameField;
@@ -50,6 +54,20 @@ public class LoginView extends BorderPane {
         this.setTop(header);
         this.setCenter(centralLayout);
         this.setBottom(footer);
+
+        // Boolean isServer = false;
+        // while(!isServer) {
+        //   try{
+        //     URL url = new URI(Main.HOSTNAME_URL).toURL();
+        //     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        //     conn.getResponseCode();
+        //   }
+        //   catch (Exception ex) {
+        //     System.out.println("Shit went down");
+        //     //loginController.showAlert("Login Error", "Please fill out all fields.");
+        //     loginController.showAlert("Server Down Error", "Server could not be connected. Please try again later.");
+        //   }
+        // }
     }
 
     public LoginFooter getFooter() {

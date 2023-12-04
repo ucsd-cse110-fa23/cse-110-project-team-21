@@ -13,6 +13,10 @@ import RecipeManager.DBModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.net.URI;
+import java.net.URL;
+import java.net.HttpURLConnection;
+import java.net.ConnectException;
 
 
 
@@ -51,6 +55,19 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(loginView, 500, 600));
         primaryStage.setResizable(false);
         primaryStage.show();
+
+        try {
+            URL url = new URI(HOSTNAME_URL).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int code = conn.getResponseCode();
+            System.out.println("Response code" + code);
+        }
+        catch (ConnectException ex) {
+            //ex.printStackTrace();
+            //System.out.println("Error: " + ex.getMessage());
+            System.out.println("Well this was fun");
+            
+        }
     }
 
     public static void main(String[] args) {
