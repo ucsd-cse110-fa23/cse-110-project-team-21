@@ -58,12 +58,12 @@ public class DBHandler implements HttpHandler {
     public DBHandler() throws FileNotFoundException {
             mongoClient = MongoClients.create(uri);
             pantrypal_db = mongoClient.getDatabase("pantrypal_db");
+            System.out.println("Database Deleted");
 
             //should clear stuff from prior server runs 
             for (String name : pantrypal_db.listCollectionNames()) {
                 pantrypal_db.getCollection(name).drop();
             }
-
             // recipeCollection.drop();
     }
 
@@ -176,7 +176,6 @@ public class DBHandler implements HttpHandler {
             userCollection.insertOne(user);
             response = response + "New user with username: " + username + " and password: " + quers[1];
         } else {
-
            //Bson update = addToSet("vendor", "C");
             //userCollection.updateOne(update);
             Document recipe = new Document("title", quers[1]);

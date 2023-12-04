@@ -23,6 +23,8 @@ public class NewRecipeController {
         addListeners();
         String mealType = recordingResult.get(0);
         String ingredients = recordingResult.get(1);
+        System.out.println(mealType);
+        System.out.println(ingredients);
         this.gptModel = new GPTModel();
         this.gptModel.setPerameters(mealType, ingredients);  
         try {
