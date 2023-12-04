@@ -124,7 +124,8 @@ public class DallEHandler implements HttpHandler{
         // .append("</html>");
         //response = htmlBuilder.toString();
 
-        response = prompt + ".jpg";
-        return response;
+        return generatedImageURL;
+        //response = prompt + ".jpg";
+        //return response;
     }
 }

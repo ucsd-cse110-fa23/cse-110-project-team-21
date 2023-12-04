@@ -13,6 +13,7 @@ public class RecipeModel {
     private String mealType;
     private int index;
     private String previewImgPath;
+    private String imgURL;
 
     public RecipeModel(String title, String description) {
         this.title = title;
@@ -67,6 +68,14 @@ public class RecipeModel {
 
     public void setPreviewImage(String previewImgPath){
         this.previewImgPath = previewImgPath;
+    }
+
+    public void setImageURL(String url) {
+        this.imgURL = url;
+    }
+
+    public String getImageURL(String url) {
+        return this.imgURL;
     }
 
     @Override

@@ -59,7 +59,9 @@ public class NewRecipeController {
     }
 
     public String generateImage(String title){
-        return Main.dallEModel.performImageRequest(title);
+        //return Main.dallEModel.performImageRequest(title);
+        recipe.setImageURL(Main.dallEModel.performImageRequest(title));
+        return "=" + title + ".jpg";
     }
 
     public void showNoServerAlert (){

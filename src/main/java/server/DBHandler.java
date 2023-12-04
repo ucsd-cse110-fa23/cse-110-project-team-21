@@ -176,6 +176,7 @@ public class DBHandler implements HttpHandler {
             userCollection.insertOne(user);
             response = response + "New user with username: " + username + " and password: " + quers[1];
         } else {
+
            //Bson update = addToSet("vendor", "C");
             //userCollection.updateOne(update);
             Document recipe = new Document("title", quers[1]);
