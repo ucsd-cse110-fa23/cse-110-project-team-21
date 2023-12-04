@@ -34,7 +34,7 @@ public class LoginController {
 
   public LoginController(LoginView loginView) {
     Boolean isServer = false;
-        while(!isServer) {
+        while(!isServer && !(loginView == null)) {
           try{
             URL url = new URI(Main.HOSTNAME_URL).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
