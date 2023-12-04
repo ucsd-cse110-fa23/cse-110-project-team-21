@@ -19,6 +19,9 @@ import RecipeManager.DBController;
 import RecipeManager.DBModel;
 import RecipeManager.RecipeManagerModel;
 import server.UserModel;
+import java.net.URI;
+import java.net.URL;
+import java.net.HttpURLConnection;
 
 
 
@@ -30,6 +33,21 @@ public class LoginController {
   private UserModel userModel;
 
   public LoginController(LoginView loginView) {
+    Boolean isServer = false;
+        while(!isServer && !(loginView == null)) {
+          try{
+            URL url = new URI(Main.HOSTNAME_URL).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.getResponseCode();
+            isServer = true;
+          }
+          catch (Exception ex) {
+            System.out.println("Shit went down");
+            //loginController.showAlert("Login Error", "Please fill out all fields.");
+            showAlert("Server Down Error", "Server could not be connected. Please try again later.");
+          }
+        }
+    
     String username;
     String password;
     this.loginView = loginView;
