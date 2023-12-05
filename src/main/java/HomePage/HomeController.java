@@ -190,23 +190,32 @@ public class HomeController {
 
          switch (selectedOption) {
             case "A-Z":
-                showSortedRecipe(sortedList);
                 return sortedList;
 
             case "Z-A":
                 Collections.reverse(sortedList);
-                showSortedRecipe(sortedList);
                 return sortedList; 
             
             case "Old-New":
-                showSortedRecipe(dateList);
                 return sortedList;
             
             case "New-Old":
                 Collections.reverse(dateList);
-                showSortedRecipe(dateList);
                 return sortedList;
         }
         return sortedList;
+    }
+
+
+    public List<RecipeModel> mockFilteredList(List<RecipeModel> filteredList, String selectedOption){
+        if (selectedOption.equals("AllFilter") || selectedOption.equals("Filter")) {
+            return fullList;
+        };
+
+        filteredList = filteredList.stream()
+            .filter(recipe -> selectedOption.equals(recipe.getMealType()))
+            .collect(Collectors.toList());
+
+        return filteredList;
     }
 }
