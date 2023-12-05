@@ -78,7 +78,7 @@ class MainPageFooter extends HBox {
         this.setStyle("-fx-background-color: #F0F8FF;");
         this.setSpacing(15);
     
-        loginButton = new Button("Mock Login");
+        loginButton = new Button("Logout");
         loginButton.setPrefSize(500, 20);
         loginButton.setPrefHeight(Double.MAX_VALUE);
         loginButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
@@ -103,7 +103,7 @@ class MainPageFooter extends HBox {
         this.setSpacing(15);
         this.setAlignment(Pos.CENTER);
         // Comment this to add the login and sign up buttons to the footer
-        this.getChildren().addAll(loginButton, signUpButton);
+        this.getChildren().addAll(loginButton/*, signUpButton*/);
     }
 }
 

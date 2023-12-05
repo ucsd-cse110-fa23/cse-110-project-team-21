@@ -58,12 +58,12 @@ public class DBHandler implements HttpHandler {
     public DBHandler() throws FileNotFoundException {
             mongoClient = MongoClients.create(uri);
             pantrypal_db = mongoClient.getDatabase("pantrypal_db");
+            System.out.println("Database Reset");
 
             //should clear stuff from prior server runs 
             for (String name : pantrypal_db.listCollectionNames()) {
                 pantrypal_db.getCollection(name).drop();
             }
-
             // recipeCollection.drop();
     }
 
@@ -139,7 +139,8 @@ public class DBHandler implements HttpHandler {
                         response = response + "_" + student.get("description");
                         response = response + "_" + student.get("meal_type");
                         response = response + "_" + student.get("index");
-                        response = response + "&";
+                        response = response + "_" + student.get("imgURL");
+                        response = response + "%7C";
                     }
                 }
             } else if (quers[2].equals("4")) { // get a user'a nextIndex
@@ -159,6 +160,10 @@ public class DBHandler implements HttpHandler {
         //System.out.println(postData);
         postData = replaceUnderscore(postData);
         String[] quers = postData.split("&");
+        for (int i=0; i<quers.length;i++) {
+            quers[i] = quers[i].replace("%26", "&");
+            System.out.println("\n This is quers: " + quers[i] + "\n");
+        }
         /*
          * String language = postData.substring(
          * 0,
@@ -182,7 +187,8 @@ public class DBHandler implements HttpHandler {
             Document recipe = new Document("title", quers[1]);
             recipe.append("description", quers[2])
                    .append("meal_type", quers[3])
-                   .append("index", Integer.parseInt(quers[4]));
+                   .append("index", Integer.parseInt(quers[4]))
+                   .append("imgURL", quers[6]);
             userCollection.insertOne(recipe);
             Bson filter = gte("nextIndex", 0);
             Bson updateOperation = inc("nextIndex", 1);
@@ -209,6 +215,10 @@ public class DBHandler implements HttpHandler {
         postData = replaceUnderscore(postData);
         //System.out.println("After: " + postData);
         String[] quers = postData.split("&");
+        // for(String q: quers) {
+        //     q.replace("%26", "&");
+        // }
+        //System.out.println("\n This is quers: " + quers + "\n");
         String username = quers[0];
         MongoCollection<Document> userCollection = pantrypal_db.getCollection(username);
         String response = "Posted: ";

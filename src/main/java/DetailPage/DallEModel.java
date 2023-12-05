@@ -42,6 +42,7 @@ public class DallEModel {
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String response = in.readLine();
             in.close();
+            //System.out.println("Image URL: " + response);
             return response;
         } catch (Exception ex) {
             ex.printStackTrace();

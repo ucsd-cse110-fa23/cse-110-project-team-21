@@ -33,7 +33,7 @@ public class Server {
 
   // TODO: create the context
   server.createContext("/", new RequestHandler(data));
-  //server.createContext("/recipe", new WebsiteHandler());
+  server.createContext("/recipe", new WebsiteHandler());
   server.createContext("/gpt", new GPTHandler());
   server.createContext("/dalle", new DallEHandler());
   //server.createContext("/Whisper", new WhisperController());
