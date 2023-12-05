@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 
 class DetailPageHeader extends HBox {
     private Button backButton;
+    private Button shareButton;
     public DetailPageHeader(String title) {
         this.setPrefSize(500, 60); 
         this.setStyle("-fx-background-color: #F0F8FF;");
@@ -29,13 +30,19 @@ class DetailPageHeader extends HBox {
         this.setSpacing(30);
         String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
         backButton = new Button("Back"); 
+        shareButton = new Button("Share");
         backButton.setStyle(defaultButtonStyle); 
-        this.getChildren().addAll(backButton); 
+        shareButton.setStyle(defaultButtonStyle);
+        this.getChildren().addAll(backButton, shareButton); 
         this.setAlignment(Pos.CENTER_RIGHT); 
     }
 
     public Button getBackButton() {
         return backButton;
+    }
+
+    public Button getShareButton() {
+        return shareButton;
     }
 }
 
@@ -126,6 +133,9 @@ public class DetailView extends BorderPane{
     public Button getBackButton() {
         return header.getBackButton();
     }
+    public Button getShareButton() {
+        return header.getShareButton();
+    }
     public Button getEditButton() {
         return footer.getEditButton();
     }
@@ -140,3 +150,4 @@ public class DetailView extends BorderPane{
     }
 
 }
+
