@@ -58,7 +58,7 @@ public class DBHandler implements HttpHandler {
     public DBHandler() throws FileNotFoundException {
             mongoClient = MongoClients.create(uri);
             pantrypal_db = mongoClient.getDatabase("pantrypal_db");
-            System.out.println("Database Deleted");
+            System.out.println("Database Reset");
 
             //should clear stuff from prior server runs 
             for (String name : pantrypal_db.listCollectionNames()) {
@@ -140,7 +140,7 @@ public class DBHandler implements HttpHandler {
                         response = response + "_" + student.get("meal_type");
                         response = response + "_" + student.get("index");
                         response = response + "_" + student.get("imgURL");
-                        response = response + "&";
+                        response = response + "%7C";
                     }
                 }
             } else if (quers[2].equals("4")) { // get a user'a nextIndex

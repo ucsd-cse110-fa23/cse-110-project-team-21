@@ -190,9 +190,12 @@ public class RecipeManagerModel implements IRecipeManager {
     }
 
     public ArrayList<RecipeModel> parseDBRecipes(String raw) {
+        //System.out.println("Raw Recipe: " +raw);
         ArrayList<RecipeModel> recipes = new ArrayList<>();
         if (raw.equals("Empty")) {return recipes;}
-        String[] rawRecipes = raw.split("&");
+        String[] rawRecipes = raw.split("%7C");
+        //System.out.println("Len: " + rawRecipes.length);
+        //System.out.println("First Entry: " + rawRecipes[0]);
         for (String rawRecipe : rawRecipes) {
             String[] recipeInfo = rawRecipe.split("_");
             RecipeModel tmp = new RecipeModel(recipeInfo[0], recipeInfo[1].replace("%0A", "\n"));

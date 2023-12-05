@@ -54,7 +54,7 @@ public class WebsiteHandler implements HttpHandler {
     private String handleGet(HttpExchange httpExchange) throws IOException{
         String response;
         URI uri = httpExchange.getRequestURI();
-        System.out.println("URI: " +uri);
+        //System.out.println("URI: " +uri);
         String query = uri.getRawQuery();
         String recipeTitle = "trash";
         String recipeDescription = "trash";
@@ -84,12 +84,16 @@ public class WebsiteHandler implements HttpHandler {
         .append("<html>")
         .append("<body>")
         .append("<h1>")
-        .append("Recipe: ")
         .append(recipeTitle)
         .append("</h1>")
-        .append("<h3>")
-        .append(recipeDescription)
         .append("<img src = '" + imgURL + "' />")
+        .append("<h3>");
+        for (String line : recipeDescription.split("\n")) {
+            htmlBuilder.append(line)
+            .append("<br/>");
+        }
+        //.append(recipeDescription)
+        htmlBuilder
         .append("</h3>")
         .append("</body>")
         .append("</html>");
