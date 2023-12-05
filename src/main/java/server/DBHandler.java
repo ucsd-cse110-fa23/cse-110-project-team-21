@@ -139,6 +139,7 @@ public class DBHandler implements HttpHandler {
                         response = response + "_" + student.get("description");
                         response = response + "_" + student.get("meal_type");
                         response = response + "_" + student.get("index");
+                        response = response + "_" + student.get("imgURL");
                         response = response + "&";
                     }
                 }
@@ -182,7 +183,8 @@ public class DBHandler implements HttpHandler {
             Document recipe = new Document("title", quers[1]);
             recipe.append("description", quers[2])
                    .append("meal_type", quers[3])
-                   .append("index", Integer.parseInt(quers[4]));
+                   .append("index", Integer.parseInt(quers[4]))
+                   .append("imgURL", quers[6]);
             userCollection.insertOne(recipe);
             Bson filter = gte("nextIndex", 0);
             Bson updateOperation = inc("nextIndex", 1);

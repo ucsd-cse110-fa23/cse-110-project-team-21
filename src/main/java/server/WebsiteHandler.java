@@ -54,6 +54,7 @@ public class WebsiteHandler implements HttpHandler {
     private String handleGet(HttpExchange httpExchange) throws IOException{
         String response;
         URI uri = httpExchange.getRequestURI();
+        System.out.println("URI: " +uri);
         String query = uri.getRawQuery();
         String recipeTitle = "trash";
         String recipeDescription = "trash";
@@ -62,14 +63,19 @@ public class WebsiteHandler implements HttpHandler {
             query = query.substring(query.indexOf("=") + 1);
             query = replaceUnderscore(query);
             String[] quers = query.split("&");
+            quers[0] = quers[0].substring(1);
+            for (String quer : quers) {
+                System.out.println(quer);
+            }
+            System.out.println(quers);
             MongoCollection<Document> userCollection = pantrypal_db.getCollection(quers[0]);
         
         if (userCollection.countDocuments() > 1) {
                     Document recipe = userCollection.find(eq("title", quers[1])).first();
 
-                    recipeTitle = recipe.get("title").toString();
-                    recipeDescription = recipe.get("description").toString();
-                    imgURL = recipe.get("imgURL").toString();
+                    recipeTitle = replaceUnderscore(recipe.get("title").toString());
+                    recipeDescription = replaceUnderscore(recipe.get("description").toString());
+                    imgURL = replaceUnderscore(recipe.get("imgURL").toString());
                     }
                 }
         StringBuilder htmlBuilder = new StringBuilder();
@@ -92,6 +98,11 @@ public class WebsiteHandler implements HttpHandler {
     }
 
 private String replaceUnderscore(String underscored) {
-        return underscored.replace("_", " ");
+        String temp = underscored.replace("_", " ");
+        temp = temp.replace("%0A","\n");
+        temp = temp.replace("%26","&");
+
+        return temp.replace("%20", " ");
+
     }
 }

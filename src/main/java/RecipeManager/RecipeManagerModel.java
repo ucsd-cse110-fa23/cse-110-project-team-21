@@ -198,6 +198,7 @@ public class RecipeManagerModel implements IRecipeManager {
             RecipeModel tmp = new RecipeModel(recipeInfo[0], recipeInfo[1].replace("%0A", "\n"));
             tmp.setMealType(recipeInfo[2]);
             tmp.setIndex(Integer.parseInt(recipeInfo[3]));
+            tmp.setImageURL(recipeInfo[4].replace("%26", "&"));
             recipes.add(tmp);
         }
         Collections.reverse(recipes);

@@ -42,7 +42,7 @@ public class DBModel {
                         //System.out.println("Type: " + recipe.getMealType());
                         //System.out.println("Index: " + recipe.getIndex());
                         //System.out.println("Desc: " + recipe.getDescription());
-                        out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(recipe.getTitle()) + "&" + replaceSpace(recipe.getDescription()) + "&" + replaceSpace(recipe.getMealType()) + "&" + recipe.getIndex() + "&" + misc);
+                        out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(recipe.getTitle()) + "&" + replaceSpace(recipe.getDescription()) + "&" + replaceSpace(recipe.getMealType()) + "&" + recipe.getIndex() + "&" + misc + "&" + replaceSpace(recipe.getImageURL(urlString)));
                     }
                     
                 } else {
@@ -65,6 +65,7 @@ public class DBModel {
     private String replaceSpace(String spaced) {
         String underscored = spaced.replace(" ", "_");
         underscored = underscored.replace("\n", "%0A");
+        underscored = underscored.replace("&", "%26");
         return underscored;
     }
     
