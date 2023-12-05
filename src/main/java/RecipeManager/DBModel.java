@@ -13,7 +13,6 @@ import Main.Main;
 public class DBModel {
     public String performRequest(String method, UserModel user, RecipeModel recipe, int misc) {
         // Implement your HTTP request logic here and return the response
-
         try {
             // String urlString = "http://localhost:8100/db";
             String urlString = Main.HOSTNAME_URL + "/db";
@@ -42,7 +41,7 @@ public class DBModel {
                         //System.out.println("Type: " + recipe.getMealType());
                         //System.out.println("Index: " + recipe.getIndex());
                         //System.out.println("Desc: " + recipe.getDescription());
-                        out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(recipe.getTitle()) + "&" + replaceSpace(recipe.getDescription()) + "&" + replaceSpace(recipe.getMealType()) + "&" + recipe.getIndex() + "&" + misc + "&" + replaceSpace(recipe.getImageURL(urlString)));
+                        out.write(replaceSpace(user.getUsername()) + "&" + replaceSpace(recipe.getTitle()) + "&" + replaceSpace(recipe.getDescription()) + "&" + replaceSpace(recipe.getMealType()) + "&" + recipe.getIndex() + "&" + misc + "&" + recipe.getImageURL().replace("&", "%26")/*replaceSpace(recipe.getImageURL(urlString))*/);
                     }
                     
                 } else {

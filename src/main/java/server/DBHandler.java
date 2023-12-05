@@ -160,6 +160,10 @@ public class DBHandler implements HttpHandler {
         //System.out.println(postData);
         postData = replaceUnderscore(postData);
         String[] quers = postData.split("&");
+        for (int i=0; i<quers.length;i++) {
+            quers[i] = quers[i].replace("%26", "&");
+            System.out.println("\n This is quers: " + quers[i] + "\n");
+        }
         /*
          * String language = postData.substring(
          * 0,
@@ -211,6 +215,10 @@ public class DBHandler implements HttpHandler {
         postData = replaceUnderscore(postData);
         //System.out.println("After: " + postData);
         String[] quers = postData.split("&");
+        // for(String q: quers) {
+        //     q.replace("%26", "&");
+        // }
+        //System.out.println("\n This is quers: " + quers + "\n");
         String username = quers[0];
         MongoCollection<Document> userCollection = pantrypal_db.getCollection(username);
         String response = "Posted: ";

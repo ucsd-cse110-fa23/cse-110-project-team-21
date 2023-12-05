@@ -65,19 +65,20 @@ public class WebsiteHandler implements HttpHandler {
             String[] quers = query.split("&");
             quers[0] = quers[0].substring(1);
             for (String quer : quers) {
-                System.out.println(quer);
+                //System.out.println("Query: " + quer);
             }
-            System.out.println(quers);
+            // System.out.println(quers);
             MongoCollection<Document> userCollection = pantrypal_db.getCollection(quers[0]);
         
-        if (userCollection.countDocuments() > 1) {
-                    Document recipe = userCollection.find(eq("title", quers[1])).first();
+            if (userCollection.countDocuments() > 1) {
+                Document recipe = userCollection.find(eq("title", quers[1])).first();
 
-                    recipeTitle = replaceUnderscore(recipe.get("title").toString());
-                    recipeDescription = replaceUnderscore(recipe.get("description").toString());
-                    imgURL = replaceUnderscore(recipe.get("imgURL").toString());
-                    }
-                }
+                recipeTitle = replaceUnderscore(recipe.get("title").toString());
+                recipeDescription = replaceUnderscore(recipe.get("description").toString());
+                imgURL = replaceUnderscore(recipe.get("imgURL").toString());
+                //System.out.println("Image URL: " + imgURL);
+            }
+        }
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder
         .append("<html>")
@@ -86,8 +87,10 @@ public class WebsiteHandler implements HttpHandler {
         .append("Recipe: ")
         .append(recipeTitle)
         .append("</h1>")
+        .append("<h3>")
         .append(recipeDescription)
-        .append("<img src = ‘" + imgURL + "’ />")
+        .append("<img src = '" + imgURL + "' />")
+        .append("</h3>")
         .append("</body>")
         .append("</html>");
 

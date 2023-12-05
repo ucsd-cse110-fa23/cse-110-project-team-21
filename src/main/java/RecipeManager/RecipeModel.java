@@ -74,7 +74,7 @@ public class RecipeModel {
         this.imgURL = url;
     }
 
-    public String getImageURL(String url) {
+    public String getImageURL() {
         return this.imgURL;
     }
 
