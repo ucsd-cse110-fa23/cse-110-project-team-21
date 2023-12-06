@@ -67,6 +67,7 @@ class DetailPageDescription extends FlowPane {
 class DetailPageFooter extends HBox{
     private Button deleteButton;
     private Button editButton;
+    private Button urlButton;
     
     public DetailPageFooter() {
         this.setPrefSize(500, 60);
@@ -77,7 +78,9 @@ class DetailPageFooter extends HBox{
         deleteButton.setStyle(defaultButtonStyle);
         editButton = new Button("Edit");
         editButton.setStyle(defaultButtonStyle);
-        this.getChildren().addAll(deleteButton, editButton);
+        urlButton = new Button("Share");
+        urlButton.setStyle(defaultButtonStyle);
+        this.getChildren().addAll(deleteButton, editButton, urlButton);
         deleteButton.setAlignment(Pos.CENTER);
         this.setSpacing(20);
     }
@@ -87,6 +90,10 @@ class DetailPageFooter extends HBox{
     }
     public Button getEditButton() {
         return editButton;
+    }
+
+    public Button getURLButton() {
+        return urlButton;
     }
 }
 
@@ -134,6 +141,9 @@ public class DetailView extends BorderPane{
     }
     public RecipeModel getRecipe() {
         return recipe;
+    }
+    public Button getURLButton() {
+        return footer.getURLButton();
     }
     public void updateDescription(String newDescription) {
         desc.updateDescription(newDescription);
