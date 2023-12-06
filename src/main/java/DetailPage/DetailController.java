@@ -26,7 +26,8 @@ public class DetailController {
     public void addListeners() {
         // Back button functionality
         detailview.getBackButton().setOnAction(e -> {
-            Main.mainView.homecontroller.updateRecipeList();
+            //Main.mainView.homecontroller.updateRecipeList();
+           // Main.mainView.homecontroller.setBackDefault();
             Main.sceneManager.ChangeScene(Main.mainView);
         });
 
@@ -48,6 +49,7 @@ public class DetailController {
                 try{
                     Main.recipeManager.removeRecipe(detailview.getRecipe());
                     Main.mainView.homecontroller.updateRecipeList();
+                    Main.mainView.homecontroller.setBackDefault();
                     Main.sceneManager.ChangeScene(Main.mainView);
                 } catch (Exception ex) {
                     ex.printStackTrace();

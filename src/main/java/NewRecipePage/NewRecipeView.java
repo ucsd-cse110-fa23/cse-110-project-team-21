@@ -83,6 +83,7 @@ class NewRecipeDescription extends FlowPane {
 class NewRecipeFooter extends HBox{
     private Button saveButton;
     private Button dontSaveButton;
+    private Button refreshButton;
     
     public NewRecipeFooter() {
         this.setPrefSize(500, 60);
@@ -93,8 +94,18 @@ class NewRecipeFooter extends HBox{
         saveButton.setStyle(defaultButtonStyle);
         dontSaveButton = new Button("Don't Save");
         dontSaveButton.setStyle(defaultButtonStyle);
-        this.getChildren().addAll(saveButton, dontSaveButton);    
+        refreshButton = new Button("Refresh");
+        refreshButton.setStyle(defaultButtonStyle);
+
+        HBox topHbox = new HBox();
+        HBox bottomHbox = new HBox();
+        bottomHbox.getChildren().addAll(saveButton, dontSaveButton);
+        bottomHbox.setAlignment(Pos.CENTER);        
+        topHbox.setAlignment(Pos.CENTER);
+        topHbox.getChildren().addAll(refreshButton);
+        this.getChildren().addAll(topHbox, bottomHbox);    
         this.setAlignment(Pos.CENTER); // aligning the buttons to center
+
     }
 
     public Button getSaveButton() {
@@ -103,6 +114,10 @@ class NewRecipeFooter extends HBox{
 
     public Button getDontSaveButton() {
         return dontSaveButton;
+    }
+
+    public Button getRefreshButton() {
+        return refreshButton;
     }
 }
 
