@@ -196,16 +196,20 @@ public class HomeController {
 
          switch (selectedOption) {
             case "A-Z":
+                Collections.sort(sortedList, titleComparator);
                 return sortedList;
 
             case "Z-A":
+                Collections.sort(sortedList, titleComparator);
                 Collections.reverse(sortedList);
                 return sortedList; 
             
             case "Old-New":
+                Collections.sort(dateList, dateComparator);
                 return sortedList;
             
             case "New-Old":
+                Collections.sort(dateList, dateComparator);
                 Collections.reverse(dateList);
                 return sortedList;
         }
@@ -215,7 +219,7 @@ public class HomeController {
 
     public List<RecipeModel> mockFilteredList(List<RecipeModel> filteredList, String selectedOption){
         if (selectedOption.equals("AllFilter") || selectedOption.equals("Filter")) {
-            return fullList;
+            return filteredList;
         };
 
         filteredList = filteredList.stream()
