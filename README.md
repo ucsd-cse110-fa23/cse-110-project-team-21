@@ -21,4 +21,6 @@
     ```
 4. Run Server.java
 5. Run Main.java
-6. Enjoy PantryPal! 
+6. Enjoy PantryPal!
+
+This is the link to our GitHub: [https://github.com/ucsd-cse110-fa23/cse-110-project-team-21/tree/MS2-Demo]
