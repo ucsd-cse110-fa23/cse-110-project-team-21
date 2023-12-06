@@ -10,7 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 public class NewRecipeController {
 
     NewRecipeView newRecipeView;
-    GPTModel gptModel;
+    public GPTModel gptModel;
     RecipeModel recipe;
 
     public NewRecipeController(NewRecipeView newRecipeView) {
@@ -59,23 +59,7 @@ public class NewRecipeController {
         });
 
         newRecipeView.getFooter().getRefreshButton().setOnAction(e -> {
-            System.out.println("Refresh button pressed");
-            String img;
-            try {
-                recipe = gptModel.sendRequest();
-                recipe.setTitle(recipe.getTitle());
-                img = generateImage(recipe.getTitle().replace(" ", "%20"));
-                img = img.replace(" ", "%20");
-                img = img.replace(":", "_");
-            } catch (Exception e1) {
-                System.out.println(e1);
-                e1.printStackTrace();
-                showNoServerAlert();
-                return;
-            }
-            newRecipeView.getHeader().setTitleText(recipe.getTitle());
-            this.newRecipeView.getDesc().setDescription(recipe.getDescription());
-            newRecipeView.getDesc().setPreviewImagePath(img);
+            regenerateRecipe();
         });
     }
 
@@ -92,6 +76,41 @@ public class NewRecipeController {
         alert.setContentText("Server could not be connected. Please try again later.");
         alert.showAndWait();
     }
+
+
+    public void regenerateRecipe (){
+        System.out.println("Refresh button pressed");
+        String img;
+        try {
+            recipe = gptModel.sendRequest();
+            recipe.setTitle(recipe.getTitle());
+            img = generateImage(recipe.getTitle().replace(" ", "%20"));
+            img = img.replace(" ", "%20");
+            img = img.replace(":", "_");
+        } catch (Exception e1) {
+            System.out.println(e1);
+            e1.printStackTrace();
+            showNoServerAlert();
+            return;
+        }
+        newRecipeView.getHeader().setTitleText(recipe.getTitle());
+        this.newRecipeView.getDesc().setDescription(recipe.getDescription());
+        newRecipeView.getDesc().setPreviewImagePath(img);
+    }
+
+
+    public RecipeModel regenerateRecipeMock (){
+        RecipeModel recipe = gptModel.sendRequestMock();
+        recipe.setTitle(recipe.getTitle());
+        return recipe;
+    }
+
+    public RecipeModel regenerateRecipeMockUnique (){
+        RecipeModel recipe = gptModel.sendRequestMockUnique();
+        recipe.setTitle(recipe.getTitle());
+        return recipe;
+    }
+
 }
 
 
