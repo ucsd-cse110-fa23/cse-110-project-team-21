@@ -63,10 +63,19 @@ public class SignUpController {
 
   public void signUpHelper (ActionEvent e, String username, String password, String confirmedPassword, boolean isMocked) throws Exception {
     // check if anything is null
-    if(username == null || password == null || confirmedPassword == null || username.equals("") || password.equals("")){
+    if(username == null || password == null || confirmedPassword == null || username.equals("") || password.equals("")
+        /*|| username.contains("&") || username.contains("|") || username.contains(" ") || username.contains("_")
+        || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")*/){
       showAlert("User Creation Error", "Please fill out all fields");
       return;
     }
+    // check for illegal characters
+    if(username.contains("&") || username.contains("|") || username.contains(" ") || username.contains("_")
+        || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")){
+      showAlert("User Creation Error", "Illegal Character: Avoid &, |, _, and spaces.");
+      return;
+    } 
+
     // check if passwords match
     if(!password.equals(confirmedPassword)){
       showAlert("User Creation Error", "Passwords do not match");

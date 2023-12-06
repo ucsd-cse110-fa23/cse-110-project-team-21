@@ -209,6 +209,6 @@ public class RecipeManagerModel implements IRecipeManager {
     }
 
     public UserModel getUser() {
-        return user;
+        return this.user;
     }
 }

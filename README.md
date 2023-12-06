@@ -10,9 +10,15 @@
             "request": "launch",
             "mainClass": "UI.MainPage.Main",
             "vmArgs": "--module-path '<path to your local javafx lib folder>' --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Server",
+            "request": "launch",
+            "mainClass": "server.Server",
+            "vmArgs": "--module-path '<path to your local javafx lib folder>' --add-modules javafx.controls,javafx.fxml"
         }
     ```
-4. Run Main.java
-5. Enjoy PantryPal! 
-
-## Burndown Chart Access [here](https://drive.google.com/file/d/1IQ025592ahqUkz1QL4_kW87Gy5KT8S8c/view?usp=sharing)
+4. Run Server.java
+5. Run Main.java
+6. Enjoy PantryPal! 
