@@ -12,6 +12,7 @@ import SignUpPage.MockSignUpController;
 import SignUpPage.SignUpController;
 import WhisperPage.WhisperModel;
 import server.UserModel;
+import Main.Main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -234,7 +235,7 @@ public class EndtoEndTwoTest {
          * URL that would display the recipe as a webpage
          */
         MockShareView mockShareView = new MockShareView(updatedList.get(1), user.getUsername());
-        assertEquals("http://localhost:8100" + "/recipe/?=%20" + "dummy" + "&" + "Title%20with%20ingredients%20Beans,%20Rice,%20Chicken",
+        assertEquals(Main.HOSTNAME_URL + "/recipe/?=%20" + "dummy" + "&" + "Title%20with%20ingredients%20Beans,%20Rice,%20Chicken",
         mockShareView.getUrl());
         /**
          * Return to recipe list.
