@@ -12,6 +12,8 @@ import WhisperPage.WhisperModel;
 import RecipeManager.DBModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import java.net.URI;
 import java.net.URL;
@@ -56,18 +58,28 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        try {
-            URL url = new URI(HOSTNAME_URL).toURL();
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            int code = conn.getResponseCode();
-            System.out.println("Response code" + code);
+        Boolean isServer = false;
+        while(!isServer && !(loginView == null)) {
+            try{
+              URL url = new URI(Main.HOSTNAME_URL).toURL();
+              HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+              conn.getResponseCode();
+              isServer = true;
+            }
+            catch (Exception ex) {
+              //System.out.println("Shit went down");
+              //loginController.showAlert("Login Error", "Please fill out all fields.");
+              showAlert("Server Down Error", "Server could not be connected. Please try again later.");
+            }
         }
-        catch (ConnectException ex) {
-            //ex.printStackTrace();
-            //System.out.println("Error: " + ex.getMessage());
-            System.out.println("Well this was fun");
-            
-        }
+    }
+
+    public void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {

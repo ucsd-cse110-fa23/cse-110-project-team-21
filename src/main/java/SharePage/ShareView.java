@@ -40,26 +40,26 @@ class ShareHeader extends HBox{
 }
 
 class ShareURL extends VBox {
-    Text urlText;
+    TextField urlText;
     private Button backButton;
 
     public ShareURL(String url) {
         //URL Text
-        this.urlText = new Text(url);
+        this.urlText = new TextField(url);
         urlText.setStyle("-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;");
-        urlText.setWrappingWidth(400);
-        this.getChildren().add(urlText);
+        urlText.setPrefWidth(400);
+        //this.getChildren().add(urlText);
 
         //buttons
         String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 16 arial; -fx-pref-width: 100; -fx-pref-height: 60";
-        backButton = new Button("Delete");
+        backButton = new Button("Back");
         backButton.setStyle(defaultButtonStyle);
 
         this.getChildren().addAll(urlText, backButton);
     }
 
     public Button getBackButton() {
-        return backButton;
+        return this.backButton;
     }
 }
 
@@ -76,14 +76,13 @@ public class ShareView extends BorderPane{
     public ShareController shareController;
 
     public ShareView(DetailView detailView){
-        this.shareController = new ShareController(this, detailView);
-        UserModel user = Main.recipeManager.getUser();
-        url = Main.HOSTNAME_URL + "/recipe/?=" + user + "&" + detailView.getRecipe().getImageURL();
+        String user = Main.recipeManager.getUser().getUsername();
+        url = Main.HOSTNAME_URL + "/recipe/?=%20" + user + "&" + detailView.getRecipe().getTitle().replace(" ", "%20");
         header = new ShareHeader();
         footer = new ShareFooter();
         body = new ShareURL(url);
 
-        backButton = body.getBackButton();
+        //this.backButton = body.getBackButton();
         //setUrlText("Test");
 
         // GridPane formLayout = new GridPane();
@@ -103,6 +102,8 @@ public class ShareView extends BorderPane{
         this.setCenter(body);
         this.setBottom(footer);
 
+        this.shareController = new ShareController(this, detailView);
+
         // Finally, set the conrtoller for this view
     }
 
@@ -116,7 +117,7 @@ public class ShareView extends BorderPane{
     }
 
     public Button getBackButton(){
-        return this.backButton;
+        return this.body.getBackButton();
     }
 
 }
