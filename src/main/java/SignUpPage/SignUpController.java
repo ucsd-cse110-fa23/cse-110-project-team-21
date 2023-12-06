@@ -113,6 +113,20 @@ public class SignUpController {
         }
       }
     }
+    // if it's mocked, write to mockUsers.txt
+    else{
+      try {
+          String pathName = "mockUsers.txt";
+          File outputFile = new File(pathName);
+          FileWriter fw;
+          fw = new FileWriter(outputFile, false);
+          fw.write( username + "\n");
+          fw.write( password + "\n");
+          fw.close();
+        } catch (IOException ex) {
+          System.out.println("Could not initialize FileWriter with specified output file");
+        }
+    }
     // In the end, if the function has not been returned by previous catch cases, go to the home page.
     if(!isMocked){
       Main.recipeManager = new RecipeManagerModel(new UserModel(username, password));
