@@ -111,10 +111,12 @@ public class LoginController {
         }
 
         if(username.contains("&") || username.contains("|") || username.contains(" ") || username.contains("_")
-        || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")){
-      showAlert("Login Error", "Illegal Character: Avoid &, |, _, and spaces.");
+        || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")
+        || username.contains(":") || username.contains("?") || username.contains("=") || username.contains("%")
+        || password.contains(":") || password.contains("?") || password.contains("=") || password.contains("%")){
+      showAlert("Login Error", "Try to stick to alphanumeric characters");
       return;
-    } 
+    }  
 
         // check if the username exists
         userModel = new UserModel(username, password);

@@ -80,7 +80,9 @@ public class GPTModel{
         String[] lines = trimmedResponse.split("\n", 2);
         String title = lines[0].replace("\"", "");
         title = title.replace("&"," and ");
+        title = title.replace(":"," ");
         String description = lines[1].replace("&"," and ");
+        description = description.replace(":"," ");
         recipe = new RecipeModel(title, description);
         recipe.setMealType(mealType); 
 

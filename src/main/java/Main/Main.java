@@ -36,7 +36,7 @@ public class Main extends Application {
     public static HomeView mainView;
     public static LoginView loginView;
 
-    public static final String HOSTNAME_URL = "http://localhost:8100";
+    public static final String HOSTNAME_URL = "http://100.115.42.188:8100";
 
     @Override
     public void start(Stage primaryStage) throws Exception {

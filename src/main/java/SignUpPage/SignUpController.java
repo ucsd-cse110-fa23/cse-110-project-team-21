@@ -71,8 +71,10 @@ public class SignUpController {
     }
     // check for illegal characters
     if(username.contains("&") || username.contains("|") || username.contains(" ") || username.contains("_")
-        || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")){
-      showAlert("User Creation Error", "Illegal Character: Avoid &, |, _, and spaces.");
+        || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")
+        || username.contains(":") || username.contains("?") || username.contains("=") || username.contains("%")
+        || password.contains(":") || password.contains("?") || password.contains("=") || password.contains("%")){
+      showAlert("User Creation Error", "Illegal Character: Try sticking to alphanumeric");
       return;
     } 
 

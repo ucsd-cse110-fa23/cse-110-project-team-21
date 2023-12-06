@@ -16,7 +16,7 @@ public class Server {
 
  // initialize server port and hostname
  private static final int SERVER_PORT = 8100;
- private static final String SERVER_HOSTNAME = "localhost";
+ private static final String SERVER_HOSTNAME = "100.115.42.188";
 
 
  public static void main(String[] args) throws IOException {

@@ -22,3 +22,5 @@
 4. Run Server.java
 5. Run Main.java
 6. Enjoy PantryPal! 
+
+Our GitHub link: [https://github.com/ucsd-cse110-fa23/cse-110-project-team-21]
