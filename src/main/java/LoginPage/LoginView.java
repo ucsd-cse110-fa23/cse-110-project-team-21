@@ -3,6 +3,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.*;
@@ -16,6 +17,7 @@ import Main.Main;
 public class LoginView extends BorderPane {
     private TextField usernameField;
     private PasswordField passwordField;
+    private CheckBox autoLoginCheckBox;
     private LoginFooter footer = new LoginFooter();
     private LoginHeader header = new LoginHeader();
 
@@ -40,6 +42,7 @@ public class LoginView extends BorderPane {
         formLayout.add(usernameField, 1, 0);
         formLayout.add(passwordLabel, 0, 1);
         formLayout.add(passwordField, 1, 1);
+        formLayout.add(autoLoginCheckBox, 0, 3);
 
         // Buttons layout
 
@@ -84,6 +87,10 @@ public class LoginView extends BorderPane {
 
     public String getPassword() {
       return passwordField.getText();
+    }
+
+    public boolean getCheckboxStatus() {
+      return autoLoginCheckBox.isSelected();
     }
 
 } 

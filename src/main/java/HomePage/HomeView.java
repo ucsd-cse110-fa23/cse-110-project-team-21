@@ -89,8 +89,8 @@ class MainPageFooter extends HBox {
         signUpButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // sets style of button
 
         loginButton.setOnAction(e -> {
-            LoginView loginView = new LoginView();
-            Main.sceneManager.ChangeScene(loginView);
+            //LoginView loginView = new LoginView();
+            Main.sceneManager.ChangeScene(Main.loginView);
         });
 
         signUpButton.setOnAction(e -> {

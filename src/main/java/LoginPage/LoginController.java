@@ -1,5 +1,7 @@
 package LoginPage;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.nio.file.Files;
@@ -108,6 +110,12 @@ public class LoginController {
           return;
         }
 
+        /*if(username.contains("&") || username.contains("|") || username.contains(" ") || username.contains("_")
+        || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")){
+      showAlert("Login Error", "Illegal Character: Avoid &, |, _, and spaces.");
+      return;
+    } */
+
         // check if the username exists
         userModel = new UserModel(username, password);
         dbController.setUser(userModel);
@@ -148,6 +156,23 @@ public class LoginController {
         }
         // System.out.println(username);
         // System.out.println(password);
+
+        if(!isMocked){
+          boolean autoSave = this.loginView.getCheckboxStatus();
+          if (autoSave) {
+            String pathName = "password.txt";
+            File outputFile = new File(pathName);
+            FileWriter fw;
+            try {
+              fw = new FileWriter(outputFile, false);
+              fw.write(this.loginView.getUsername() + "\n");
+              fw.write(this.loginView.getPassword() + "\n");
+              fw.close();
+            } catch (IOException ex) {
+              System.out.println("Could not initialize FileWriter with specified output file");
+            }
+          }
+    }
 
         // Log the user in and go to the home page.
         // TODO: Load the home page via MongoDB and save it to Main.java instance: this is for convenience in scene transitions.

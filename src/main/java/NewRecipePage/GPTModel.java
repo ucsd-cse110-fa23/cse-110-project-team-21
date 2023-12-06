@@ -78,7 +78,8 @@ public class GPTModel{
         // System.out.println(generatedText);
         String trimmedResponse = generatedText.replaceFirst("^\\s+", "");
         String[] lines = trimmedResponse.split("\n", 2);
-        String title = lines[0];
+        String title = lines[0].replace("\"", "");
+        title = title.replace("&"," and ");
         String description = lines[1].replace("&"," and ");
         recipe = new RecipeModel(title, description);
         recipe.setMealType(mealType); 

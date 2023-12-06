@@ -44,7 +44,7 @@ public class Main extends Application {
         //recipeManager = new RecipeManagerModel(); 
 
         //  Setting the Layout of the Window- Should contain a Header, Footer and the RecipeList
-        LoginView loginView = new LoginView();
+        loginView = new LoginView();
         sceneManager = new SceneController(primaryStage);
         dbModel = new DBModel();
       
