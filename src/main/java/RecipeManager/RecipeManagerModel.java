@@ -207,4 +207,8 @@ public class RecipeManagerModel implements IRecipeManager {
         Collections.reverse(recipes);
         return recipes;
     }
+
+    public UserModel getUser() {
+        return user;
+    }
 }

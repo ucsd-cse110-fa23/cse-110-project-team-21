@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import Main.Main;
+import SharePage.ShareView;
 
 public class DetailController {
 
@@ -59,6 +60,10 @@ public class DetailController {
         // Edit button functionality
         detailview.getEditButton().setOnAction(e -> {
             Main.sceneManager.ChangeScene(new EditView(this.detailview));
+        });
+
+        detailview.getURLButton().setOnAction(e -> {
+            Main.sceneManager.ChangeScene(new ShareView(this.detailview));
         });
     }
 
