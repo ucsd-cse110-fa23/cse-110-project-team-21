@@ -29,6 +29,8 @@ public class LoginView extends BorderPane {
         usernameField = new TextField();
         passwordField = new PasswordField();
 
+        autoLoginCheckBox = new CheckBox("Auto-login");
+
         Label usernameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
 

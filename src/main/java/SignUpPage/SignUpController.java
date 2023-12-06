@@ -70,11 +70,11 @@ public class SignUpController {
       return;
     }
     // check for illegal characters
-    /*if(username.contains("&") || username.contains("|") || username.contains(" ") || username.contains("_")
+    if(username.contains("&") || username.contains("|") || username.contains(" ") || username.contains("_")
         || password.contains("&") || password.contains("|") || password.contains(" ") || password.contains("_")){
       showAlert("User Creation Error", "Illegal Character: Avoid &, |, _, and spaces.");
       return;
-    } */
+    } 
 
     // check if passwords match
     if(!password.equals(confirmedPassword)){
