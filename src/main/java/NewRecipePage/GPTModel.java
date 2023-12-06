@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -102,6 +103,15 @@ public class GPTModel{
     public RecipeModel sendRequestMock(){
         String title = "Mock Recipe";
         String description = "Ingredients: \n" + "Mock Ingredients";
+        recipe = new RecipeModel(title, description);
+        return recipe;
+    }
+
+    public RecipeModel sendRequestMockUnique(){
+        Random random = new Random();
+        int NoRepeat = random.nextInt(10000000);
+        String title = "Mock Recipe" + NoRepeat;
+        String description = "Ingredients: \n" + "Mock Ingredients" + NoRepeat;
         recipe = new RecipeModel(title, description);
         return recipe;
     }
