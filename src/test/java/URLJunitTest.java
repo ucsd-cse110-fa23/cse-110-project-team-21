@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import RecipeManager.RecipeModel;
 import SharePage.MockShareView;
+import Main.Main;
 
 public class URLJunitTest {
     @Test
@@ -14,7 +15,7 @@ public class URLJunitTest {
         String username = "cat,me";
         RecipeModel displayedRecipe1 = new RecipeModel("Fish, Fish,Salmon , and Tuna", "");
         MockShareView mockShareView = new MockShareView(displayedRecipe1, username);
-        assertEquals("http://localhost:8100/recipe/?=%20cat,me&Fish,%20Fish,Salmon%20,%20and%20Tuna", mockShareView.getUrl());
+        assertEquals(Main.HOSTNAME_URL +"/recipe/?=%20cat,me&Fish,%20Fish,Salmon%20,%20and%20Tuna", mockShareView.getUrl());
     }
     void spaceHandling() throws Exception {
         String username = "zebra_enjoyer";
