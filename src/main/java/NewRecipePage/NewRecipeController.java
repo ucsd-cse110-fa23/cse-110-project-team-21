@@ -48,6 +48,7 @@ public class NewRecipeController {
             recipe.setIndex(Main.recipeManager.incrementNextIndex());
             Main.recipeManager.addRecipe(recipe);
             Main.mainView.homecontroller.updateRecipeList();
+            Main.mainView.homecontroller.setBackDefault();
             Main.sceneManager.ChangeScene(Main.mainView);
         });
 
@@ -55,6 +56,26 @@ public class NewRecipeController {
         newRecipeView.getFooter().getDontSaveButton().setOnAction(e -> {
             System.out.println("Don't Save button pressed");
             Main.sceneManager.ChangeScene(Main.mainView);
+        });
+
+        newRecipeView.getFooter().getRefreshButton().setOnAction(e -> {
+            System.out.println("Refresh button pressed");
+            String img;
+            try {
+                recipe = gptModel.sendRequest();
+                recipe.setTitle(recipe.getTitle());
+                img = generateImage(recipe.getTitle().replace(" ", "%20"));
+                img = img.replace(" ", "%20");
+                img = img.replace(":", "_");
+            } catch (Exception e1) {
+                System.out.println(e1);
+                e1.printStackTrace();
+                showNoServerAlert();
+                return;
+            }
+            newRecipeView.getHeader().setTitleText(recipe.getTitle());
+            this.newRecipeView.getDesc().setDescription(recipe.getDescription());
+            newRecipeView.getDesc().setPreviewImagePath(img);
         });
     }
 
