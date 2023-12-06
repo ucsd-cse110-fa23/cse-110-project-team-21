@@ -48,6 +48,7 @@ class ShareURL extends VBox {
         this.urlText = new TextField(url);
         urlText.setStyle("-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;");
         urlText.setPrefWidth(400);
+        urlText.setEditable(false);
         //this.getChildren().add(urlText);
 
         //buttons
