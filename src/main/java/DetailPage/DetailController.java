@@ -26,8 +26,8 @@ public class DetailController {
     public void addListeners() {
         // Back button functionality
         detailview.getBackButton().setOnAction(e -> {
-            Main.mainView.homecontroller.updateRecipeList();
-            Main.mainView.homecontroller.setBackDefault();
+            //Main.mainView.homecontroller.updateRecipeList();
+           // Main.mainView.homecontroller.setBackDefault();
             Main.sceneManager.ChangeScene(Main.mainView);
         });
 

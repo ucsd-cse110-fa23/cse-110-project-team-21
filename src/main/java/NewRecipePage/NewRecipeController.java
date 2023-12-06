@@ -48,6 +48,7 @@ public class NewRecipeController {
             recipe.setIndex(Main.recipeManager.incrementNextIndex());
             Main.recipeManager.addRecipe(recipe);
             Main.mainView.homecontroller.updateRecipeList();
+            Main.mainView.homecontroller.setBackDefault();
             Main.sceneManager.ChangeScene(Main.mainView);
         });
 
